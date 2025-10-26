@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
+
+const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: false, // Disable to prevent double-mounting of Three.js canvas
 };
 
-export default nextConfig;
+export default withNextIntl(nextConfig);

@@ -46,7 +46,7 @@ export default function Home() {
       <div className="relative z-10">
         {/* Hero Section */}
         <section className="min-h-screen flex items-center justify-center">
-          <div className="pt-60 max-w-6xl mx-auto text-center">
+          <div className="pt-[25%] max-w-6xl mx-auto text-center">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-300 leading-tight px-4">
               {t('hero.headline')}
             </h1>

@@ -82,6 +82,7 @@ uniform mat4 uCameraMatrixWorld;
 uniform vec3 uStaticBubbles[STATIC_BUBBLES]; // x, y, radius
 uniform vec3 uColor0;
 uniform vec3 uColor1;
+uniform float uMainBallRadius; // Dynamic radius for main ball
 
 varying vec2 vTexCoord;
 
@@ -137,7 +138,7 @@ float noise3D(vec3 p) {
 }
 
 float map(vec3 p) {
-    float baseRadius = 0.5; // Match tracker sphere radius
+    float baseRadius = uMainBallRadius; // Use dynamic radius
     float radius = baseRadius;
     float k = 7.0;
     float d = 1e5;
@@ -146,12 +147,15 @@ float map(vec3 p) {
     for (int i = 0; i < TRAIL_LENGTH; i++) {
         float fi = float(i);
 
-        // uPointerTrail contains world space coordinates (same as tracker sphere)
+        // uPointerTrail contains world space coordinates
         vec2 ballWorldPos = uPointerTrail[i];
+
+        // Calculate trail radius with minimum size to prevent negative values
+        float trailRadius = max(radius - (baseRadius * 0.05 * fi), 0.01);
 
         float sphere = sdSphere(
             translate(p, vec3(ballWorldPos, 0.0)),
-            radius - (baseRadius * 0.05 * fi)
+            trailRadius
         );
 
         d = smoothMin(d, sphere, k);
@@ -237,6 +241,8 @@ void main() {
 
 interface MetaballsProps {
   className?: string;
+  showUI?: boolean; // Show color selector and debug UI
+  showDebugVisuals?: boolean; // Show reference planes, grids, axis lines
   onPositionUpdate?: (data: {
     mouseX: number;
     mouseY: number;
@@ -245,20 +251,24 @@ interface MetaballsProps {
   }) => void;
 }
 
-export default function Metaballs({ className = '', onPositionUpdate }: MetaballsProps) {
+export default function Metaballs({
+  className = '',
+  showUI = true,
+  showDebugVisuals = true,
+  onPositionUpdate
+}: MetaballsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const materialRef = useRef<THREE.RawShaderMaterial | null>(null);
-  const trackerSphereRef = useRef<THREE.Mesh | null>(null);
   const animationFrameRef = useRef<number | null>(null);
   const pointerTrailRef = useRef<THREE.Vector2[]>(
     Array.from({ length: 15 }, () => new THREE.Vector2(0, 0))
   );
 
   // Color palette state
-  const [selectedPalette, setSelectedPalette] = useState<keyof typeof COLOR_PALETTES>('purple');
+  const [selectedPalette, setSelectedPalette] = useState<keyof typeof COLOR_PALETTES>('redGradient');
 
   // Static bubble positions (x, y, radius)
   // Initialize with random positions spread across vertical space
@@ -276,6 +286,13 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
   const bubbleVelocitiesRef = useRef<number[]>(
     Array.from({ length: 20 }, () => 0.002 + Math.random() * 0.006) // Random speed between 0.002 and 0.008 (slower)
   );
+
+  // Main ball size (starts small, grows on collision)
+  const mainBallRadiusRef = useRef<number>(0.03); // Super tiny - starts as a speck
+  const maxMainBallRadius = 1.5; // Maximum size limit
+
+  // Track which bubbles were recently collided with (cooldown)
+  const collisionCooldownRef = useRef<Set<number>>(new Set());
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -309,6 +326,7 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
 
     // Setup uniforms
     const palette = COLOR_PALETTES[selectedPalette];
+    console.log('Initial main ball radius:', mainBallRadiusRef.current);
     const uniforms = {
       uResolution: {
         value: new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -321,6 +339,7 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
       uStaticBubbles: { value: staticBubblesRef.current },
       uColor0: { value: new THREE.Vector3(...palette.color0) },
       uColor1: { value: new THREE.Vector3(...palette.color1) },
+      uMainBallRadius: { value: mainBallRadiusRef.current },
     };
 
     // Setup material
@@ -336,27 +355,11 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
     const geometry = new THREE.PlaneGeometry(2.0, 2.0);
     const plane = new THREE.Mesh(geometry, material);
     plane.position.z = 0.1; // Position slightly in front of z=0
-    plane.renderOrder = 1; // Render before tracker sphere
+    plane.renderOrder = 1;
     scene.add(plane);
 
-    // Add tracker sphere (visible sphere that follows mouse)
-    const trackerGeometry = new THREE.SphereGeometry(0.5, 32, 32);
-    const trackerMaterial = new THREE.MeshStandardMaterial({
-      color: 0x4488ff,
-      emissive: 0x2244aa,
-      emissiveIntensity: 0.5,
-      roughness: 0.3,
-      metalness: 0.7,
-      transparent: false,
-      depthWrite: true,
-      depthTest: true,
-    });
-    const trackerSphere = new THREE.Mesh(trackerGeometry, trackerMaterial);
-    trackerSphere.position.set(0, 0, 0); // Start at origin, locked to z=0
-    trackerSphere.renderOrder = 2; // Render after the shader plane
-    scene.add(trackerSphere);
-    trackerSphereRef.current = trackerSphere;
-
+    // Add debug visuals if enabled
+    if (showDebugVisuals) {
     // Add reference plane at z=0 (same plane as tracker sphere and metaballs)
     const referencePlaneGeometry = new THREE.PlaneGeometry(20, 20);
     const referencePlaneMaterial = new THREE.MeshBasicMaterial({
@@ -475,6 +478,7 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
     xyGridHelper.rotation.x = Math.PI / 2; // Rotate to be on XY plane instead of XZ
     xyGridHelper.position.z = 0.02; // Slightly in front of reference plane and axes
     scene.add(xyGridHelper);
+    } // End of showDebugVisuals
 
     // Add lensflares
     const textureLoader = new THREE.TextureLoader();
@@ -502,7 +506,7 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
 
     // Mouse tracking - using the same working approach as MouseTracker
     const handleMouseMove = (event: MouseEvent) => {
-      if (!cameraRef.current || !trackerSphereRef.current) return;
+      if (!cameraRef.current) return;
 
       // Convert mouse to normalized device coordinates (-1 to +1)
       const mouse = new THREE.Vector2();
@@ -520,11 +524,7 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
       const distance = -cameraRef.current.position.z / dir.z;
       const position = cameraRef.current.position.clone().add(dir.multiplyScalar(distance));
 
-      // Update tracker sphere position (locked to z=0)
-      trackerSphereRef.current.position.copy(position);
-
-      // Use the tracker sphere's actual 3D position for the shader
-      // This ensures the metaballs render exactly where the sphere is
+      // Use the calculated position for the shader
       const x = position.x;
       const y = position.y;
 
@@ -577,10 +577,67 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
       const elapsedTime = (Date.now() - startTime) * 0.001;
       uniforms.uTime.value = elapsedTime;
 
+      // Update main ball radius uniform
+      uniforms.uMainBallRadius.value = mainBallRadiusRef.current;
+
+      // Get main tracker ball position (from first element in pointer trail)
+      const mainBallPos = pointerTrailRef.current[0];
+      const mainBallRadius = mainBallRadiusRef.current;
+
       // Update static bubbles - make them float up
       for (let i = 0; i < staticBubblesRef.current.length; i++) {
         const bubble = staticBubblesRef.current[i];
         const velocity = bubbleVelocitiesRef.current[i];
+
+        // Check collision with main tracker ball
+        const dx = bubble.x - mainBallPos.x;
+        const dy = bubble.y - mainBallPos.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const bubbleRadius = bubble.z; // z stores the radius
+        const combinedRadius = mainBallRadius + bubbleRadius;
+
+        // If collision detected
+        if (distance < combinedRadius) {
+          // Only grow if this bubble is not on cooldown
+          if (!collisionCooldownRef.current.has(i)) {
+            // Grow main ball by 5%
+            mainBallRadiusRef.current = Math.min(
+              mainBallRadiusRef.current * 1.05,
+              maxMainBallRadius
+            );
+
+            // Shrink the floating bubble by 5% (liquid transfer effect)
+            bubble.z = Math.max(bubbleRadius * 0.95, 0.05); // Min size 0.05 to prevent disappearing
+
+            // If bubble becomes too small, respawn it
+            if (bubble.z < 0.1) {
+              bubble.x = (Math.random() - 0.5) * 12;
+              bubble.y = -6;
+              bubble.z = 0.15 + Math.random() * 0.25;
+              bubbleVelocitiesRef.current[i] = 0.002 + Math.random() * 0.006;
+            }
+
+            // Add bubble to cooldown set
+            collisionCooldownRef.current.add(i);
+
+            // Remove from cooldown after 2 seconds
+            setTimeout(() => {
+              collisionCooldownRef.current.delete(i);
+            }, 2000);
+          }
+
+          // Push bubble away from main ball
+          const angle = Math.atan2(dy, dx);
+          const pushForce = 0.05;
+          bubble.x += Math.cos(angle) * pushForce;
+          bubble.y += Math.sin(angle) * pushForce;
+
+          // Speed up the bubble temporarily
+          bubbleVelocitiesRef.current[i] = Math.min(
+            bubbleVelocitiesRef.current[i] * 1.5,
+            0.02
+          );
+        }
 
         // Move bubble up
         bubble.y += velocity;
@@ -615,8 +672,6 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
 
       geometry.dispose();
       material.dispose();
-      trackerGeometry.dispose();
-      trackerMaterial.dispose();
       renderer.dispose();
     };
   }, []);
@@ -638,20 +693,22 @@ export default function Metaballs({ className = '', onPositionUpdate }: Metaball
         style={{ touchAction: 'none' }}
       />
 
-      {/* Color Palette Selector */}
-      <div className="absolute top-4 right-4 z-10">
-        <select
-          value={selectedPalette}
-          onChange={(e) => setSelectedPalette(e.target.value as keyof typeof COLOR_PALETTES)}
-          className="px-4 py-2 bg-black/70 backdrop-blur-sm text-white border border-white/30 rounded-lg cursor-pointer hover:bg-black/80 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
-        >
-          {Object.entries(COLOR_PALETTES).map(([key, palette]) => (
-            <option key={key} value={key} className="bg-black text-white">
-              {palette.name}
-            </option>
-          ))}
-        </select>
-      </div>
+      {/* Color Palette Selector - only show if showUI is true */}
+      {showUI && (
+        <div className="absolute top-4 right-4 z-10">
+          <select
+            value={selectedPalette}
+            onChange={(e) => setSelectedPalette(e.target.value as keyof typeof COLOR_PALETTES)}
+            className="px-4 py-2 bg-black/70 backdrop-blur-sm text-white border border-white/30 rounded-lg cursor-pointer hover:bg-black/80 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
+          >
+            {Object.entries(COLOR_PALETTES).map(([key, palette]) => (
+              <option key={key} value={key} className="bg-black text-white">
+                {palette.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
     </div>
   );
 }

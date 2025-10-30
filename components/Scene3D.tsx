@@ -92,7 +92,7 @@ export default function Scene3D({ scrollProgress = 0, onLoaded }: Scene3DProps) 
     console.log('[Scene3D] Component mounted, scrollProgress:', scrollProgress);
     return () => {
       console.log('[Scene3D] Component UNMOUNTING!!!');
-      if (typeof window !== 'undefined') {
+      if (typeof window !== 'undefined' && window.debugLogs) {
         window.debugLogs.push('[Scene3D] Component UNMOUNTED at ' + new Date().toISOString());
       }
     };
@@ -119,7 +119,9 @@ export default function Scene3D({ scrollProgress = 0, onLoaded }: Scene3DProps) 
         console.log('[Scene3D] Canvas created successfully');
         if (typeof window !== 'undefined') {
           window.debugLogs = window.debugLogs || [];
-          window.debugLogs.push('[Scene3D] Canvas created at ' + new Date().toISOString());
+          if (window.debugLogs) {
+            window.debugLogs.push('[Scene3D] Canvas created at ' + new Date().toISOString());
+          }
         }
         state.gl.setClearColor('#000000', 0);
 

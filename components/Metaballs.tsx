@@ -6,6 +6,11 @@ import { Lensflare, LensflareElement } from 'three/examples/jsm/objects/Lensflar
 
 // Color palette definitions
 const COLOR_PALETTES = {
+  waterTransparent: {
+    name: 'Water Transparent',
+    color0: [0.95, 0.97, 1.0],  // Almost white with very subtle blue
+    color1: [0.85, 0.88, 0.92], // Light gray with hint of blue
+  },
   purple: {
     name: 'Purple',
     color0: [0.1765, 0.1255, 0.2275],
@@ -231,7 +236,11 @@ void main() {
     if (dist < EPS) {
         vec3 normal = generateNormal(ray);
         color = dropletColor(normal, rayDir);
-        alpha = 1.0;
+
+        // Create water-like transparency with subtle opacity
+        // More transparent in the center, slightly more opaque at edges
+        float fresnel = pow(1.0 - abs(dot(normal, -rayDir)), 2.0);
+        alpha = 0.15 + fresnel * 0.25; // Range from 0.15 to 0.4 opacity (very subtle)
     }
 
     vec3 finalColor = pow(color, vec3(7.0));
@@ -268,7 +277,7 @@ export default function Metaballs({
   );
 
   // Color palette state
-  const [selectedPalette, setSelectedPalette] = useState<keyof typeof COLOR_PALETTES>('redGradient');
+  const [selectedPalette, setSelectedPalette] = useState<keyof typeof COLOR_PALETTES>('waterTransparent');
 
   // Static bubble positions (x, y, radius)
   // Initialize with random positions spread across vertical space
@@ -294,13 +303,46 @@ export default function Metaballs({
   // Track which bubbles were recently collided with (cooldown)
   const collisionCooldownRef = useRef<Set<number>>(new Set());
 
+  // Camera perspective movement
+  const mouseXRef = useRef<number>(0);
+  const mouseYRef = useRef<number>(0);
+  const windowHalfX = useRef<number>(window.innerWidth / 2);
+  const windowHalfY = useRef<number>(window.innerHeight / 2);
+
   useEffect(() => {
     if (!containerRef.current) return;
 
     // Setup scene
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
     sceneRef.current = scene;
+
+    // Load equirectangular panoramic background directly as scene.background
+    const panoramaLoader = new THREE.TextureLoader();
+    panoramaLoader.load(
+      '/images360/AdobeStock_59140782.jpeg',
+      (texture) => {
+        console.log('Panoramic texture loaded successfully', texture);
+
+        // Set texture mapping for equirectangular panorama
+        texture.mapping = THREE.EquirectangularReflectionMapping;
+        texture.colorSpace = THREE.SRGBColorSpace;
+
+        // Set as scene background directly (like webgl_effects_stereo)
+        scene.background = texture;
+
+        console.log('Panoramic background set to scene');
+      },
+      (progress) => {
+        if (progress.total > 0) {
+          console.log('Loading panorama:', (progress.loaded / progress.total * 100).toFixed(2) + '%');
+        }
+      },
+      (error) => {
+        console.error('Error loading panoramic texture:', error);
+        // Fallback to dark background
+        scene.background = new THREE.Color(0x1a1a1a);
+      }
+    );
 
     // Setup camera (used for mouse coordinate conversion)
     const camera = new THREE.PerspectiveCamera(
@@ -317,10 +359,11 @@ export default function Metaballs({
     // Setup renderer
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: true,
+      alpha: true, // Enable alpha to allow shader transparency
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.autoClear = false; // Disable auto clear so we can render in layers
     containerRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
@@ -508,6 +551,11 @@ export default function Metaballs({
     const handleMouseMove = (event: MouseEvent) => {
       if (!cameraRef.current) return;
 
+      // Update camera perspective movement (like webgl_effects_stereo)
+      // Reduced multiplier to keep camera inside panoramic sphere
+      mouseXRef.current = (event.clientX - windowHalfX.current) * 0.5;
+      mouseYRef.current = (event.clientY - windowHalfY.current) * 0.5;
+
       // Convert mouse to normalized device coordinates (-1 to +1)
       const mouse = new THREE.Vector2();
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
@@ -543,10 +591,6 @@ export default function Metaballs({
         pointerTrailRef.current[i].copy(pointerTrailRef.current[i - 1]);
       }
       pointerTrailRef.current[0].set(x, y);
-
-      if (materialRef.current) {
-        materialRef.current.uniforms.uPointerTrail.needsUpdate = true;
-      }
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -557,6 +601,10 @@ export default function Metaballs({
 
       const width = window.innerWidth;
       const height = window.innerHeight;
+
+      // Update window half values for camera perspective
+      windowHalfX.current = width / 2;
+      windowHalfY.current = height / 2;
 
       cameraRef.current.aspect = width / height;
       cameraRef.current.updateProjectionMatrix();
@@ -576,6 +624,25 @@ export default function Metaballs({
     const animate = () => {
       const elapsedTime = (Date.now() - startTime) * 0.001;
       uniforms.uTime.value = elapsedTime;
+
+      // Update camera position based on mouse (smooth lerp)
+      if (cameraRef.current) {
+        // Keep camera at z=5, only move x and y slightly for parallax effect
+        const targetX = mouseXRef.current * 0.01; // Very small movement
+        const targetY = -mouseYRef.current * 0.01;
+
+        camera.position.x += (targetX - camera.position.x) * 0.05;
+        camera.position.y += (targetY - camera.position.y) * 0.05;
+        // Keep z position fixed to stay inside the sphere
+        camera.position.z = 5;
+
+        camera.lookAt(scene.position);
+        camera.updateMatrixWorld(true);
+
+        // Update shader uniforms with new camera position
+        uniforms.uCameraPosition.value.copy(camera.position);
+        uniforms.uCameraMatrixWorld.value.copy(camera.matrixWorld);
+      }
 
       // Update main ball radius uniform
       uniforms.uMainBallRadius.value = mainBallRadiusRef.current;
@@ -651,6 +718,8 @@ export default function Metaballs({
         }
       }
 
+      // Manual render with layers: background first, then shader
+      renderer.clear();
       renderer.render(scene, camera);
       animationFrameRef.current = requestAnimationFrame(animate);
     };

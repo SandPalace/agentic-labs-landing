@@ -314,8 +314,32 @@ export default function Metaballs({
 
     // Setup scene
     const scene = new THREE.Scene();
-    // Set initial background color (gradient-like purple-blue) while loading
-    scene.background = new THREE.Color(0x1a0a2e); // Deep purple-blue
+
+    // Create gradient background texture
+    const createGradientTexture = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 512;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
+
+      if (ctx) {
+        // Create radial gradient from center
+        const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 512);
+        gradient.addColorStop(0, '#2d1b4e'); // Purple center
+        gradient.addColorStop(0.5, '#1a0a2e'); // Deep purple-blue
+        gradient.addColorStop(1, '#0a0515'); // Almost black edges
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, 512, 512);
+      }
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.mapping = THREE.EquirectangularReflectionMapping;
+      return texture;
+    };
+
+    // Set initial gradient background while loading
+    scene.background = createGradientTexture();
     sceneRef.current = scene;
 
     // Load equirectangular panoramic background directly as scene.background
@@ -341,8 +365,8 @@ export default function Metaballs({
       },
       (error) => {
         console.error('Error loading panoramic texture:', error);
-        // Fallback to purple-blue gradient color
-        scene.background = new THREE.Color(0x1a0a2e);
+        // Fallback to gradient background (keep the gradient on error)
+        scene.background = createGradientTexture();
       }
     );
 

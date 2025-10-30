@@ -342,8 +342,11 @@ export default function Metaballs({
     scene.background = createGradientTexture();
     sceneRef.current = scene;
 
-    // Load equirectangular panoramic background directly as scene.background
+    // Load equirectangular panoramic background with fade-in effect
     const panoramaLoader = new THREE.TextureLoader();
+    let fadeStartTime: number | null = null;
+    const fadeDuration = 1500; // 1.5 seconds fade-in
+
     panoramaLoader.load(
       '/images360/AdobeStock_59140782.jpeg',
       (texture) => {
@@ -353,10 +356,35 @@ export default function Metaballs({
         texture.mapping = THREE.EquirectangularReflectionMapping;
         texture.colorSpace = THREE.SRGBColorSpace;
 
-        // Set as scene background directly (like webgl_effects_stereo)
-        scene.background = texture;
+        // Store the loaded texture for fade-in
+        const panoramaTexture = texture;
+        fadeStartTime = Date.now();
 
-        console.log('Panoramic background set to scene');
+        // Create animation loop for fade-in
+        const fadeIn = () => {
+          if (!fadeStartTime) return;
+
+          const elapsed = Date.now() - fadeStartTime;
+          const progress = Math.min(elapsed / fadeDuration, 1);
+
+          // Use easing function for smoother transition
+          const easedProgress = progress * progress * (3 - 2 * progress); // smoothstep
+
+          if (progress < 1) {
+            // During fade: blend gradient and panorama by adjusting scene fog
+            scene.background = panoramaTexture;
+            scene.fog = new THREE.FogExp2(0x0c1e3d, 0.15 * (1 - easedProgress));
+            requestAnimationFrame(fadeIn);
+          } else {
+            // Fade complete: remove fog and use panorama only
+            scene.background = panoramaTexture;
+            scene.fog = null;
+            fadeStartTime = null;
+            console.log('Panoramic background fade-in complete');
+          }
+        };
+
+        fadeIn();
       },
       (progress) => {
         if (progress.total > 0) {

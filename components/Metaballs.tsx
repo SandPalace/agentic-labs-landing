@@ -627,16 +627,18 @@ export default function Metaballs({
 
       // Update camera position based on mouse (smooth lerp)
       if (cameraRef.current) {
-        // Keep camera at z=5, only move x and y slightly for parallax effect
+        // Only track horizontal (X) movement, lock vertical (Y) movement
         const targetX = mouseXRef.current * 0.01; // Very small movement
-        const targetY = -mouseYRef.current * 0.01;
+        const targetY = 0; // Lock Y position at 0
 
         camera.position.x += (targetX - camera.position.x) * 0.05;
-        camera.position.y += (targetY - camera.position.y) * 0.05;
+        camera.position.y = targetY; // Keep Y locked at 0
         // Keep z position fixed to stay inside the sphere
         camera.position.z = 5;
 
-        camera.lookAt(scene.position);
+        // Rotate view to the left and tilt down slightly
+        const lookAtTarget = new THREE.Vector3(1.5, 1, 0);
+        camera.lookAt(lookAtTarget);
         camera.updateMatrixWorld(true);
 
         // Update shader uniforms with new camera position

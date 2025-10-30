@@ -335,11 +335,11 @@ export default function Metaballs({
       const ctx = canvas.getContext('2d');
 
       if (ctx) {
-        // Create radial gradient from center - light to dark blue
+        // Create radial gradient from center - lighter blues
         const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 512);
-        gradient.addColorStop(0, '#3b82f6'); // Light blue center
-        gradient.addColorStop(0.5, '#1e40af'); // Medium blue
-        gradient.addColorStop(1, '#0c1e3d'); // Dark blue edges
+        gradient.addColorStop(0, '#60a5fa'); // Lighter blue center
+        gradient.addColorStop(0.5, '#3b82f6'); // Light blue middle
+        gradient.addColorStop(1, '#1e3a8a'); // Medium blue edges
 
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 512, 512);
@@ -350,53 +350,9 @@ export default function Metaballs({
       return texture;
     };
 
-    // Set initial gradient background while loading
+    // Set gradient background (permanent)
     scene.background = createGradientTexture();
     sceneRef.current = scene;
-
-    // Load equirectangular panoramic background with fade-in effect
-    const panoramaLoader = new THREE.TextureLoader();
-    let panoramaSphere: THREE.Mesh | null = null;
-    let fadeStartTime: number | null = null;
-    const fadeDuration = 2000; // 2 seconds fade-in
-
-    panoramaLoader.load(
-      '/images360/AdobeStock_59140782.jpeg',
-      (texture) => {
-        console.log('Panoramic texture loaded successfully', texture);
-
-        // Set texture mapping for equirectangular panorama
-        texture.mapping = THREE.EquirectangularReflectionMapping;
-        texture.colorSpace = THREE.SRGBColorSpace;
-
-        // Create a large sphere with panorama texture
-        const geometry = new THREE.SphereGeometry(500, 60, 40);
-        geometry.scale(-1, 1, 1); // Invert to see texture from inside
-
-        const material = new THREE.MeshBasicMaterial({
-          map: texture,
-          transparent: true,
-          opacity: 0, // Start invisible
-          side: THREE.BackSide
-        });
-
-        panoramaSphere = new THREE.Mesh(geometry, material);
-        scene.add(panoramaSphere);
-
-        fadeStartTime = Date.now();
-        console.log('Starting panorama fade-in');
-      },
-      (progress) => {
-        if (progress.total > 0) {
-          console.log('Loading panorama:', (progress.loaded / progress.total * 100).toFixed(2) + '%');
-        }
-      },
-      (error) => {
-        console.error('Error loading panoramic texture:', error);
-        // Fallback to gradient background (keep the gradient on error)
-        scene.background = createGradientTexture();
-      }
-    );
 
     // Setup camera (used for mouse coordinate conversion)
     const camera = new THREE.PerspectiveCamera(
@@ -702,22 +658,6 @@ export default function Metaballs({
 
       // Update main ball radius uniform
       uniforms.uMainBallRadius.value = mainBallRadiusRef.current;
-
-      // Fade in panorama sphere
-      if (panoramaSphere && fadeStartTime) {
-        const elapsed = Date.now() - fadeStartTime;
-        const progress = Math.min(elapsed / fadeDuration, 1);
-
-        // Use easing function for smoother transition
-        const easedProgress = progress * progress * (3 - 2 * progress); // smoothstep
-
-        (panoramaSphere.material as THREE.MeshBasicMaterial).opacity = easedProgress;
-
-        if (progress >= 1) {
-          fadeStartTime = null; // Stop fading
-          console.log('Panorama fade-in complete');
-        }
-      }
 
       // Get main tracker ball position (from first element in pointer trail)
       const mainBallPos = pointerTrailRef.current[0];

@@ -5,6 +5,5 @@ export default createMiddleware(routing);
 
 export const config = {
   // Match only internationalized pathnames
-  // Skip all internal Next.js paths
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  matcher: ['/', '/(es|en)/:path*']
 };

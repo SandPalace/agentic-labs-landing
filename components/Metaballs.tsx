@@ -201,12 +201,19 @@ vec3 dropletColor(vec3 normal, vec3 rayDir) {
     vec3 _color0 = uColor0 * noisePosTime;
     vec3 _color1 = uColor1 * noiseNegTime;
 
-    // Add depth shading for more watery appearance
-    float depth = dot(normal, vec3(0.0, 0.0, 1.0)) * 0.5 + 0.5;
+    // Light direction from top center (0, 1, 0.5) - creates symmetrical shading
+    vec3 lightDir = normalize(vec3(0.0, 1.0, 0.5));
+
+    // Calculate diffuse lighting from top center
+    float diffuse = max(dot(normal, lightDir), 0.0);
+    float ambient = 0.4; // Base ambient light
+    float lighting = ambient + diffuse * 0.6;
+
+    // Edge lighting for water-like highlights
     float edgeLight = pow(1.0 - abs(dot(normal, rayDir)), 1.5);
 
-    float intensity = 2.8 + edgeLight * 0.8; // Increased intensity with edge highlights
-    vec3 color = (_color0 + _color1) * intensity * depth;
+    float intensity = 2.5 + edgeLight * 0.5; // Base intensity with edge highlights
+    vec3 color = (_color0 + _color1) * intensity * lighting;
 
     return color;
 }

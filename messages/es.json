@@ -4,13 +4,13 @@
     "useAI": "usan IA"
   },
   "hero": {
-    "headline": "Si aún estás en pilotos de IA, estás peligrosamente atrás",
+    "headline": "La IA no es una herramienta,\nEs tu modelo de negocio",
     "subheadline": "2025 es el año en que las empresas pasan de experimentar con IA a reconstruir alrededor de ella. Te ayudamos a liderar esta transformación.",
     "cta": "Inicia Tu Transformación IA",
     "stats": {
       "adoption": "78% de las organizaciones usan IA en al menos una función",
       "ebitda": "Mejoras de 10-25% en EBITDA para líderes en IA",
-      "speed": "2 años para alcanzar valuación de $1B+ (empresas IA vs 9 años tradicional)",
+      "speed": "203 empleados para unicornio IA vs 414 tradicional",
       "growth": "44% de empresas estadounidenses ahora pagan por herramientas IA (vs 5% en 2023)"
     }
   },
@@ -57,10 +57,10 @@
     }
   },
   "services": {
-    "headline": "Soluciones de IA Agéntica para Cada Función del Negocio",
-    "subheadline": "Transforma tu negocio con agentes de IA que trabajan autónomamente en cada función",
+    "headline": "Soluciones de Agentes IA para cada función de tu Negocio",
+    "subheadline": "Transforma tu negocio con agentes de IA que trabajan autónomamente",
     "aiAgents": {
-      "title": "Sistemas de IA Agéntica",
+      "title": "Sistemas con Agentes Inteligentes",
       "description": "Desplegamos agentes de IA que operan en cuatro niveles de sofisticación—desde recuperación de información hasta constelaciones multi-agente—ejecutando flujos de trabajo completos de forma autónoma.",
       "stat1": "81% de líderes espera que los agentes se integren extensivamente en próximos 12-18 meses",
       "stat2": "46% ya usa agentes para automatizar flujos de trabajo completos"

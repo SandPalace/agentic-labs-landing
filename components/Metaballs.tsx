@@ -201,8 +201,12 @@ vec3 dropletColor(vec3 normal, vec3 rayDir) {
     vec3 _color0 = uColor0 * noisePosTime;
     vec3 _color1 = uColor1 * noiseNegTime;
 
-    float intensity = 2.3;
-    vec3 color = (_color0 + _color1) * intensity;
+    // Add depth shading for more watery appearance
+    float depth = dot(normal, vec3(0.0, 0.0, 1.0)) * 0.5 + 0.5;
+    float edgeLight = pow(1.0 - abs(dot(normal, rayDir)), 1.5);
+
+    float intensity = 2.8 + edgeLight * 0.8; // Increased intensity with edge highlights
+    vec3 color = (_color0 + _color1) * intensity * depth;
 
     return color;
 }
@@ -237,13 +241,14 @@ void main() {
         vec3 normal = generateNormal(ray);
         color = dropletColor(normal, rayDir);
 
-        // Create water-like transparency with subtle opacity
-        // More transparent in the center, slightly more opaque at edges
-        float fresnel = pow(1.0 - abs(dot(normal, -rayDir)), 2.0);
-        alpha = 0.15 + fresnel * 0.25; // Range from 0.15 to 0.4 opacity (very subtle)
+        // Create water-like transparency with enhanced depth
+        // More transparent in the center, opaque at edges (like real water)
+        float fresnel = pow(1.0 - abs(dot(normal, -rayDir)), 2.5);
+        float baseOpacity = 0.25; // Increased base opacity for more visible shading
+        alpha = baseOpacity + fresnel * 0.45; // Range from 0.25 to 0.7 opacity
     }
 
-    vec3 finalColor = pow(color, vec3(7.0));
+    vec3 finalColor = pow(color, vec3(6.5)); // Slightly reduced gamma for more color depth
     gl_FragColor = vec4(finalColor, alpha);
 }
 `;
@@ -344,8 +349,9 @@ export default function Metaballs({
 
     // Load equirectangular panoramic background with fade-in effect
     const panoramaLoader = new THREE.TextureLoader();
+    let panoramaSphere: THREE.Mesh | null = null;
     let fadeStartTime: number | null = null;
-    const fadeDuration = 1500; // 1.5 seconds fade-in
+    const fadeDuration = 2000; // 2 seconds fade-in
 
     panoramaLoader.load(
       '/images360/AdobeStock_59140782.jpeg',
@@ -356,35 +362,22 @@ export default function Metaballs({
         texture.mapping = THREE.EquirectangularReflectionMapping;
         texture.colorSpace = THREE.SRGBColorSpace;
 
-        // Store the loaded texture for fade-in
-        const panoramaTexture = texture;
+        // Create a large sphere with panorama texture
+        const geometry = new THREE.SphereGeometry(500, 60, 40);
+        geometry.scale(-1, 1, 1); // Invert to see texture from inside
+
+        const material = new THREE.MeshBasicMaterial({
+          map: texture,
+          transparent: true,
+          opacity: 0, // Start invisible
+          side: THREE.BackSide
+        });
+
+        panoramaSphere = new THREE.Mesh(geometry, material);
+        scene.add(panoramaSphere);
+
         fadeStartTime = Date.now();
-
-        // Create animation loop for fade-in
-        const fadeIn = () => {
-          if (!fadeStartTime) return;
-
-          const elapsed = Date.now() - fadeStartTime;
-          const progress = Math.min(elapsed / fadeDuration, 1);
-
-          // Use easing function for smoother transition
-          const easedProgress = progress * progress * (3 - 2 * progress); // smoothstep
-
-          if (progress < 1) {
-            // During fade: blend gradient and panorama by adjusting scene fog
-            scene.background = panoramaTexture;
-            scene.fog = new THREE.FogExp2(0x0c1e3d, 0.15 * (1 - easedProgress));
-            requestAnimationFrame(fadeIn);
-          } else {
-            // Fade complete: remove fog and use panorama only
-            scene.background = panoramaTexture;
-            scene.fog = null;
-            fadeStartTime = null;
-            console.log('Panoramic background fade-in complete');
-          }
-        };
-
-        fadeIn();
+        console.log('Starting panorama fade-in');
       },
       (progress) => {
         if (progress.total > 0) {
@@ -702,6 +695,22 @@ export default function Metaballs({
 
       // Update main ball radius uniform
       uniforms.uMainBallRadius.value = mainBallRadiusRef.current;
+
+      // Fade in panorama sphere
+      if (panoramaSphere && fadeStartTime) {
+        const elapsed = Date.now() - fadeStartTime;
+        const progress = Math.min(elapsed / fadeDuration, 1);
+
+        // Use easing function for smoother transition
+        const easedProgress = progress * progress * (3 - 2 * progress); // smoothstep
+
+        (panoramaSphere.material as THREE.MeshBasicMaterial).opacity = easedProgress;
+
+        if (progress >= 1) {
+          fadeStartTime = null; // Stop fading
+          console.log('Panorama fade-in complete');
+        }
+      }
 
       // Get main tracker ball position (from first element in pointer trail)
       const mainBallPos = pointerTrailRef.current[0];

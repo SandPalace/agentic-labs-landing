@@ -323,11 +323,11 @@ export default function Metaballs({
       const ctx = canvas.getContext('2d');
 
       if (ctx) {
-        // Create radial gradient from center
+        // Create radial gradient from center - light to dark blue
         const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 512);
-        gradient.addColorStop(0, '#2d1b4e'); // Purple center
-        gradient.addColorStop(0.5, '#1a0a2e'); // Deep purple-blue
-        gradient.addColorStop(1, '#0a0515'); // Almost black edges
+        gradient.addColorStop(0, '#3b82f6'); // Light blue center
+        gradient.addColorStop(0.5, '#1e40af'); // Medium blue
+        gradient.addColorStop(1, '#0c1e3d'); // Dark blue edges
 
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 512, 512);

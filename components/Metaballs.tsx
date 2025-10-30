@@ -335,11 +335,11 @@ export default function Metaballs({
       const ctx = canvas.getContext('2d');
 
       if (ctx) {
-        // Create radial gradient from center - lighter blues
+        // Create radial gradient from center - light to dark blue
         const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 512);
-        gradient.addColorStop(0, '#60a5fa'); // Lighter blue center
-        gradient.addColorStop(0.5, '#3b82f6'); // Light blue middle
-        gradient.addColorStop(1, '#1e3a8a'); // Medium blue edges
+        gradient.addColorStop(0, '#3b82f6'); // Light blue center
+        gradient.addColorStop(0.5, '#1e40af'); // Medium blue
+        gradient.addColorStop(1, '#0c1e3d'); // Dark blue edges
 
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, 512, 512);
@@ -638,10 +638,10 @@ export default function Metaballs({
       // Update camera position based on mouse (smooth lerp)
       if (cameraRef.current) {
         // Only track horizontal (X) movement, lock vertical (Y) movement
-        const targetX = mouseXRef.current * 0.01; // Very small movement
+        const targetX = mouseXRef.current * 0.005; // Reduced sensitivity (was 0.01)
         const targetY = 0; // Lock Y position at 0
 
-        camera.position.x += (targetX - camera.position.x) * 0.05;
+        camera.position.x += (targetX - camera.position.x) * 0.03; // Slower lerp (was 0.05)
         camera.position.y = targetY; // Keep Y locked at 0
         // Keep z position fixed to stay inside the sphere
         camera.position.z = 5;

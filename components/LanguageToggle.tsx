@@ -10,7 +10,10 @@ export default function LanguageToggle() {
   const currentLocale = params.locale as string;
 
   const toggleLanguage = (newLocale: 'en' | 'es') => {
-    router.replace(pathname, { locale: newLocale });
+    // Only change if different locale
+    if (newLocale !== currentLocale) {
+      router.push(pathname, { locale: newLocale });
+    }
   };
 
   return (

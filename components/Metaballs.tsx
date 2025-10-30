@@ -338,7 +338,7 @@ export default function Metaballs({
         // Create radial gradient from center - light blues with good contrast
         const gradient = ctx.createRadialGradient(256, 256, 0, 256, 256, 512);
         gradient.addColorStop(0, '#60a5fa'); // Light blue center
-        gradient.addColorStop(0.5, '#3b82f6'); // Medium blue middle
+        gradient.addColorStop(0.5, '#1A2A4F'); // Navy blue middle
         gradient.addColorStop(1, '#1e40af'); // Darker blue edges
 
         ctx.fillStyle = gradient;

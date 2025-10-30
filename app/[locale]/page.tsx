@@ -41,8 +41,8 @@ export default function Home() {
       {/* Language Toggle */}
       <LanguageToggle />
 
-      {/* Fixed Metaballs Background */}
-      <div className="fixed top-0 left-0 w-full h-screen z-0">
+      {/* Fixed Metaballs Background with gradient fallback */}
+      <div className="fixed top-0 left-0 w-full h-screen z-0 bg-linear-to-br from-purple-900/30 via-black to-blue-900/20">
         <ErrorBoundary key="metaballs-background">
           <Metaballs showUI={false} showDebugVisuals={false} />
         </ErrorBoundary>

@@ -314,6 +314,8 @@ export default function Metaballs({
 
     // Setup scene
     const scene = new THREE.Scene();
+    // Set initial background color (gradient-like purple-blue) while loading
+    scene.background = new THREE.Color(0x1a0a2e); // Deep purple-blue
     sceneRef.current = scene;
 
     // Load equirectangular panoramic background directly as scene.background
@@ -339,8 +341,8 @@ export default function Metaballs({
       },
       (error) => {
         console.error('Error loading panoramic texture:', error);
-        // Fallback to dark background
-        scene.background = new THREE.Color(0x1a1a1a);
+        // Fallback to purple-blue gradient color
+        scene.background = new THREE.Color(0x1a0a2e);
       }
     );
 

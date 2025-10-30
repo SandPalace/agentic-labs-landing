@@ -8,7 +8,10 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-open-sans);
+
+  /* Font families */
+  --font-family-primary: var(--font-primary);
+  --font-family-secondary: var(--font-secondary);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,5 +24,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-open-sans), sans-serif;
+  font-family: var(--font-secondary), sans-serif;
+}
+
+/* Custom font utilities */
+.font-primary {
+  font-family: var(--font-primary), sans-serif;
+}
+
+.font-secondary {
+  font-family: var(--font-secondary), sans-serif;
 }

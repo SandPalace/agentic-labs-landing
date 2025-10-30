@@ -3,11 +3,17 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
-import { Poppins } from "next/font/google";
+import { Teko, Poppins } from "next/font/google";
 import "../globals.css";
 
+const teko = Teko({
+  variable: "--font-primary",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+});
+
 const poppins = Poppins({
-  variable: "--font-poppins",
+  variable: "--font-secondary",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
@@ -41,7 +47,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${poppins.variable} antialiased`}>
+      <body className={`${teko.variable} ${poppins.variable} antialiased`}>
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

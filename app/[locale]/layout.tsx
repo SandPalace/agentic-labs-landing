@@ -31,6 +31,15 @@ export const metadata: Metadata = {
   title: "MTY Agentic Labs — Agentes de IA y automatización en Monterrey",
   description:
     "Laboratorio de ingeniería en Monterrey. Diagnósticos, automatización de procesos, desarrollo de agentes de IA, integraciones ERP y capacitaciones. Hardware propio, proyectos en producción.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://agenticlabs.site"
+  ),
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+  },
 };
 
 export function generateStaticParams() {

@@ -166,7 +166,7 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
       onSubmit={onSubmit}
       noValidate
       className="bg-white border border-white/10"
-      style={{ maxWidth: 480, margin: '0 auto', borderRadius: 6, padding: '24px 20px', textAlign: 'left', position: 'relative' }}
+      style={{ width: 'calc(100% - 32px)', maxWidth: 560, margin: '16px auto', borderRadius: 6, padding: '24px 24px', textAlign: 'left', position: 'relative' }}
       onInput={() => {
         if (status === 'error') {
           setStatus('idle');

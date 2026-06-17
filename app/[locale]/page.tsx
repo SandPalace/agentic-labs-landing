@@ -324,7 +324,7 @@ export default async function Home({
 
       {/* ── BOOKING ── */}
       <section id="contacto" className="bg-fg text-white text-center" style={{ padding: 'clamp(64px, 12vw, 96px) 0' }}>
-        <div className="mx-auto container-px" style={{ maxWidth: 640 }}>
+        <div className="mx-auto booking-section-px" style={{ maxWidth: 520 }}>
           <ViewportReveal className="inline-block font-mono text-operations border border-operations mb-6"
             style={{ fontSize: 10, letterSpacing: '0.16em', padding: '4px 12px', borderRadius: 2 }}>
             {t('booking.tag')}
@@ -339,6 +339,17 @@ export default async function Home({
           </ViewportReveal>
           <ViewportReveal delay={0.2} className="flex justify-center">
             <BookingForm labels={formLabels} />
+          </ViewportReveal>
+          <ViewportReveal delay={0.28} className="mt-8">
+            <p className="font-mono text-white/40 m-0" style={{ fontSize: 13, letterSpacing: '0.04em' }}>
+              {t('booking.emailLabel')}{' '}
+              <a
+                href={`mailto:${t('booking.email')}`}
+                className="text-white/80 hover:text-white no-underline border-b border-white/20 hover:border-white/60 transition-colors"
+              >
+                {t('booking.email')}
+              </a>
+            </p>
           </ViewportReveal>
         </div>
       </section>

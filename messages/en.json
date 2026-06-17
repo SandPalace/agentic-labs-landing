@@ -117,6 +117,8 @@
     "tag": "FIRST STEP",
     "title": "Ready to automate your operation?",
     "sub": "Tell us about your operation and pick a time. We will follow up to confirm the details.",
+    "emailLabel": "Or email us directly",
+    "email": "hello@agenticlabs.site",
     "form": {
       "title": "Book a session",
       "name": "Name",

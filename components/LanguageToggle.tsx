@@ -1,13 +1,12 @@
 'use client';
 
 import { useRouter, usePathname } from '@/i18n/routing';
-import { useParams } from 'next/navigation';
+import { useLocale } from 'next-intl';
 
 export default function LanguageToggle() {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useParams();
-  const currentLocale = params.locale as string;
+  const currentLocale = useLocale();
 
   const toggleLanguage = (newLocale: 'en' | 'es') => {
     if (newLocale !== currentLocale) {

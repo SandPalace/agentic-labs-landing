@@ -93,6 +93,16 @@ body {
 /* Lock scroll when a mobile menu is open */
 body.menu-open { overflow: hidden; }
 
+/* Booking section: tighter horizontal padding on mobile so the form reads
+   wider; restore the standard container padding on sm+. */
+.booking-section-px {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+@media (min-width: 640px) {
+  .booking-section-px { padding-left: 32px; padding-right: 32px; }
+}
+
 .bg-grid {
   position: absolute;
   inset: 0;

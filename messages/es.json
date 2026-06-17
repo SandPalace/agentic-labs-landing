@@ -117,6 +117,8 @@
     "tag": "PRIMER PASO",
     "title": "¿Listo para automatizar tu operación?",
     "sub": "Cuéntanos sobre tu operación y elige un horario. Te contactaremos para confirmar los detalles.",
+    "emailLabel": "O escríbenos directamente a",
+    "email": "hello@agenticlabs.site",
     "form": {
       "title": "Agendar una sesión",
       "name": "Nombre",

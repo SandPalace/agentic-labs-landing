@@ -66,9 +66,12 @@ export default async function Home({
       <Topbar />
 
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden bg-fg text-white" style={{ padding: '96px 0 80px' }}>
+      <section
+        className="relative overflow-hidden bg-fg text-white"
+        style={{ padding: 'clamp(56px, 12vw, 96px) 0 clamp(56px, 10vw, 80px)' }}
+      >
         <div className="bg-grid" />
-        <div className="relative z-10 mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+        <div className="relative z-10 mx-auto container-px" style={{ maxWidth: 1280 }}>
           <ViewportReveal className="flex items-center gap-2.5 mb-7">
             <span className="font-mono text-[10px] tracking-[0.14em] text-white/35">
               {t('hero.eyebrowLocation')}
@@ -79,27 +82,24 @@ export default async function Home({
             </span>
           </ViewportReveal>
           <ViewportReveal as="h1" delay={0.05} className="font-display font-bold text-white m-0 mb-6"
-            style={{ fontSize: 'clamp(48px, 7vw, 88px)', lineHeight: 1.0, letterSpacing: '-0.03em' }}>
+            style={{ fontSize: 'clamp(34px, 7vw, 88px)', lineHeight: 1.0, letterSpacing: '-0.03em' }}>
             {t('hero.headline1')}
             <br />
             <span className="text-accent">{t('hero.headline2')}</span>
           </ViewportReveal>
           <ViewportReveal as="p" delay={0.12} className="text-white/65 m-0 mb-12"
-            style={{ fontSize: 'clamp(18px, 2.2vw, 22px)', lineHeight: 1.55, maxWidth: '56ch' }}>
+            style={{ fontSize: 'clamp(17px, 2.2vw, 22px)', lineHeight: 1.55, maxWidth: '56ch' }}>
             {t('hero.sub')}
           </ViewportReveal>
-          <ViewportReveal delay={0.2} className="flex flex-wrap border border-white/10 w-fit overflow-hidden" style={{ borderRadius: 4 }}>
+          <ViewportReveal delay={0.2} className="flex flex-col sm:flex-row w-full sm:w-fit border border-white/10 overflow-hidden" style={{ borderRadius: 4 }}>
             {[
               { v: proof.gpu, l: proof.gpuLabel },
               { v: proof.production, l: proof.productionLabel },
             ].map((p, i) => (
               <div
                 key={i}
-                className="flex flex-col gap-0.5"
-                style={{
-                  padding: '16px 28px',
-                  borderRight: i < 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                }}
+                className={`flex flex-col gap-0.5 ${i < 1 ? 'stat-divider' : ''}`}
+                style={{ padding: '16px 28px' }}
               >
                 <span className="font-display font-bold text-white" style={{ fontSize: 22 }}>
                   {p.v}
@@ -114,8 +114,8 @@ export default async function Home({
       </section>
 
       {/* ── SERVICIOS ── */}
-      <section id="servicios" className="bg-white" style={{ padding: '80px 0' }}>
-        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+      <section id="servicios" className="bg-white" style={{ padding: 'clamp(56px, 10vw, 80px) 0' }}>
+        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
           <ViewportReveal className="font-mono text-brand font-semibold mb-3"
             style={{ fontSize: 10, letterSpacing: '0.18em' }}>
             {t('services.label')}
@@ -176,8 +176,8 @@ export default async function Home({
       </section>
 
       {/* ── PROBLEMS ── */}
-      <section id="problemas" className="bg-base" style={{ padding: '80px 0' }}>
-        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+      <section id="problemas" className="bg-base" style={{ padding: 'clamp(56px, 10vw, 80px) 0' }}>
+        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
           <ViewportReveal className="font-mono text-brand font-semibold mb-3"
             style={{ fontSize: 10, letterSpacing: '0.18em' }}>
             {t('problems.label')}
@@ -223,8 +223,8 @@ export default async function Home({
       </section>
 
       {/* ── METHOD ── */}
-      <section id="metodo" className="bg-fg text-white" style={{ padding: '80px 0' }}>
-        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+      <section id="metodo" className="bg-fg text-white" style={{ padding: 'clamp(56px, 10vw, 80px) 0' }}>
+        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
           <ViewportReveal className="font-mono text-white/35 font-semibold mb-3"
             style={{ fontSize: 10, letterSpacing: '0.18em' }}>
             {t('method.label')}
@@ -241,8 +241,8 @@ export default async function Home({
       </section>
 
       {/* ── DIFFERENTIATORS ── */}
-      <section id="diferencias" className="bg-white" style={{ padding: '80px 0' }}>
-        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+      <section id="diferencias" className="bg-white" style={{ padding: 'clamp(56px, 10vw, 80px) 0' }}>
+        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
           <ViewportReveal className="font-mono text-brand font-semibold mb-3"
             style={{ fontSize: 10, letterSpacing: '0.18em' }}>
             {t('differentiators.label')}
@@ -285,8 +285,8 @@ export default async function Home({
       </section>
 
       {/* ── STACK ── */}
-      <section id="stack" className="bg-fg text-white" style={{ padding: '56px 0' }}>
-        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+      <section id="stack" className="bg-fg text-white" style={{ padding: 'clamp(40px, 7vw, 56px) 0' }}>
+        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
           <ViewportReveal className="font-mono text-white/35 font-semibold mb-3"
             style={{ fontSize: 10, letterSpacing: '0.18em' }}>
             {t('stack.label')}
@@ -323,8 +323,8 @@ export default async function Home({
       </section>
 
       {/* ── BOOKING ── */}
-      <section id="contacto" className="bg-fg text-white text-center" style={{ padding: '96px 0' }}>
-        <div className="mx-auto" style={{ maxWidth: 640, padding: '0 32px' }}>
+      <section id="contacto" className="bg-fg text-white text-center" style={{ padding: 'clamp(64px, 12vw, 96px) 0' }}>
+        <div className="mx-auto container-px" style={{ maxWidth: 640 }}>
           <ViewportReveal className="inline-block font-mono text-operations border border-operations mb-6"
             style={{ fontSize: 10, letterSpacing: '0.16em', padding: '4px 12px', borderRadius: 2 }}>
             {t('booking.tag')}

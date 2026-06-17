@@ -138,7 +138,8 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
     border: '1px solid var(--color-line)',
     borderRadius: 2,
     padding: '10px 12px',
-    fontSize: 15,
+    /* 16px prevents iOS Safari from auto-zooming on focus */
+    fontSize: 16,
     fontFamily: 'inherit',
     color: 'var(--color-fg)',
     outline: 'none',
@@ -165,7 +166,7 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
       onSubmit={onSubmit}
       noValidate
       className="bg-white border border-white/10"
-      style={{ maxWidth: 480, margin: '0 auto', borderRadius: 6, padding: '28px 24px', textAlign: 'left', position: 'relative' }}
+      style={{ maxWidth: 480, margin: '0 auto', borderRadius: 6, padding: '24px 20px', textAlign: 'left', position: 'relative' }}
       onInput={() => {
         if (status === 'error') {
           setStatus('idle');
@@ -192,6 +193,7 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
           <label htmlFor="bk-name" style={labelStyle}>{labels.name}</label>
           <input
             id="bk-name" name="name" type="text" required
+            autoComplete="name"
             placeholder={labels.namePlaceholder}
             style={inputStyle}
             disabled={status === 'submitting'}
@@ -203,6 +205,7 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
           <label htmlFor="bk-email" style={labelStyle}>{labels.email}</label>
           <input
             id="bk-email" name="mailId" type="email" required
+            autoComplete="email"
             placeholder={labels.emailPlaceholder}
             style={inputStyle}
             disabled={status === 'submitting'}
@@ -210,7 +213,8 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
           {errors.mailId && <span style={errorStyle}>{errors.mailId}</span>}
         </div>
 
-        <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr' }}>
+        {/* Date / time stack on very small screens, sit side-by-side on sm+ */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div style={fieldWrap}>
             <label htmlFor="bk-date" style={labelStyle}>{labels.date}</label>
             <input
@@ -257,12 +261,13 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
           disabled={status === 'submitting'}
           className="bg-accent text-fg font-mono font-semibold no-underline transition-opacity hover:opacity-90 disabled:opacity-60"
           style={{
-            fontSize: 13,
+            fontSize: 14,
             letterSpacing: '0.04em',
             padding: '14px 24px',
             borderRadius: 2,
             border: 'none',
             cursor: status === 'submitting' ? 'wait' : 'pointer',
+            minHeight: 48,
             marginTop: 4,
           }}
         >

@@ -8,7 +8,10 @@
     "research": "Method",
     "about": "Differences",
     "lab": "Stack →",
-    "cta": "Book a call"
+    "cta": "Book a call",
+    "menu": "Menu",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
   },
   "hero": {
     "eyebrowLocation": "MTY · NL · MEXICO",

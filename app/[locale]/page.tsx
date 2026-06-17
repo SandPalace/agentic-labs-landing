@@ -1,337 +1,349 @@
-'use client';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
+import Topbar from '@/components/Topbar';
+import Footer from '@/components/Footer';
+import ViewportReveal from '@/components/ViewportReveal';
+import BookingForm from '@/components/BookingForm';
 
-import { useEffect } from 'react';
-import { useTranslations } from 'next-intl';
-import { Bot, TrendingUp, MessageCircle, Settings, Sparkles, MonitorSmartphone } from 'lucide-react';
-import GlassCard from '@/components/GlassCard';
-import LanguageToggle from '@/components/LanguageToggle';
-import { GradientBackground } from '@/components/gradient-background';
-import ViewportAnimation from '@/components/ViewportAnimation';
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations();
 
-export default function Home() {
-  const t = useTranslations();
+  const services = (await getTranslations('services')).raw('items') as Array<{
+    code: string;
+    title: string;
+    body: string;
+  }>;
+  const problems = (await getTranslations('problems')).raw('items') as Array<{
+    id: string;
+    title: string;
+    body: string;
+  }>;
+  const differentiators = (await getTranslations('differentiators')).raw('items') as Array<{
+    code: string;
+    title: string;
+    body: string;
+  }>;
+  const stack = (await getTranslations('stack')).raw('items') as Array<{
+    name: string;
+    stars: string;
+  }>;
+  const proof = {
+    gpu: t('hero.proof.gpu'),
+    gpuLabel: t('hero.proof.gpuLabel'),
+    production: t('hero.proof.production'),
+    productionLabel: t('hero.proof.productionLabel'),
+  };
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.debugLogs = window.debugLogs || [];
-      window.debugLogs.push('[Home] Component mounted at ' + new Date().toISOString());
-      console.log('[Home] Component mounted');
-    }
-    return () => console.log('[Home] Component unmounted');
-  }, []);
-
-  const styles = {
-    section_container: "flex flex-col",
-    section_header: "text-2xl font-semibold mb-3 text-white inline-flex items-start gap-3 font-primary",
-    section_description: "flex-1 text-gray-200 text-sm flex items-start font-secondary",
+  const formLabels = {
+    title: t('booking.form.title'),
+    name: t('booking.form.name'),
+    namePlaceholder: t('booking.form.namePlaceholder'),
+    email: t('booking.form.email'),
+    emailPlaceholder: t('booking.form.emailPlaceholder'),
+    date: t('booking.form.date'),
+    time: t('booking.form.time'),
+    reason: t('booking.form.reason'),
+    reasonPlaceholder: t('booking.form.reasonPlaceholder'),
+    submit: t('booking.form.submit'),
+    submitting: t('booking.form.submitting'),
+    success: t('booking.form.success'),
+    successSub: t('booking.form.successSub'),
+    errorGeneric: t('booking.form.errorGeneric'),
+    errorUpstream: t('booking.form.errorUpstream'),
+    errorName: t('booking.form.errorName'),
+    errorEmail: t('booking.form.errorEmail'),
+    errorDate: t('booking.form.errorDate'),
+    errorTime: t('booking.form.errorTime'),
   };
 
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
-      {/* Language Toggle */}
-      <LanguageToggle />
+    <div id="top" className="relative bg-base text-fg">
+      <Topbar />
 
-      {/* Fixed Gradient Background */}
-      <GradientBackground />
-
-      {/* Top Logo/Brand */}
-      <div className="relative z-20 h-32 flex items-center justify-center">
-        <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-2xl md:text-5xl text-white tracking-tight font-primary">
-            Monterrey Agentic Labs
-          </h1>
+      {/* ── HERO ── */}
+      <section className="relative overflow-hidden bg-fg text-white" style={{ padding: '96px 0 80px' }}>
+        <div className="bg-grid" />
+        <div className="relative z-10 mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+          <ViewportReveal className="flex items-center gap-2.5 mb-7">
+            <span className="font-mono text-[10px] tracking-[0.14em] text-white/35">
+              {t('hero.eyebrowLocation')}
+            </span>
+            <span className="font-mono text-[10px] text-operations">●</span>
+            <span className="font-mono text-[10px] tracking-[0.14em] text-white/35">
+              {t('hero.eyebrowStatus')}
+            </span>
+          </ViewportReveal>
+          <ViewportReveal as="h1" delay={0.05} className="font-display font-bold text-white m-0 mb-6"
+            style={{ fontSize: 'clamp(48px, 7vw, 88px)', lineHeight: 1.0, letterSpacing: '-0.03em' }}>
+            {t('hero.headline1')}
+            <br />
+            <span className="text-accent">{t('hero.headline2')}</span>
+          </ViewportReveal>
+          <ViewportReveal as="p" delay={0.12} className="text-white/65 m-0 mb-12"
+            style={{ fontSize: 'clamp(18px, 2.2vw, 22px)', lineHeight: 1.55, maxWidth: '56ch' }}>
+            {t('hero.sub')}
+          </ViewportReveal>
+          <ViewportReveal delay={0.2} className="flex flex-wrap border border-white/10 w-fit overflow-hidden" style={{ borderRadius: 4 }}>
+            {[
+              { v: proof.gpu, l: proof.gpuLabel },
+              { v: proof.production, l: proof.productionLabel },
+            ].map((p, i) => (
+              <div
+                key={i}
+                className="flex flex-col gap-0.5"
+                style={{
+                  padding: '16px 28px',
+                  borderRight: i < 1 ? '1px solid rgba(255,255,255,0.08)' : 'none',
+                }}
+              >
+                <span className="font-display font-bold text-white" style={{ fontSize: 22 }}>
+                  {p.v}
+                </span>
+                <span className="font-mono text-white/35" style={{ fontSize: 10, letterSpacing: '0.1em' }}>
+                  {p.l}
+                </span>
+              </div>
+            ))}
+          </ViewportReveal>
         </div>
-      </div>
+      </section>
 
-      {/* Hero Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center">
-          <div className="pt-20 max-w-6xl mx-auto text-center">
-            <ViewportAnimation animation="fade-up">
-              <h1 className="font-primary whitespace-pre-wrap text-5xl md:text-7xl lg:text-8xl font-semibold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-200 leading-tight px-4">
-                {t('hero.headline')}
-              </h1>
-            </ViewportAnimation>
-            <ViewportAnimation animation="fade-up" delay={100}>
-              <p className="text-xl md:text-2xl text-gray-200 mb-12 max-w-4xl mx-auto px-4 font-secondary">
-                {t('hero.subheadline')}
-              </p>
-            </ViewportAnimation>
-            <ViewportAnimation animation="scale-up" delay={200}>
-              <GlassCard className="max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-6 text-left mb-8">
-                <div className="p-4">
-                  <p className="text-3xl font-bold text-white mb-2 font-primary font-primary">78%</p>
-                  <p className="text-sm text-gray-300 font-secondary">{t('hero.stats.adoption')}</p>
-                </div>
-                <div className="p-4">
-                  <p className="text-3xl font-bold text-white mb-2 font-primary">10-25%</p>
-                  <p className="text-sm text-gray-300 font-secondary">{t('hero.stats.ebitda')}</p>
-                </div>
-                <div className="p-4">
-                  <p className="text-3xl font-bold text-white mb-2 font-primary">203</p>
-                  <p className="text-sm text-gray-300 font-secondary">{t('hero.stats.speed')}</p>
-                </div>
-                <div className="p-4">
-                  <p className="text-3xl font-bold text-white mb-2 font-primary">44%</p>
-                  <p className="text-sm text-gray-300 font-secondary">{t('hero.stats.growth')}</p>
-                </div>
-              </div>
-              <button className="px-8 py-4 bg-gradient-to-r from-white/90 to-gray-100/90 text-gray-900 rounded-full font-semibold text-lg hover:scale-105 hover:from-white hover:to-gray-200 transition-all duration-200 shadow-lg hover:shadow-white/30 backdrop-blur-sm border border-white/20 font-primary">
-                {t('hero.cta')}
-              </button>
-            </GlassCard>
-            </ViewportAnimation>
+      {/* ── SERVICIOS ── */}
+      <section id="servicios" className="bg-white" style={{ padding: '80px 0' }}>
+        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+          <ViewportReveal className="font-mono text-brand font-semibold mb-3"
+            style={{ fontSize: 10, letterSpacing: '0.18em' }}>
+            {t('services.label')}
+          </ViewportReveal>
+          <ViewportReveal as="h2" delay={0.05} className="font-display font-bold text-fg m-0 mb-10"
+            style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.02em' }}>
+            {t('services.title')}
+          </ViewportReveal>
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line overflow-hidden"
+            style={{ borderRadius: 4 }}
+          >
+            <ViewportReveal selector=".service-card" variant="stagger-up" stagger={0.08} className="contents">
+              {services.map((s, i) => {
+                const colorMap: Record<string, string> = {
+                  'S-01': 'var(--color-research)',
+                  'S-02': 'var(--color-operations)',
+                  'S-03': 'var(--color-data)',
+                  'S-04': 'var(--color-infrastructure)',
+                };
+                const color = colorMap[s.code] ?? 'var(--color-brand)';
+                return (
+                  <div
+                    key={i}
+                    className="service-card bg-white flex flex-col"
+                    style={{ padding: '28px 24px', gap: 12 }}
+                  >
+                    <div className="flex justify-between items-start">
+                      <div
+                        className="font-mono font-semibold"
+                        style={{ fontSize: 11, letterSpacing: '0.1em', color }}
+                      >
+                        {s.code}
+                      </div>
+                      <div
+                        className="rounded-sm"
+                        style={{ width: 20, height: 3, background: color, marginTop: 5 }}
+                      />
+                    </div>
+                    <h3
+                      className="font-display font-bold text-fg m-0"
+                      style={{ fontSize: 19, letterSpacing: '-0.01em' }}
+                    >
+                      {s.title}
+                    </h3>
+                    <p
+                      className="text-steel m-0"
+                      style={{ fontSize: 15, lineHeight: 1.6 }}
+                    >
+                      {s.body}
+                    </p>
+                  </div>
+                );
+              })}
+            </ViewportReveal>
           </div>
-        </section>
+        </div>
+      </section>
 
-      {/* Services Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
-          <div className="max-w-7xl mx-auto">
-              <ViewportAnimation animation="fade-up">
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-200 font-primary">
-                  {t('services.headline')}
-                </h2>
-              </ViewportAnimation>
-              <ViewportAnimation animation="fade-up" delay={100}>
-                <p className="text-center text-gray-200 mb-16 max-w-3xl mx-auto font-secondary">
-                  {t('services.subheadline')}
-                </p>
-              </ViewportAnimation>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <ViewportAnimation animation="fade-up" delay={0}>
-                  <GlassCard className={styles.section_container}>
-                  <h3 className={styles.section_header}>
-                    <Bot className="w-8 h-8" />
-                    {t('services.aiAgents.title')}
+      {/* ── PROBLEMS ── */}
+      <section id="problemas" className="bg-base" style={{ padding: '80px 0' }}>
+        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+          <ViewportReveal className="font-mono text-brand font-semibold mb-3"
+            style={{ fontSize: 10, letterSpacing: '0.18em' }}>
+            {t('problems.label')}
+          </ViewportReveal>
+          <ViewportReveal as="h2" delay={0.05} className="font-display font-bold text-fg m-0 mb-10"
+            style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.02em' }}>
+            {t('problems.title')}
+          </ViewportReveal>
+          <div
+            className="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line overflow-hidden"
+            style={{ borderRadius: 4 }}
+          >
+            <ViewportReveal selector=".problem-card" variant="stagger-up" stagger={0.1} className="contents">
+              {problems.map((p, i) => (
+                <div
+                  key={i}
+                  className="problem-card bg-white flex flex-col"
+                  style={{ padding: 32, gap: 12 }}
+                >
+                  <div
+                    className="font-mono text-steel-light"
+                    style={{ fontSize: 11, letterSpacing: '0.12em' }}
+                  >
+                    {p.id}
+                  </div>
+                  <h3
+                    className="font-display font-bold text-fg m-0"
+                    style={{ fontSize: 20, letterSpacing: '-0.01em' }}
+                  >
+                    {p.title}
                   </h3>
-                  <p className={styles.section_description}>
-                    {t('services.aiAgents.description')}
+                  <p
+                    className="text-steel m-0"
+                    style={{ fontSize: 16, lineHeight: 1.65 }}
+                  >
+                    {p.body}
                   </p>
-                  <div className="mt-4 pt-4 border-t border-white/10">
-                    <p className="text-xs text-gray-200 font-semibold">{t('services.aiAgents.stat1')}</p>
-                  </div>
-                </GlassCard>
-                </ViewportAnimation>
-
-                <ViewportAnimation animation="fade-up" delay={100}>
-                  <GlassCard className={styles.section_container}>
-                    <h3 className={styles.section_header}>
-                      <TrendingUp className="w-8 h-8" />
-                      {t('services.sales.title')}
-                    </h3>
-                    <p className={styles.section_description}>
-                      {t('services.sales.description')}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-white/10">
-                      <p className="text-xs text-gray-200 font-semibold">{t('services.sales.impact')}</p>
-                    </div>
-                  </GlassCard>
-                </ViewportAnimation>
-
-                <ViewportAnimation animation="fade-up" delay={200}>
-                  <GlassCard className={styles.section_container}>
-                    <h3 className={styles.section_header}>
-                      <MessageCircle className="w-8 h-8" />
-                      {t('services.customerService.title')}
-                    </h3>
-                    <p className={styles.section_description}>
-                      {t('services.customerService.description')}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-white/10">
-                      <p className="text-xs text-gray-200 font-semibold">{t('services.customerService.caseStudy')}</p>
-                    </div>
-                  </GlassCard>
-                </ViewportAnimation>
-
-                <ViewportAnimation animation="fade-up" delay={0}>
-                  <GlassCard>
-                    <h3 className={styles.section_header}>
-                      <MonitorSmartphone className="w-8 h-8" />
-                      {t('services.development.title')}
-                    </h3>
-                    <p className={styles.section_description}>
-                      {t('services.development.description')}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-white/10">
-                      <p className="text-xs text-gray-200 font-semibold">{t('services.development.impact')}</p>
-                    </div>
-                  </GlassCard>
-                </ViewportAnimation>
-
-                <ViewportAnimation animation="fade-up" delay={100}>
-                  <GlassCard className={styles.section_container}>
-                    <h3 className={styles.section_header}>
-                      <Sparkles className="w-8 h-8" />
-                      {t('services.marketing.title')}
-                    </h3>
-                    <p className={styles.section_description}>
-                      {t('services.marketing.description')}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-white/10">
-                      <p className="text-xs text-gray-200 font-semibold">{t('services.marketing.stat')}</p>
-                    </div>
-                  </GlassCard>
-                </ViewportAnimation>
-
-                <ViewportAnimation animation="fade-up" delay={200}>
-                  <GlassCard className={styles.section_container}>
-                    <h3 className={styles.section_header}>
-                      <Settings className="w-8 h-8" />
-                      {t('services.operations.title')}
-                    </h3>
-                    <p className={styles.section_description}>
-                      {t('services.operations.description')}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-white/10">
-                      <p className="text-xs text-gray-200 font-semibold">{t('services.operations.caseStudy')}</p>
-                    </div>
-                  </GlassCard>
-                </ViewportAnimation>
-              </div>
-            </div>
-        </section>
-
-      {/* Problem Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
-          <div className="max-w-6xl mx-auto">
-              <ViewportAnimation animation="fade-up">
-                <h2 className="text-4xl md:text-5xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300 font-primary">
-                  {t('problem.headline')}
-                </h2>
-              </ViewportAnimation>
-              <div className="grid md:grid-cols-3 gap-6">
-                <ViewportAnimation animation="fade-up" delay={0}>
-                  <GlassCard className="bg-gray-900/10 backdrop-blur-md">
-                    <h3 className="text-xl font-semibold mb-4 text-white font-primary">
-                      {t('problem.layering.title')}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-4 font-secondary">
-                      {t('problem.layering.description')}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-gray-400/20">
-                      <p className="text-2xl font-bold text-white">72%</p>
-                      <p className="text-xs text-gray-300 font-secondary">{t('common.useAI')}</p>
-                    </div>
-                  </GlassCard>
-                </ViewportAnimation>
-
-                <ViewportAnimation animation="fade-up" delay={100}>
-                  <GlassCard className="bg-gray-900/10 backdrop-blur-md">
-                    <h3 className="text-xl font-semibold mb-4 text-white font-primary">
-                      {t('problem.leadership.title')}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-4 font-secondary">
-                      {t('problem.leadership.description')}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-gray-400/20">
-                      <p className="text-2xl font-bold text-white">1%</p>
-                      <p className="text-xs text-gray-300 font-secondary">{t('problem.leadership.stat')}</p>
-                    </div>
-                  </GlassCard>
-                </ViewportAnimation>
-
-                <ViewportAnimation animation="fade-up" delay={200}>
-                  <GlassCard className="bg-gray-900/10 backdrop-blur-md">
-                    <h3 className="text-xl font-semibold mb-4 text-white font-primary">
-                      {t('problem.speed.title')}
-                    </h3>
-                    <p className="text-gray-300 text-sm mb-4 font-secondary">
-                      {t('problem.speed.description')}
-                    </p>
-                    <div className="mt-4 pt-4 border-t border-gray-400/20">
-                      <p className="text-2xl font-bold text-white">47%</p>
-                      <p className="text-xs text-gray-300 font-secondary">{t('problem.speed.stat')}</p>
-                    </div>
-                  </GlassCard>
-                </ViewportAnimation>
-              </div>
-            </div>
-        </section>
-
-      {/* CTA Section */}
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-4 py-20">
-          <div className="max-w-5xl mx-auto text-center">
-              <ViewportAnimation animation="fade-up">
-                <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-300 font-primary">
-                  {t('cta.headline')}
-                </h2>
-              </ViewportAnimation>
-              <ViewportAnimation animation="fade-up" delay={100}>
-                <p className="text-xl text-gray-300 mb-12 max-w-3xl mx-auto font-secondary">
-                  {t('cta.subheadline')}
-                </p>
-              </ViewportAnimation>
-              <ViewportAnimation animation="scale-up" delay={200}>
-                <GlassCard>
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <div className="p-4">
-                    <p className="text-3xl font-bold text-white mb-2 font-primary">$9T</p>
-                    <p className="text-sm text-gray-300 font-secondary">{t('cta.stats.industry')}</p>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-3xl font-bold text-white mb-2 font-primary">44%</p>
-                    <p className="text-sm text-gray-300 font-secondary">{t('cta.stats.adoption')}</p>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-3xl font-bold text-white mb-2 font-primary">1.5x</p>
-                    <p className="text-sm text-gray-300 font-secondary">{t('cta.stats.growth')}</p>
-                  </div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="px-8 py-4 bg-gradient-to-r from-gray-800 to-gray-900 rounded-full font-semibold text-lg hover:scale-105 hover:from-gray-700 hover:to-gray-800 transition-all duration-200 shadow-lg hover:shadow-white/20 font-primary">
-                    {t('cta.primary')}
-                  </button>
-                  <button className="px-8 py-4 border-2 border-gray-400/50 rounded-full font-semibold text-lg hover:scale-105 hover:border-gray-300 transition-all duration-200 font-primary">
-                    {t('cta.secondary')}
-                  </button>
-                </div>
-              </GlassCard>
-              </ViewportAnimation>
-            </div>
-        </section>
-
-      {/* Footer */}
-      <footer className="relative z-10 py-12 px-4">
-          <div className="max-w-6xl mx-auto">
-            <ViewportAnimation animation="fade-up">
-              <GlassCard>
-              <div className="grid md:grid-cols-4 gap-8 mb-8">
-                <div>
-                  <h3 className="text-lg font-semibold mb-4 text-white font-primary">Monterrey Agentic Labs</h3>
-                  <p className="text-sm text-gray-300 font-secondary">Monterrey, Nuevo León, México</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3 text-gray-200 font-primary">{t('footer.services')}</h4>
-                  <ul className="text-sm text-gray-500 space-y-2 hover:*:text-gray-200 font-secondary">
-                    <li className="transition-colors cursor-pointer">{t('services.aiAgents.title')}</li>
-                    <li className="transition-colors cursor-pointer">{t('services.sales.title')}</li>
-                    <li className="transition-colors cursor-pointer">{t('services.development.title')}</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3 text-gray-200 font-primary">{t('footer.company')}</h4>
-                  <ul className="text-sm text-gray-500 space-y-2 hover:*:text-gray-200 font-secondary">
-                    <li className="transition-colors cursor-pointer">{t('footer.about')}</li>
-                    <li className="transition-colors cursor-pointer">{t('footer.caseStudies')}</li>
-                    <li className="transition-colors cursor-pointer">{t('footer.blog')}</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-3 text-gray-200 font-primary">{t('footer.contact')}</h4>
-                  <ul className="text-sm text-gray-500 space-y-2 hover:*:text-gray-200 font-secondary">
-                    <li className="transition-colors cursor-pointer">LinkedIn</li>
-                    <li className="transition-colors cursor-pointer">Twitter/X</li>
-                    <li className="transition-colors cursor-pointer">GitHub</li>
-                  </ul>
-                </div>
-              </div>
-              <div className="text-center text-gray-300 text-sm border-t border-white/10 pt-6 font-secondary">
-                <p>© 2025 Monterrey Agentic Labs. {t('footer.rights')}</p>
-              </div>
-            </GlassCard>
-            </ViewportAnimation>
+              ))}
+            </ViewportReveal>
           </div>
-        </footer>
+        </div>
+      </section>
+
+      {/* ── METHOD ── */}
+      <section id="metodo" className="bg-fg text-white" style={{ padding: '80px 0' }}>
+        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+          <ViewportReveal className="font-mono text-white/35 font-semibold mb-3"
+            style={{ fontSize: 10, letterSpacing: '0.18em' }}>
+            {t('method.label')}
+          </ViewportReveal>
+          <ViewportReveal as="h2" delay={0.05} className="font-display font-bold text-white m-0 mb-4"
+            style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.02em' }}>
+            {t('method.title')}
+          </ViewportReveal>
+          <ViewportReveal as="p" delay={0.12} className="text-white/60 m-0"
+            style={{ fontSize: 18, lineHeight: 1.65, maxWidth: '60ch', marginTop: -16 }}>
+            {t('method.lead')}
+          </ViewportReveal>
+        </div>
+      </section>
+
+      {/* ── DIFFERENTIATORS ── */}
+      <section id="diferencias" className="bg-white" style={{ padding: '80px 0' }}>
+        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+          <ViewportReveal className="font-mono text-brand font-semibold mb-3"
+            style={{ fontSize: 10, letterSpacing: '0.18em' }}>
+            {t('differentiators.label')}
+          </ViewportReveal>
+          <ViewportReveal as="h2" delay={0.05} className="font-display font-bold text-fg m-0 mb-10"
+            style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.02em' }}>
+            {t('differentiators.title')}
+          </ViewportReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <ViewportReveal selector=".diff-card" variant="stagger-up" stagger={0.1} className="contents">
+              {differentiators.map((d, i) => (
+                <div
+                  key={i}
+                  className="diff-card bg-white border border-line"
+                  style={{ padding: 32, borderRadius: 4 }}
+                >
+                  <div
+                    className="font-mono text-steel-light mb-3"
+                    style={{ fontSize: 10, letterSpacing: '0.14em' }}
+                  >
+                    {d.code}
+                  </div>
+                  <h3
+                    className="font-display font-bold text-fg m-0 mb-3"
+                    style={{ fontSize: 20, letterSpacing: '-0.01em' }}
+                  >
+                    {d.title}
+                  </h3>
+                  <p
+                    className="text-steel m-0"
+                    style={{ fontSize: 16, lineHeight: 1.65 }}
+                  >
+                    {d.body}
+                  </p>
+                </div>
+              ))}
+            </ViewportReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── STACK ── */}
+      <section id="stack" className="bg-fg text-white" style={{ padding: '56px 0' }}>
+        <div className="mx-auto" style={{ maxWidth: 1280, padding: '0 32px' }}>
+          <ViewportReveal className="font-mono text-white/35 font-semibold mb-3"
+            style={{ fontSize: 10, letterSpacing: '0.18em' }}>
+            {t('stack.label')}
+          </ViewportReveal>
+          <ViewportReveal as="p" delay={0.05} className="text-white/50 m-0 mb-8 italic"
+            style={{ fontSize: 16, marginTop: -8 }}>
+            {t('stack.lead')}
+          </ViewportReveal>
+          <div className="flex flex-wrap gap-2">
+            <ViewportReveal selector=".stack-item" variant="stagger-up" stagger={0.04} className="contents">
+              {stack.map((s, i) => (
+                <div
+                  key={i}
+                  className="stack-item flex items-center gap-2 bg-white/[0.05] border border-white/[0.08]"
+                  style={{ borderRadius: 2, padding: '8px 16px' }}
+                >
+                  <span
+                    className="font-mono text-white/80 font-semibold"
+                    style={{ fontSize: 12, letterSpacing: '0.04em' }}
+                  >
+                    {s.name}
+                  </span>
+                  <span
+                    className="font-mono text-white/25"
+                    style={{ fontSize: 10 }}
+                  >
+                    ★ {s.stars}
+                  </span>
+                </div>
+              ))}
+            </ViewportReveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── BOOKING ── */}
+      <section id="contacto" className="bg-fg text-white text-center" style={{ padding: '96px 0' }}>
+        <div className="mx-auto" style={{ maxWidth: 640, padding: '0 32px' }}>
+          <ViewportReveal className="inline-block font-mono text-operations border border-operations mb-6"
+            style={{ fontSize: 10, letterSpacing: '0.16em', padding: '4px 12px', borderRadius: 2 }}>
+            {t('booking.tag')}
+          </ViewportReveal>
+          <ViewportReveal as="h2" delay={0.05} className="font-display font-bold text-white m-0 mb-5"
+            style={{ fontSize: 'clamp(30px, 5vw, 52px)', letterSpacing: '-0.025em', lineHeight: 1.1 }}>
+            {t('booking.title')}
+          </ViewportReveal>
+          <ViewportReveal as="p" delay={0.12} className="text-white/55 m-0 mb-10"
+            style={{ fontSize: 18, lineHeight: 1.6 }}>
+            {t('booking.sub')}
+          </ViewportReveal>
+          <ViewportReveal delay={0.2} className="flex justify-center">
+            <BookingForm labels={formLabels} />
+          </ViewportReveal>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }

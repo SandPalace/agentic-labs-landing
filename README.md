@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MTY Agentic Labs — Landing
 
-## Getting Started
+The marketing landing for **MTY Agentic Labs** (Monterrey, México). Built with
+**Next.js 16 (App Router)**, **next-intl** (EN / ES), and **Tailwind v4**.
 
-First, run the development server:
+## Design system
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+The site uses a "lab-tech" aesthetic — light base (`#EEF3FB`), brand blue
+(`#1865D3`), yellow accent (`#FFE14D`), dark navy sections (`#0D1F3C`), with
+mono labels and hairline 1px grid dividers between cards.
+
+Fonts: **Space Grotesk** (display), **IBM Plex Sans** (body), **IBM Plex Mono**
+(labels & nav).
+
+## Stack
+
+- **Framework:** Next.js 16 + React 19
+- **i18n:** next-intl 4 (EN default, ES available — `localePrefix: 'always'`)
+- **Styling:** Tailwind v4 (`@theme` block defines color + font tokens)
+- **Content:** JSON files in `messages/{en,es}.json`
+- **Deploy:** static export to `out/`, published to GitHub Pages via `gh-pages`
+
+## Structure
+
+```
+app/
+  layout.tsx              # root layout (passthrough)
+  globals.css             # Tailwind v4 + design tokens
+  [locale]/
+    layout.tsx            # loads fonts + next-intl + JSON-LD
+    page.tsx              # single homepage (10 sections)
+components/
+  Topbar.tsx              # sticky dark header w/ nav + lang
+  Footer.tsx              # dark footer w/ nav + location
+  ServiceCard.tsx         # S-01..S-04 hairline card
+  ProblemCard.tsx         # 01..03 hairline card
+  DiffCard.tsx            # D-01..D-03 outlined card
+  AgentCard.tsx           # 6 agents (MANGO..MAIZ)
+  CatalogCard.tsx         # EST-001.. featured studies
+  StackItem.tsx           # OSS ecosystem strip
+  LanguageToggle.tsx      # EN/ES switcher
+i18n/
+  routing.ts              # locales: en, es
+  request.ts              # next-intl getRequestConfig
+messages/
+  en.json
+  es.json
+public/
+  favicon.svg
+  mark-white.svg
+  mark.svg
+  logo_mal.jpeg
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Develop
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm install
+npm run dev        # http://localhost:9999
+npm run build      # static export to ./out
+npm run lint
+npm run deploy     # publishes ./out to gh-pages
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Content
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All copy lives in `messages/{en,es}.json`. The homepage reads from
+`hero`, `services`, `problems`, `method`, `differentiators`, `agents`, `stack`,
+`cta`, `topbar`, `footer`, and `common`. Keep both locales in sync.

@@ -4,15 +4,16 @@
   "homepage": "https://sandpalace.github.io/agentic-labs-landing",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 9999",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 9999",
     "lint": "eslint",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d out"
   },
   "dependencies": {
-    "lucide-react": "^0.548.0",
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
     "next": "16.0.0",
     "next-intl": "^4.4.0",
     "react": "19.2.0",
@@ -26,7 +27,6 @@
     "eslint": "^9",
     "eslint-config-next": "16.0.0",
     "gh-pages": "^6.3.0",
-    "puppeteer": "^24.26.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

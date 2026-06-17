@@ -1,0 +1,16 @@
+<svg viewBox="0 0 200 178" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#1865D3" stroke-width="10" stroke-linejoin="miter" stroke-linecap="square">
+    <!-- Outer M -->
+    <polyline points="12,158 67,14 100,71 133,14 188,158"/>
+    <!-- Outer M — left L-bracket -->
+    <polyline points="12,158 12,168 46,168"/>
+    <!-- Outer M — right L-bracket -->
+    <polyline points="188,158 188,168 154,168"/>
+    <!-- Inner A triangle -->
+    <polyline points="46,158 100,56 154,158"/>
+    <!-- Inner A — left foot -->
+    <line x1="46" y1="158" x2="46" y2="168"/>
+    <!-- Inner A — right foot -->
+    <line x1="154" y1="158" x2="154" y2="168"/>
+  </g>
+</svg>

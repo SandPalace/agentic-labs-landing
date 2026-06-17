@@ -1,41 +1,82 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Neutrals */
+  --color-base: #EEF3FB;
+  --color-white: #FFFFFF;
+  --color-fg: #0D1F3C;
+  --color-steel: #4A5568;
+  --color-steel-light: #8A9BB0;
+  --color-line: #C8D6EB;
+
+  /* Brand */
+  --color-brand: #1865D3;
+  --color-brand-hover: #1453B3;
+
+  /* Accent */
+  --color-accent: #FFE14D;
+
+  /* System / category colors */
+  --color-research: #1865D3;
+  --color-operations: #2E9E6E;
+  --color-data: #6B4FBB;
+  --color-infrastructure: #D97706;
+  --color-security: #C42B2B;
+  --color-docs: #4A5568;
+
+  /* Typography */
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+
+  /* Base size */
+  --text-base: 18px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+* { box-sizing: border-box; }
 
-  /* Font families */
-  --font-family-primary: var(--font-primary);
-  --font-family-secondary: var(--font-secondary);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-html,
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-secondary), sans-serif;
-  overflow-x: hidden;
+html, body {
   margin: 0;
-  padding: 0;
+  background: var(--color-base);
+  color: var(--color-fg);
+  font-family: var(--font-plex-sans), sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom font utilities */
-.font-primary {
-  font-family: var(--font-primary), sans-serif;
+body {
+  overflow-x: hidden;
 }
 
-.font-secondary {
-  font-family: var(--font-secondary), sans-serif;
+::selection {
+  background: var(--color-accent);
+  color: var(--color-fg);
+}
+
+.font-display { font-family: var(--font-space-grotesk), sans-serif; }
+.font-body    { font-family: var(--font-plex-sans), sans-serif; }
+.font-mono    { font-family: var(--font-plex-mono), monospace; }
+
+.bg-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(24, 101, 211, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(24, 101, 211, 0.15) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-grid-page {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--color-brand) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-brand) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.04;
 }

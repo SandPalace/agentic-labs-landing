@@ -44,6 +44,9 @@ html, body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -58,6 +61,37 @@ body {
 .font-display { font-family: var(--font-space-grotesk), sans-serif; }
 .font-body    { font-family: var(--font-plex-sans), sans-serif; }
 .font-mono    { font-family: var(--font-plex-mono), monospace; }
+
+/* Shared responsive container — replaces inline `padding: 0 32px; maxWidth: 1280` */
+.container-px {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+@media (min-width: 640px) {
+  .container-px { padding-left: 28px; padding-right: 28px; }
+}
+@media (min-width: 768px) {
+  .container-px { padding-left: 32px; padding-right: 32px; }
+}
+
+/* Proof stats: horizontal divider on mobile, vertical divider on sm+ */
+.stat-divider {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+@media (min-width: 640px) {
+  .stat-divider {
+    border-bottom: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* Minimum tap target for primary interactive controls on small screens */
+@media (max-width: 767px) {
+  .tap-target { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+}
+
+/* Lock scroll when a mobile menu is open */
+body.menu-open { overflow: hidden; }
 
 .bg-grid {
   position: absolute;
@@ -79,4 +113,14 @@ body {
     linear-gradient(90deg, var(--color-brand) 1px, transparent 1px);
   background-size: 48px 48px;
   opacity: 0.04;
+}
+
+/* Respect users who prefer reduced motion: neutralize transforms/opacity transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

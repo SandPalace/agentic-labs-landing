@@ -67,7 +67,22 @@ export default function ViewportReveal({
         },
       };
 
-      gsap.fromTo(targets, fromVars, toVars);
+      // Respect prefers-reduced-motion: skip the tween and render the final state.
+      const mm = gsap.matchMedia();
+      mm.add(
+        {
+          reduceMotion: '(prefers-reduced-motion: reduce)',
+          allowMotion: '(prefers-reduced-motion: no-preference)',
+        },
+        (ctx) => {
+          const { reduceMotion } = ctx.conditions ?? {};
+          if (reduceMotion) {
+            gsap.set(targets, { opacity: 1, y: 0, clearProps: 'opacity,transform' });
+            return;
+          }
+          gsap.fromTo(targets, fromVars, toVars);
+        }
+      );
     },
     { scope: ref, dependencies: [variant, delay, stagger, once, selector] }
   );

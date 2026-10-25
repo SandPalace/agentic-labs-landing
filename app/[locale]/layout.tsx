@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, setRequestLocale } from 'next-intl/server';
+import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Poppins, Space_Grotesk } from "next/font/google";
 import { routing } from '@/i18n/routing';
@@ -21,39 +21,41 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 const SITE_NAME = "Mty Agentic Labs";
-const TITLE = "Mty Agentic Labs — Agentes de IA y automatización en Monterrey";
-const DESCRIPTION =
-  "Laboratorio de ingeniería en Monterrey. Diagnósticos, automatización de procesos, desarrollo de agentes de IA, integraciones ERP y capacitaciones. Hardware propio, proyectos en producción.";
 
-export const metadata: Metadata = {
-  title: TITLE,
-  description: DESCRIPTION,
-  applicationName: SITE_NAME,
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://agenticlabs.site"
-  ),
-  icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
-    ],
-    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
-  },
-  openGraph: {
-    type: "website",
-    siteName: SITE_NAME,
-    title: TITLE,
-    description: DESCRIPTION,
-    url: "/",
-    locale: "es_MX",
-    alternateLocale: ["en_US"],
-  },
-  twitter: {
-    card: "summary",
-    title: TITLE,
-    description: DESCRIPTION,
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'meta' });
+  const title = t('title');
+  const description = t('description');
+  return {
+    title,
+    description,
+    applicationName: SITE_NAME,
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://agenticlabs.site"),
+    alternates: { canonical: `/${locale}`, languages: { es: '/es', en: '/en' } },
+    icons: {
+      icon: [
+        { url: "/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
+      ],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    },
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      title,
+      description,
+      url: `/${locale}`,
+      locale: locale === 'es' ? "es_MX" : "en_US",
+      alternateLocale: [locale === 'es' ? "en_US" : "es_MX"],
+    },
+    twitter: { card: "summary", title, description },
+  };
+}
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -67,7 +69,7 @@ const jsonLd = {
   email: "hello@agenticlabs.site",
   logo: "https://agenticlabs.site/email/logo-mark-192.png",
   description:
-    "Laboratorio de ingeniería de inteligencia artificial y automatización con sede en Monterrey, México.",
+    "Transformación agéntica para empresas: capacitación en IA, cerebro empresarial y agentes de IA conectados a tus sistemas, desde Monterrey, México.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Monterrey",
@@ -76,11 +78,13 @@ const jsonLd = {
   },
   areaServed: "MX",
   serviceType: [
-    "Diagnóstico Operativo",
-    "Automatización de Procesos",
+    "Diagnóstico de IA",
+    "Taller IA para Negocios",
+    "Acompañamiento mensual",
+    "Cerebro empresarial",
+    "Automatización de procesos",
     "Agentes de IA",
-    "Integración ERP",
-    "Capacitaciones",
+    "Integración de sistemas",
   ],
 };
 

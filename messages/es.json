@@ -1,54 +1,66 @@
 {
-  "common": {
-    "viewAll": "Ver todo"
+  "meta": {
+    "title": "Mty Agentic Labs — Transformación agéntica para empresas",
+    "description": "Capacitamos a tu equipo, construimos tu cerebro empresarial y desplegamos agentes de IA conectados a tus sistemas, con gobernanza y un humano responsable de cada flujo. Desde Monterrey."
   },
   "topbar": {
-    "catalog": "Servicios",
-    "agents": "Problemas",
-    "research": "Método",
-    "about": "Diferencias",
-    "lab": "Stack →",
-    "cta": "Agendar llamada",
+    "route": "Ruta",
+    "services": "Servicios",
+    "governance": "Gobernanza",
+    "agentos": "AgentOS",
+    "work": "Casos",
+    "faq": "Preguntas",
+    "cta": "Agenda tu diagnóstico",
     "menu": "Menú",
     "menuOpen": "Abrir menú",
-    "menuClose": "Cerrar menú"
+    "menuClose": "Cerrar menú",
+    "skip": "Saltar al contenido"
   },
   "hero": {
     "eyebrowLocation": "MTY · NL · MÉXICO",
     "eyebrowStatus": "OPERATIVO",
-    "headline1": "Operaciones",
-    "headline2": "inteligentes.",
-    "sub": "Diseñamos, construimos y desplegamos agentes de IA que se integran con tu ERP, automatizan procesos y le dan inteligencia real a tu operación. Ingeniería aplicada, en producción, desde Monterrey.",
+    "headline1": "Transformación",
+    "headline2": "agéntica.",
+    "kicker": "De chatbots que contestan dudas a agentes que hacen trabajo real.",
+    "sub": "Capacitamos a tu equipo, construimos el cerebro empresarial de tu organización y desplegamos agentes conectados a tus sistemas. Con gobernanza, y siempre con un humano responsable de cada flujo.",
+    "ctaPrimary": "Agenda tu diagnóstico",
+    "ctaSecondary": "Ver la ruta",
     "proof": {
-      "gpu": "4× GPU",
-      "gpuLabel": "30 GB VRAM · local",
-      "production": "100%",
-      "productionLabel": "Proyectos en producción"
+      "a": "4× GPU",
+      "aLabel": "30 GB VRAM · inferencia local",
+      "b": "70%",
+      "bLabel": "práctica sobre casos reales"
+    },
+    "console": {
+      "location": "MTY · NL · MÉXICO",
+      "status": "OPERATIVO",
+      "inputs": "TUS SISTEMAS",
+      "hub": "CEREBRO",
+      "outputs": "EQUIPOS DE AGENTES",
+      "sources": ["ERP", "Correo", "Drive"],
+      "teams": ["Finanzas", "Ventas", "Cobranza", "Marketing"],
+      "human": "TÚ APRUEBAS",
+      "pause": "Pausar animación",
+      "resume": "Reanudar animación",
+      "aria": "Tus sistemas, un cerebro, equipos de agentes"
     }
   },
-  "services": {
-    "label": "LO QUE HACEMOS",
-    "title": "Diagnósticos, automatizaciones, desarrollos a medida y capacitaciones.",
+  "shift": {
+    "label": "EL CAMBIO",
+    "title": "Las empresas ya no contratan software que ayuda. Contratan trabajo terminado.",
+    "lead": "Un agente no te explica cómo conciliar una cuenta: la concilia, deja evidencia y te pide autorización solo en la excepción.",
     "items": [
       {
-        "code": "S-01",
-        "title": "Diagnósticos",
-        "body": "Evaluamos tu operación completa: procesos, sistemas, cuellos de botella y oportunidades reales de automatización. Entregamos un mapa de acción priorizado."
+        "title": "Apalancamiento, no recorte",
+        "body": "La pregunta no es a quién reemplazar, sino cómo crece tu empresa con el mismo costo. La IA no viene por tu puesto; viene por la talacha."
       },
       {
-        "code": "S-02",
-        "title": "Automatización de procesos",
-        "body": "Diseñamos y desplegamos flujos automatizados que conectan tus sistemas, eliminan trabajo manual repetitivo y operan 24/7 en producción."
+        "title": "Tus datos son el activo",
+        "body": "Los modelos son intercambiables. Tus datos, tus integraciones y tu forma de operar son lo que vale, y se quedan contigo."
       },
       {
-        "code": "S-03",
-        "title": "Desarrollos a medida",
-        "body": "Construimos software, agentes e integraciones específicas para tu operación: desde conectores ERP hasta sistemas de consulta inteligente con IA."
-      },
-      {
-        "code": "S-04",
-        "title": "Capacitaciones",
-        "body": "Formamos a tu equipo para que entienda, opere y extienda las herramientas que implementamos. La autonomía del cliente es parte del entregable."
+        "title": "Una decisión de negocio",
+        "body": "No es un proyecto de TI: es una decisión de estructura de costos. Se mide contra una línea base y se escala lo que funciona."
       }
     ]
   },
@@ -58,65 +70,207 @@
     "items": [
       {
         "id": "01",
-        "title": "Mi ERP no conecta con nada",
-        "body": "Integramos SAP, CONTPAQi, Microsip y cualquier API con flujos automatizados. Sin intervención manual, sin código de pegamento frágil."
+        "title": "Lo que aprende cada persona se queda en su chat",
+        "body": "Montamos un cerebro empresarial: memoria, contexto y método compartidos, para que el conocimiento suba a dirección y baje convertido en procesos."
       },
       {
         "id": "02",
-        "title": "Tengo datos pero no los puedo usar",
-        "body": "Construimos pipelines y agentes RAG que convierten documentos, bases de datos y registros históricos en conocimiento consultable en tiempo real."
+        "title": "Mis sistemas no se hablan y recapturamos todo",
+        "body": "Conectamos tu ERP, correo, Drive y hojas de cálculo con flujos automatizados y conectores MCP. La información fluye sin recapturas."
       },
       {
         "id": "03",
-        "title": "Perdemos horas en procesos manuales",
-        "body": "Desplegamos agentes operativos que ejecutan tareas, verifican condiciones y escalan excepciones. Con observabilidad completa desde el primer día."
+        "title": "Perdemos horas copiando, conciliando y reportando",
+        "body": "Desplegamos agentes que ejecutan la tarea de punta a punta, verifican condiciones y escalan solo las excepciones a una persona."
+      },
+      {
+        "id": "04",
+        "title": "Probamos IA y nunca llegó a producción",
+        "body": "Empezamos por lo verificable: un proceso, una métrica y un piloto contra la línea base. Lo que funciona se escala; lo que no, se apaga."
       }
     ]
   },
-  "method": {
-    "label": "EL MÉTODO",
-    "title": "Alcance cerrado. Entregable definido. Precio fijo.",
-    "lead": "Cada proyecto empieza con un estudio diagnóstico. Sabemos exactamente qué vamos a entregar, en cuánto tiempo y a qué costo — antes de escribir la primera línea de código."
+  "route": {
+    "label": "LA RUTA",
+    "title": "Cuatro pasos hacia una operación agéntica.",
+    "lead": "Primero un agente personal para cada colaborador. Después equipos de agentes coordinados por personas. Al final, una operación dirigida por humanos y asesorada por agentes.",
+    "caption": "MTY AGENTIC LABS",
+    "steps": [
+      {
+        "code": "01",
+        "title": "Diagnóstico",
+        "body": "Empieza por lo verificable. Cada persona mapea sus tareas de la semana y la que delegaría hoy; nosotros revisamos procesos y sistemas.",
+        "points": ["Mapa de acción priorizado", "Procesos candidatos y su línea base"]
+      },
+      {
+        "code": "02",
+        "title": "Capacitación",
+        "body": "Tu equipo aprende a trabajar con Claude sobre casos reales de su operación, en sesiones en vivo, presenciales o virtuales.",
+        "points": ["30% teoría · 70% práctica", "Prompts, skills y conectores a correo, calendario y Drive"]
+      },
+      {
+        "code": "03",
+        "title": "Cerebro empresarial",
+        "body": "Que lo que tu equipo aprende con IA no se quede en su chat. El conocimiento sube por la bitácora y baja convertido en skill.",
+        "points": ["Memoria, contexto y método compartidos", "Un reporte de una página para dirección"]
+      },
+      {
+        "code": "04",
+        "title": "Agentes en operación",
+        "body": "Agentes conectados a tus sistemas que ejecutan trabajo real, con niveles de autonomía definidos y un humano responsable de cada flujo.",
+        "points": ["Monitoreo y evidencia de cada acción", "Se escala por resultados, no por promesas"]
+      }
+    ]
   },
-  "differentiators": {
-    "label": "POR QUÉ MTY AGENTIC LABS",
-    "title": "Lo que nos hace distintos",
+  "services": {
+    "label": "SERVICIOS",
+    "title": "Capacitamos a tu equipo. Construimos lo que falta.",
+    "groups": [
+      {
+        "name": "Capacitar",
+        "items": [
+          {
+            "title": "Taller IA para Negocios",
+            "body": "Tu equipo trabaja con Claude sobre su operación real: fundamentos y uso responsable, prompting, Excel y reportes, skills y conectores.",
+            "meta": "2 sesiones × 3 h o 4 sesiones × 2 h · grupos de 1 a 15"
+          },
+          {
+            "title": "Acompañamiento mensual",
+            "body": "Después del taller llevamos lo aprendido a los procesos reales de cada equipo: flujos, plantillas y automatizaciones.",
+            "meta": "4 sesiones de 1 h al mes, por equipo"
+          },
+          {
+            "title": "Cerebro empresarial",
+            "body": "Diseñamos e implantamos la memoria, el contexto y las skills de tu organización, con roles, reglas y una cadencia que lo vuelve hábito.",
+            "meta": "Se construye durante el acompañamiento"
+          }
+        ]
+      },
+      {
+        "name": "Construir",
+        "items": [
+          {
+            "title": "Automatización de procesos",
+            "body": "Que el trabajo repetitivo se ejecute solo: flujos que conectan tus sistemas y operan 24/7.",
+            "meta": ""
+          },
+          {
+            "title": "Agentes de IA",
+            "body": "Empleados virtuales que ejecutan de punta a punta y escalan las excepciones a una persona.",
+            "meta": ""
+          },
+          {
+            "title": "Integración y software a medida",
+            "body": "Las piezas que faltan: conectores, servidores MCP y aplicaciones internas sobre tus datos.",
+            "meta": ""
+          },
+          {
+            "title": "Datos y pronósticos",
+            "body": "De datos crudos a decisiones: modelos de pronóstico, tableros y consulta inteligente.",
+            "meta": ""
+          }
+        ]
+      }
+    ],
+    "modelsLabel": "CÓMO TRABAJAMOS",
+    "models": [
+      {
+        "title": "Llave en mano",
+        "body": "Alcance cerrado y entregable definido desde el diagnóstico. Entregamos con documentación, capacitación y un periodo de estabilización."
+      },
+      {
+        "title": "Mantenimiento mensual",
+        "body": "Mejoras continuas, monitoreo y soporte prioritario para lo que ya opera en producción."
+      }
+    ],
+    "note": "Las capacitaciones tienen precio por grupo, no por persona. Los proyectos se cotizan después del diagnóstico."
+  },
+  "governance": {
+    "label": "GOBERNANZA",
+    "title": "El agente propone. Una persona decide.",
+    "lead": "El reto ya no es si los agentes pueden; es qué arquitectura y qué gobernanza mantienen seguros tu información y tu dinero. Definimos por proceso cuánta autonomía tiene cada agente.",
+    "humanLabel": "QUIÉN DECIDE",
+    "levels": [
+      { "level": "0", "name": "Asistente", "body": "El agente responde y redacta cuando se lo pides. No toca ningún sistema.", "human": "La persona hace todo el trabajo y usa al agente como apoyo." },
+      { "level": "1", "name": "Propone", "body": "El agente prepara el trabajo completo (una conciliación, un reporte, una respuesta) y lo deja listo para revisión.", "human": "La persona revisa y ejecuta." },
+      { "level": "2", "name": "Ejecuta con aprobación", "body": "El agente ejecuta en tus sistemas, pero cada acción espera un clic de aprobación.", "human": "La persona aprueba cada acción." },
+      { "level": "3", "name": "Escala excepciones", "body": "El agente resuelve los casos normales y deja evidencia; solo lo que sale de la regla llega a una persona.", "human": "La persona atiende las excepciones." },
+      { "level": "4", "name": "Zero touch gobernado", "body": "El proceso corre solo dentro de límites, controles y bitácora de auditoría.", "human": "La persona es responsable del proceso y de sus límites." }
+    ],
+    "principles": [
+      { "title": "Un humano responsable", "body": "Cada flujo tiene una persona dueña. Publicar, enviar o pagar nunca ocurre sin su firma." },
+      { "title": "El dinero va por su carril", "body": "El agente nunca tiene las llaves del banco: los pagos pasan por un circuito con controles y doble revisión." },
+      { "title": "Semáforo de datos", "body": "Reglas claras de qué información puede usar cada herramienta, con planes empresariales sin retención." },
+      { "title": "Hardware propio", "body": "Rack con 4 GPUs y 30 GB VRAM en Monterrey. Inferencia local para los modelos que lo permiten." }
+    ]
+  },
+  "agentos": {
+    "label": "HACIA DÓNDE VAMOS",
+    "title": "AgentOS: una oficina de equipos de agentes.",
+    "lead": "Claude entrenado, conectado a tu empresa y ejecutando tareas. Contratas un equipo, los agentes trabajan en Claude y tú supervisas y apruebas desde la oficina.",
+    "status": "EN PILOTO CON PRIMEROS CLIENTES",
+    "teamsLabel": "EQUIPOS",
+    "teams": [
+      { "name": "Asistente", "body": "La puerta de entrada: sabe qué hay, qué falta y qué espera tu aprobación." },
+      { "name": "Marketing", "body": "Investigación, calendario, creativos y reporte de resultados." },
+      { "name": "Ventas", "body": "Prospección, calificación de leads, propuestas y seguimiento." },
+      { "name": "Cobranza", "body": "Cartera por antigüedad, conciliación de pagos y recordatorios." },
+      { "name": "Finanzas", "body": "Cierre mensual, estados financieros y calendario fiscal." },
+      { "name": "Dirección", "body": "Prioridades, memos de decisión y plan trimestral." },
+      { "name": "Desarrollo web", "body": "Diseño, construcción y QA de sitios y tiendas." }
+    ],
+    "board": {
+      "label": "TABLERO",
+      "cols": ["En curso", "En revisión", "Aprobado"],
+      "task1": "Reporte de cartera",
+      "task2": "Propuesta comercial",
+      "task3": "Calendario del mes",
+      "rule": "Solo una persona mueve una tarea a Aprobado."
+    },
+    "principles": [
+      "Un agente propone; solo una persona aprueba.",
+      "Todo lo externo (publicar, enviar, pagar) es un borrador que tú ejecutas.",
+      "Local primero: corre en la computadora de tu empresa."
+    ]
+  },
+  "work": {
+    "label": "CASOS",
+    "title": "Trabajo real, en distintos sectores.",
+    "lead": "Por confidencialidad describimos los proyectos por sector.",
     "items": [
-      {
-        "code": "D-01",
-        "title": "Hardware propio",
-        "body": "Rack con 4 GPUs y 30 GB VRAM en Monterrey. Inferencia local para modelos que lo permiten. Tus datos permanecen en tu infraestructura."
-      },
-      {
-        "code": "D-02",
-        "title": "Alcance cerrado desde el día cero",
-        "body": "Cada encargo empieza con un estudio: entregable concreto, tiempo definido, precio fijo. Sin sorpresas de scope a mitad del camino."
-      },
-      {
-        "code": "D-03",
-        "title": "En producción desde el primer día",
-        "body": "Todo lo que construimos opera en producción: monitoreo, alertas y observabilidad incluidos en cada despliegue."
-      }
-    ]
+      { "sector": "Agencia de marketing · CDMX", "body": "Plataforma operativa a la medida (CRM, cotizaciones, proyectos y compras) con un servidor MCP para que Claude opere sobre sus datos con los mismos permisos que cada usuario.", "tag": "Software + MCP" },
+      { "sector": "Industria de alimentos", "body": "Aplicativo de pronóstico de demanda con varios modelos estadísticos, selección automática del mejor y procesamiento 100% local.", "tag": "Datos y pronósticos" },
+      { "sector": "Comercio en línea", "body": "Tienda, panel de administración y un agente en Telegram que consulta catálogo y pedidos en vivo con los permisos de un vendedor.", "tag": "Agente" },
+      { "sector": "Agencia de activaciones · 3 ciudades", "body": "Programa IA para Negocios por equipos y cerebro empresarial para que lo aprendido llegue a dirección.", "tag": "Capacitación" },
+      { "sector": "Inmobiliaria", "body": "Primera oficina AgentOS: prospección, contenido y extracción automatizada de inventario de propiedades.", "tag": "AgentOS" },
+      { "sector": "Marca de moda", "body": "Ruta de capacitación en marketing agéntico sobre Meta Ads y desarrollo de su propio sitio con agentes.", "tag": "Capacitación" }
+    ],
+    "speaking": "Ponente en el panel de IMEF sobre agentes de IA en finanzas · octubre 2026"
   },
   "stack": {
-    "label": "ECOSISTEMA OPEN SOURCE",
-    "lead": "Construimos sobre los mejores proyectos open source del ecosistema.",
+    "label": "ECOSISTEMA",
+    "lead": "Construimos sobre Claude, MCP y los mejores proyectos open source. Los modelos son intercambiables; la arquitectura es tuya.",
+    "items": ["Claude", "MCP", "LangGraph", "n8n", "Ollama", "Dify", "Supabase", "Airflow", "Grafana", "OpenCode", "Playwright", "Next.js"],
+    "pause": "Pausar",
+    "resume": "Reanudar",
+    "aria": "Tecnologías que usamos"
+  },
+  "faq": {
+    "label": "PREGUNTAS",
+    "title": "Lo que nos preguntan los directores.",
     "items": [
-      { "name": "n8n", "stars": "102k" },
-      { "name": "Ollama", "stars": "144k" },
-      { "name": "OpenCode", "stars": "18k" },
-      { "name": "LangGraph", "stars": "14k" },
-      { "name": "Dify", "stars": "94k" },
-      { "name": "Airflow", "stars": "40k" },
-      { "name": "Supabase", "stars": "80k" },
-      { "name": "Grafana", "stars": "68k" }
+      { "q": "¿Esto va a reemplazar a mi equipo?", "a": "El punto de partida es apalancamiento: que el mismo equipo haga más y deje la talacha a los agentes. Siempre hay un humano responsable del trabajo de los agentes." },
+      { "q": "¿Qué pasa con la información de mi empresa?", "a": "Definimos un semáforo de qué datos puede usar cada herramienta, trabajamos con planes empresariales sin retención y, cuando el modelo lo permite, con inferencia local en nuestro hardware." },
+      { "q": "¿Un agente puede mover dinero?", "a": "No por su cuenta. El agente propone; el dinero lo mueve un circuito con controles, aprobaciones y bitácora de auditoría." },
+      { "q": "¿Necesitamos ser expertos en automatización?", "a": "No. Si tu equipo maneja Excel, presentaciones y correo, puede empezar. La capacitación es 70% práctica sobre sus propios casos." },
+      { "q": "¿Nos amarra a un proveedor o a un modelo?", "a": "No. Diseñamos con arquitectura agnóstica: los modelos son intercambiables y tus datos, integraciones y skills se quedan contigo." },
+      { "q": "¿Por dónde empezamos?", "a": "Por un diagnóstico: identificamos uno o dos procesos verificables, medimos su línea base y definimos el primer paso con alcance cerrado." }
     ]
   },
   "booking": {
     "tag": "PRIMER PASO",
-    "title": "¿Listo para automatizar tu operación?",
-    "sub": "Cuéntanos sobre tu operación y elige un horario. Te contactaremos para confirmar los detalles.",
+    "title": "Agenda tu diagnóstico.",
+    "sub": "Cuéntanos qué proceso le quita más horas a tu equipo y elige un horario. Te contactaremos para confirmar los detalles.",
     "emailLabel": "O escríbenos directamente a",
     "email": "hello@agenticlabs.site",
     "form": {
@@ -128,7 +282,7 @@
       "date": "Fecha",
       "time": "Hora",
       "reason": "Motivo (opcional)",
-      "reasonPlaceholder": "¿Qué te gustaría tratar?",
+      "reasonPlaceholder": "¿Qué proceso te gustaría revisar?",
       "submit": "Solicitar cita",
       "submitting": "Enviando…",
       "success": "Solicitud enviada",
@@ -142,12 +296,8 @@
     }
   },
   "footer": {
-    "catalog": "Servicios",
-    "agents": "Problemas",
-    "research": "Método",
-    "openSource": "Stack",
-    "about": "Diferencias",
-    "lab": "Stack",
-    "loc": "Monterrey, MX · Remoto en todo el mundo"
+    "tagline": "Transformación agéntica para empresas, desde Monterrey.",
+    "loc": "Monterrey, MX · Remoto en todo el mundo",
+    "rights": "© 2026 Mty Agentic Labs"
   }
 }

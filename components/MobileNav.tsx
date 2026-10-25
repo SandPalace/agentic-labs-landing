@@ -49,8 +49,8 @@ export default function MobileNav({
         aria-expanded={open}
         aria-label={open ? menuCloseLabel : menuOpenLabel}
         aria-controls="mobile-nav-panel"
-        className="md:hidden flex items-center justify-center text-fg no-underline bg-white border border-line-strong hover:bg-base transition-colors rounded-full"
-        style={{ width: 40, height: 40, gap: 4 }}
+        className="lg:hidden flex items-center justify-center text-fg no-underline bg-white border border-line-strong hover:bg-base transition-colors rounded-full"
+        style={{ width: 44, height: 44, gap: 4 }}
       >
         {/* Hamburger / close icon — pure SVG, no external deps */}
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -69,7 +69,7 @@ export default function MobileNav({
       {open && (
         <div
           id="mobile-nav-panel"
-          className="md:hidden absolute left-0 right-0 top-full bg-white border-b border-line z-40"
+          className="lg:hidden absolute left-0 right-0 top-full bg-white border-b border-line z-40"
           role="dialog"
           aria-modal="true"
           aria-label={menuLabel}

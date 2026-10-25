@@ -7,14 +7,17 @@ export default async function Topbar() {
   const t = await getTranslations('topbar');
 
   const navItems = [
-    { href: '#servicios', label: t('catalog') },
-    { href: '#problemas', label: t('agents') },
-    { href: '#metodo', label: t('research') },
-    { href: '#diferencias', label: t('about') },
-    { href: '#stack', label: t('lab') },
+    { href: '#ruta', label: t('route') },
+    { href: '#servicios', label: t('services') },
+    { href: '#gobernanza', label: t('governance') },
+    { href: '#agentos', label: t('agentos') },
+    { href: '#casos', label: t('work') },
+    { href: '#preguntas', label: t('faq') },
   ];
 
   return (
+    <>
+    <a href="#contenido" className="skip-link">{t('skip')}</a>
     <header
       className="sticky top-0 z-50 border-b border-line"
       style={{ height: 64, background: 'rgba(255, 255, 255, 0.92)', backdropFilter: 'saturate(180%) blur(12px)', WebkitBackdropFilter: 'saturate(180%) blur(12px)' }}
@@ -28,15 +31,13 @@ export default async function Topbar() {
         </a>
 
         {/* Desktop nav (md and up) */}
-        <nav className="hidden md:flex gap-1 flex-1" style={{ marginLeft: 16 }}>
+        <nav className="hidden lg:flex gap-1 flex-1" style={{ marginLeft: 8 }} aria-label="Principal">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
-              className={`font-body font-medium no-underline rounded-full transition-colors hover:text-fg hover:bg-base ${
-                item.label === t('lab') ? 'text-steel-light' : 'text-steel'
-              }`}
-              style={{ fontSize: 14, padding: '8px 14px' }}
+              className="font-body font-medium no-underline rounded-full transition-colors hover:text-fg hover:bg-base text-steel"
+              style={{ fontSize: 14, padding: '8px 12px' }}
             >
               {item.label}
             </a>
@@ -44,7 +45,7 @@ export default async function Topbar() {
         </nav>
 
         {/* Right cluster — Language toggle + CTA (desktop) */}
-        <div className="hidden md:flex items-center ml-auto">
+        <div className="hidden lg:flex items-center ml-auto">
           <LanguageToggle />
           <a
             href="#contacto"
@@ -56,7 +57,7 @@ export default async function Topbar() {
         </div>
 
         {/* Mobile nav (below md) */}
-        <div className="flex items-center ml-auto md:hidden">
+        <div className="flex items-center ml-auto lg:hidden">
           <MobileNav
             navItems={navItems}
             cta={t('cta')}
@@ -67,5 +68,6 @@ export default async function Topbar() {
         </div>
       </div>
     </header>
+    </>
   );
 }

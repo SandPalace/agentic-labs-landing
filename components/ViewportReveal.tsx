@@ -11,6 +11,7 @@ interface ViewportRevealProps {
   children: ReactNode;
   as?: keyof React.JSX.IntrinsicElements;
   className?: string;
+  id?: string;
   style?: CSSProperties;
   /** CSS selector relative to the wrapper to animate. When provided, children with this selector are animated with stagger. */
   selector?: string;
@@ -28,6 +29,7 @@ export default function ViewportReveal({
   children,
   as = 'div',
   className = '',
+  id,
   style,
   selector,
   variant = 'fade-up',
@@ -89,7 +91,7 @@ export default function ViewportReveal({
 
   const Tag = as as React.ElementType;
   return (
-    <Tag ref={ref} className={className} style={style}>
+    <Tag ref={ref} id={id} className={className} style={style}>
       {children}
     </Tag>
   );

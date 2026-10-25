@@ -1,56 +1,54 @@
-import Logo from '@/components/Logo';
+import Logo, { LogoMark } from '@/components/Logo';
 import { getTranslations } from 'next-intl/server';
 
 export default async function Footer() {
   const t = await getTranslations('footer');
+  const nav = await getTranslations('topbar');
+  const booking = await getTranslations('booking');
 
   const navItems = [
-    { href: '#servicios', label: t('catalog') },
-    { href: '#problemas', label: t('agents') },
-    { href: '#metodo', label: t('research') },
-    { href: '#stack', label: t('openSource') },
-    { href: '#diferencias', label: t('about') },
-    { href: '#contacto', label: t('lab') },
+    { href: '#ruta', label: nav('route') },
+    { href: '#servicios', label: nav('services') },
+    { href: '#gobernanza', label: nav('governance') },
+    { href: '#agentos', label: nav('agentos') },
+    { href: '#casos', label: nav('work') },
+    { href: '#preguntas', label: nav('faq') },
   ];
 
   return (
-    <footer className="bg-white border-t border-line" style={{ padding: '28px 0' }}>
-      <div
-        className="mx-auto flex flex-col md:flex-row md:items-center container-px"
-        style={{ maxWidth: 1280, gap: 24 }}
-      >
-        <div className="flex items-center flex-shrink-0">
-          <Logo size={22} fontSize={15} />
-        </div>
-
-        {/* Mobile: 2-column grid; Desktop: inline flex */}
-        <nav
-          className="grid grid-cols-2 md:flex md:flex-1 md:flex-wrap"
-          style={{ gap: 4 }}
-        >
-          {navItems.map((item) => (
+    <footer className="curtain-footer bg-white border-t border-line">
+      <div className="mx-auto container-px" style={{ maxWidth: 1280, paddingTop: 'clamp(48px, 8vw, 88px)', paddingBottom: 28 }}>
+        <div className="grid gap-10 md:grid-cols-[1.2fr_1fr] items-end">
+          <div>
+            <LogoMark size={56} />
+            <p className="font-display font-extrabold text-fg m-0" style={{ fontSize: 'clamp(26px, 3.4vw, 40px)', letterSpacing: '-0.035em', lineHeight: 1.1, marginTop: 24, maxWidth: '20ch' }}>
+              {t('tagline')}
+            </p>
             <a
-              key={item.href}
-              href={item.href}
-              className="font-body text-steel no-underline rounded-full transition-colors hover:text-fg hover:bg-base"
-              style={{
-                fontSize: 14,
-                padding: '5px 12px',
-                minHeight: 36,
-                display: 'inline-flex',
-                alignItems: 'center',
-              }}
+              href={`mailto:${booking('email')}`}
+              className="inline-block font-semibold text-brand no-underline border-b border-brand/30 hover:border-brand transition-colors"
+              style={{ marginTop: 20, fontSize: 17 }}
             >
-              {item.label}
+              {booking('email')}
             </a>
-          ))}
-        </nav>
-
-        <div
-          className="font-label font-semibold text-steel md:text-right"
-          style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase' }}
-        >
-          {t('loc')}
+          </div>
+          <nav aria-label="Footer" className="grid grid-cols-2 sm:grid-cols-3" style={{ gap: 4 }}>
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="font-body text-steel no-underline rounded-full transition-colors hover:text-fg hover:bg-base"
+                style={{ fontSize: 15, padding: '8px 12px', minHeight: 44, display: 'inline-flex', alignItems: 'center' }}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </div>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between border-t border-line" style={{ gap: 12, marginTop: 48, paddingTop: 20 }}>
+          <Logo size={20} fontSize={14} />
+          <div className="eyebrow">{t('loc')}</div>
+          <div className="eyebrow">{t('rights')}</div>
         </div>
       </div>
     </footer>

@@ -3,380 +3,297 @@ import Topbar from '@/components/Topbar';
 import Footer from '@/components/Footer';
 import ViewportReveal from '@/components/ViewportReveal';
 import BookingForm from '@/components/BookingForm';
+import HeroConsole, { HeroConsoleLabels } from '@/components/v2/HeroConsole';
+import RouteStory, { RouteStep } from '@/components/v2/RouteStory';
+import AutonomyLevels, { AutonomyLevel } from '@/components/v2/AutonomyLevels';
+import Marquee from '@/components/v2/Marquee';
 
-export default async function Home({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+type TB = { title: string; body: string };
+type ServiceItem = TB & { meta: string };
+
+const TONES = ['blue', 'teal', 'purple', 'orange'] as const;
+
+function SectionHead({ label, title, lead, id }: { label: string; title: string; lead?: string; id: string }) {
+  return (
+    <div className="sec-head">
+      <ViewportReveal as="p" className="eyebrow">{label}</ViewportReveal>
+      <ViewportReveal as="h2" delay={0.05} className="h-section" id={id}>{title}</ViewportReveal>
+      {lead ? (
+        <ViewportReveal as="p" delay={0.1} className="lead" style={{ marginTop: 20, maxWidth: '62ch' }}>{lead}</ViewportReveal>
+      ) : null}
+    </div>
+  );
+}
+
+export default async function Home({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations();
+  const raw = <T,>(key: string) => t.raw(key) as T;
 
-  const services = (await getTranslations('services')).raw('items') as Array<{
-    code: string;
-    title: string;
-    body: string;
-  }>;
-  const problems = (await getTranslations('problems')).raw('items') as Array<{
-    id: string;
-    title: string;
-    body: string;
-  }>;
-  const differentiators = (await getTranslations('differentiators')).raw('items') as Array<{
-    code: string;
-    title: string;
-    body: string;
-  }>;
-  const stack = (await getTranslations('stack')).raw('items') as Array<{
-    name: string;
-    stars: string;
-  }>;
-  const proof = {
-    gpu: t('hero.proof.gpu'),
-    gpuLabel: t('hero.proof.gpuLabel'),
-    production: t('hero.proof.production'),
-    productionLabel: t('hero.proof.productionLabel'),
-  };
-
-  const formLabels = {
-    title: t('booking.form.title'),
-    name: t('booking.form.name'),
-    namePlaceholder: t('booking.form.namePlaceholder'),
-    email: t('booking.form.email'),
-    emailPlaceholder: t('booking.form.emailPlaceholder'),
-    date: t('booking.form.date'),
-    time: t('booking.form.time'),
-    reason: t('booking.form.reason'),
-    reasonPlaceholder: t('booking.form.reasonPlaceholder'),
-    submit: t('booking.form.submit'),
-    submitting: t('booking.form.submitting'),
-    success: t('booking.form.success'),
-    successSub: t('booking.form.successSub'),
-    errorGeneric: t('booking.form.errorGeneric'),
-    errorUpstream: t('booking.form.errorUpstream'),
-    errorName: t('booking.form.errorName'),
-    errorEmail: t('booking.form.errorEmail'),
-    errorDate: t('booking.form.errorDate'),
-    errorTime: t('booking.form.errorTime'),
-  };
-
-  // Spectrum mapping for category codes: dot/bar color, soft tint and readable ink.
-  const spectrum: Record<string, { c: string; soft: string; ink: string }> = {
-    blue: { c: 'var(--color-blue)', soft: 'var(--color-blue-soft)', ink: 'var(--color-blue-ink)' },
-    teal: { c: 'var(--color-teal)', soft: 'var(--color-teal-soft)', ink: 'var(--color-teal-ink)' },
-    purple: { c: 'var(--color-purple)', soft: 'var(--color-purple-soft)', ink: 'var(--color-purple-ink)' },
-    orange: { c: 'var(--color-orange)', soft: 'var(--color-orange-soft)', ink: 'var(--color-orange-ink)' },
-  };
-  const serviceTone: Record<string, keyof typeof spectrum> = {
-    'S-01': 'blue',
-    'S-02': 'teal',
-    'S-03': 'purple',
-    'S-04': 'orange',
-  };
-  const cycle: Array<keyof typeof spectrum> = ['blue', 'orange', 'purple', 'teal'];
-
-  const eyebrow = 'font-label font-semibold text-steel uppercase';
-  const eyebrowStyle = { fontSize: 11, letterSpacing: '0.16em' } as const;
+  const consoleLabels = raw<HeroConsoleLabels>('hero.console');
+  const shiftItems = raw<TB[]>('shift.items');
+  const problems = raw<Array<TB & { id: string }>>('problems.items');
+  const steps = raw<RouteStep[]>('route.steps');
+  const groups = raw<Array<{ name: string; items: ServiceItem[] }>>('services.groups');
+  const models = raw<TB[]>('services.models');
+  const levels = raw<AutonomyLevel[]>('governance.levels');
+  const principles = raw<TB[]>('governance.principles');
+  const teams = raw<Array<{ name: string; body: string }>>('agentos.teams');
+  const board = raw<{ label: string; cols: string[]; task1: string; task2: string; task3: string; rule: string }>('agentos.board');
+  const aosPrinciples = raw<string[]>('agentos.principles');
+  const work = raw<Array<{ sector: string; body: string; tag: string }>>('work.items');
+  const stack = raw<string[]>('stack.items');
+  const faq = raw<Array<{ q: string; a: string }>>('faq.items');
+  const formLabels = raw<Parameters<typeof BookingForm>[0]['labels']>('booking.form');
 
   return (
     <div id="top" className="relative bg-base text-fg">
       <Topbar />
 
-      {/* ── HERO ── */}
-      <section
-        className="relative overflow-hidden bg-base text-fg"
-        style={{ padding: 'clamp(56px, 12vw, 96px) 0 clamp(56px, 10vw, 80px)' }}
-      >
-        <div className="bg-grid" />
-        <div className="relative z-10 mx-auto container-px" style={{ maxWidth: 1280 }}>
-          <ViewportReveal className="flex items-center gap-2.5 mb-7">
-            <span className="font-label font-semibold text-[11px] tracking-[0.14em] text-steel">
-              {t('hero.eyebrowLocation')}
-            </span>
-            <span
-              aria-hidden="true"
-              className="inline-block rounded-full bg-teal"
-              style={{ width: 7, height: 7 }}
-            />
-            <span className="font-label font-semibold text-[11px] tracking-[0.14em] text-teal-ink">
-              {t('hero.eyebrowStatus')}
-            </span>
-          </ViewportReveal>
-          <ViewportReveal as="h1" delay={0.05} className="font-display font-extrabold text-fg m-0 mb-6"
-            style={{ fontSize: 'clamp(34px, 7vw, 88px)', lineHeight: 1.02, letterSpacing: '-0.04em' }}>
-            {t('hero.headline1')}
-            <br />
-            <span className="text-brand">{t('hero.headline2')}</span>
-          </ViewportReveal>
-          <ViewportReveal as="p" delay={0.12} className="text-ink-soft m-0 mb-12"
-            style={{ fontSize: 'clamp(17px, 2.2vw, 21px)', lineHeight: 1.6, maxWidth: '56ch' }}>
-            {t('hero.sub')}
-          </ViewportReveal>
-          <ViewportReveal delay={0.2} className="flex flex-col sm:flex-row w-full sm:w-fit bg-white border border-line overflow-hidden" style={{ borderRadius: 2 }}>
-            {[
-              { v: proof.gpu, l: proof.gpuLabel, c: 'var(--color-blue)' },
-              { v: proof.production, l: proof.productionLabel, c: 'var(--color-teal)' },
-            ].map((p, i) => (
-              <div
-                key={i}
-                className={`flex flex-col gap-1 ${i < 1 ? 'stat-divider' : ''}`}
-                style={{ padding: '18px 28px', borderTop: `3px solid ${p.c}` }}
-              >
-                <span className="font-display font-bold text-fg" style={{ fontSize: 24, letterSpacing: '-0.02em', lineHeight: 1.1 }}>
-                  {p.v}
-                </span>
-                <span className="font-label font-semibold text-steel" style={{ fontSize: 10.5, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-                  {p.l}
-                </span>
+      <main id="contenido" className="curtain-main">
+        <div className="frame">
+          {/* ── HERO ── */}
+          <section className="sec hero" aria-labelledby="hero-title">
+            <div className="hero__copy">
+              <p className="eyebrow hero__status fade-in-up">
+                <span>{t('hero.eyebrowLocation')}</span>
+                <span className="pulse" aria-hidden="true" />
+                <span style={{ color: 'var(--color-teal-ink)' }}>{t('hero.eyebrowStatus')}</span>
+              </p>
+              <h1 id="hero-title" className="h-display hero__title">
+                <span className="mask-line"><span>{t('hero.headline1')}</span></span>
+                <span className="mask-line"><span className="text-brand">{t('hero.headline2')}</span></span>
+                <span className="spectrum-rule" aria-hidden="true" />
+              </h1>
+              <p className="hero__kicker fade-in-up" style={{ animationDelay: '350ms' }}>{t('hero.kicker')}</p>
+              <p className="lead hero__sub fade-in-up" style={{ animationDelay: '420ms' }}>{t('hero.sub')}</p>
+              <div className="hero__actions fade-in-up" style={{ animationDelay: '500ms' }}>
+                <a className="btn btn-primary" href="#contacto">
+                  {t('hero.ctaPrimary')} <span className="arrow" aria-hidden="true">→</span>
+                </a>
+                <a className="btn btn-ghost" href="#ruta">{t('hero.ctaSecondary')}</a>
               </div>
-            ))}
-          </ViewportReveal>
-        </div>
-      </section>
+              <dl className="proof fade-in-up" style={{ animationDelay: '580ms' }}>
+                <div style={{ ['--c' as string]: 'var(--color-blue)' }}>
+                  <dt className="sr-only">{t('hero.proof.aLabel')}</dt>
+                  <dd>
+                    <b>{t('hero.proof.a')}</b>
+                    <span>{t('hero.proof.aLabel')}</span>
+                  </dd>
+                </div>
+                <div style={{ ['--c' as string]: 'var(--color-teal)' }}>
+                  <dt className="sr-only">{t('hero.proof.bLabel')}</dt>
+                  <dd>
+                    <b>{t('hero.proof.b')}</b>
+                    <span>{t('hero.proof.bLabel')}</span>
+                  </dd>
+                </div>
+              </dl>
+            </div>
+            <div className="hero__visual fade-in-up" style={{ animationDelay: '300ms' }}>
+              <HeroConsole labels={consoleLabels} />
+            </div>
+          </section>
 
-      {/* ── SERVICIOS ── */}
-      <section id="servicios" className="bg-white border-t border-line" style={{ padding: 'clamp(56px, 10vw, 80px) 0' }}>
-        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
-          <ViewportReveal className={`${eyebrow} mb-3`} style={eyebrowStyle}>
-            {t('services.label')}
-          </ViewportReveal>
-          <ViewportReveal as="h2" delay={0.05} className="font-display font-extrabold text-fg m-0 mb-10"
-            style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-            {t('services.title')}
-          </ViewportReveal>
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line overflow-hidden"
-            style={{ borderRadius: 2 }}
-          >
-            <ViewportReveal selector=".service-card" variant="stagger-up" stagger={0.08} className="contents">
-              {services.map((s, i) => {
-                const tone = spectrum[serviceTone[s.code] ?? 'blue'];
-                return (
-                  <div
-                    key={i}
-                    className="service-card bg-white flex flex-col"
-                    style={{ padding: '28px 24px', gap: 12 }}
-                  >
-                    <div className="flex justify-between items-center">
-                      <span
-                        className="font-label font-bold rounded-full"
-                        style={{ fontSize: 10.5, letterSpacing: '0.12em', color: tone.ink, background: tone.soft, padding: '4px 11px' }}
-                      >
-                        {s.code}
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        style={{ width: 12, height: 12, borderRadius: 2, background: tone.c }}
-                      />
-                    </div>
-                    <h3
-                      className="font-display font-bold text-fg m-0"
-                      style={{ fontSize: 19, letterSpacing: '-0.015em', lineHeight: 1.25 }}
-                    >
-                      {s.title}
-                    </h3>
-                    <p
-                      className="text-steel m-0"
-                      style={{ fontSize: 15, lineHeight: 1.6 }}
-                    >
-                      {s.body}
-                    </p>
-                  </div>
-                );
-              })}
-            </ViewportReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ── PROBLEMS ── */}
-      <section id="problemas" className="bg-base border-t border-line" style={{ padding: 'clamp(56px, 10vw, 80px) 0' }}>
-        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
-          <ViewportReveal className={`${eyebrow} mb-3`} style={eyebrowStyle}>
-            {t('problems.label')}
-          </ViewportReveal>
-          <ViewportReveal as="h2" delay={0.05} className="font-display font-extrabold text-fg m-0 mb-10"
-            style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-            {t('problems.title')}
-          </ViewportReveal>
-          <div
-            className="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line overflow-hidden"
-            style={{ borderRadius: 2 }}
-          >
-            <ViewportReveal selector=".problem-card" variant="stagger-up" stagger={0.1} className="contents">
-              {problems.map((p, i) => (
-                <div
-                  key={i}
-                  className="problem-card bg-white flex flex-col"
-                  style={{ padding: 32, gap: 12 }}
-                >
-                  <div
-                    className="font-label font-semibold text-steel"
-                    style={{ fontSize: 11, letterSpacing: '0.14em' }}
-                  >
-                    {p.id}
-                  </div>
-                  <h3
-                    className="font-display font-bold text-fg m-0"
-                    style={{ fontSize: 20, letterSpacing: '-0.015em', lineHeight: 1.25 }}
-                  >
-                    {p.title}
-                  </h3>
-                  <p
-                    className="text-steel m-0"
-                    style={{ fontSize: 16, lineHeight: 1.65 }}
-                  >
-                    {p.body}
-                  </p>
+          {/* ── EL CAMBIO ── */}
+          <section className="sec" aria-labelledby="shift-title" style={{ background: 'var(--color-white)' }}>
+            <ViewportReveal as="p" className="eyebrow">{t('shift.label')}</ViewportReveal>
+            <ViewportReveal as="h2" delay={0.05} id="shift-title" className="h-section shift__title">{t('shift.title')}</ViewportReveal>
+            <ViewportReveal as="p" delay={0.1} className="lead" style={{ marginTop: 24, maxWidth: '58ch' }}>{t('shift.lead')}</ViewportReveal>
+            <ViewportReveal selector=".shift__item" variant="stagger-up" stagger={0.08} className="shift__grid">
+              {shiftItems.map((it, i) => (
+                <div key={it.title} className="shift__item" style={{ ['--c' as string]: `var(--color-${TONES[i]})` }}>
+                  <span className="shift__cube" aria-hidden="true" />
+                  <h3>{it.title}</h3>
+                  <p>{it.body}</p>
                 </div>
               ))}
             </ViewportReveal>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* ── METHOD ── */}
-      <section id="metodo" className="bg-blue-soft border-t border-line" style={{ padding: 'clamp(56px, 10vw, 80px) 0' }}>
-        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
-          <ViewportReveal className="font-label font-semibold text-blue-ink uppercase mb-3" style={eyebrowStyle}>
-            {t('method.label')}
-          </ViewportReveal>
-          <ViewportReveal as="h2" delay={0.05} className="font-display font-extrabold text-fg m-0 mb-4"
-            style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-            {t('method.title')}
-          </ViewportReveal>
-          <ViewportReveal as="p" delay={0.12} className="m-0"
-            style={{ fontSize: 18, lineHeight: 1.65, maxWidth: '60ch', color: '#10367A' }}>
-            {t('method.lead')}
-          </ViewportReveal>
-        </div>
-      </section>
-
-      {/* ── DIFFERENTIATORS ── */}
-      <section id="diferencias" className="bg-base border-t border-line" style={{ padding: 'clamp(56px, 10vw, 80px) 0' }}>
-        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
-          <ViewportReveal className={`${eyebrow} mb-3`} style={eyebrowStyle}>
-            {t('differentiators.label')}
-          </ViewportReveal>
-          <ViewportReveal as="h2" delay={0.05} className="font-display font-extrabold text-fg m-0 mb-10"
-            style={{ fontSize: 'clamp(28px, 4vw, 44px)', letterSpacing: '-0.03em', lineHeight: 1.1 }}>
-            {t('differentiators.title')}
-          </ViewportReveal>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <ViewportReveal selector=".diff-card" variant="stagger-up" stagger={0.1} className="contents">
-              {differentiators.map((d, i) => {
-                const tone = spectrum[cycle[i % cycle.length]];
-                return (
-                  <div
-                    key={i}
-                    className="diff-card bg-white border border-line"
-                    style={{ padding: 32, borderRadius: 2 }}
-                  >
-                    <div className="flex items-center gap-2.5 mb-4">
-                      <span
-                        aria-hidden="true"
-                        style={{ width: 10, height: 10, borderRadius: 2, background: tone.c }}
-                      />
-                      <span
-                        className="font-label font-semibold text-steel"
-                        style={{ fontSize: 11, letterSpacing: '0.14em' }}
-                      >
-                        {d.code}
-                      </span>
-                    </div>
-                    <h3
-                      className="font-display font-bold text-fg m-0 mb-3"
-                      style={{ fontSize: 20, letterSpacing: '-0.015em', lineHeight: 1.25 }}
-                    >
-                      {d.title}
-                    </h3>
-                    <p
-                      className="text-steel m-0"
-                      style={{ fontSize: 16, lineHeight: 1.65 }}
-                    >
-                      {d.body}
-                    </p>
+          {/* ── PUNTO DE PARTIDA ── */}
+          <section className="sec" id="problemas" aria-labelledby="problems-title">
+            <SectionHead label={t('problems.label')} title={t('problems.title')} id="problems-title" />
+            <ViewportReveal as="ol" selector=".problem" variant="stagger-up" stagger={0.08} className="problems">
+              {problems.map((p) => (
+                <li key={p.id} className="problem">
+                  <div className="problem__q">
+                    <span className="eyebrow">{p.id}</span>
+                    <h3>{p.title}</h3>
                   </div>
-                );
-              })}
+                  <span className="problem__link" aria-hidden="true"><i /></span>
+                  <p className="problem__a">{p.body}</p>
+                </li>
+              ))}
             </ViewportReveal>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* ── STACK ── */}
-      <section id="stack" className="bg-white border-t border-line" style={{ padding: 'clamp(40px, 7vw, 56px) 0' }}>
-        <div className="mx-auto container-px" style={{ maxWidth: 1280 }}>
-          <ViewportReveal className={`${eyebrow} mb-3`} style={eyebrowStyle}>
-            {t('stack.label')}
-          </ViewportReveal>
-          <ViewportReveal as="p" delay={0.05} className="text-steel m-0 mb-8"
-            style={{ fontSize: 16 }}>
-            {t('stack.lead')}
-          </ViewportReveal>
-          <div className="flex flex-wrap gap-2">
-            <ViewportReveal selector=".stack-item" variant="stagger-up" stagger={0.04} className="contents">
-              {stack.map((s, i) => (
-                <div
-                  key={i}
-                  className="stack-item flex items-center gap-2 bg-base border border-line rounded-full"
-                  style={{ padding: '8px 16px' }}
-                >
-                  <span
-                    aria-hidden="true"
-                    style={{ width: 8, height: 8, borderRadius: 2, background: spectrum[cycle[i % cycle.length]].c }}
-                  />
-                  <span
-                    className="font-body text-fg font-semibold"
-                    style={{ fontSize: 14 }}
-                  >
-                    {s.name}
-                  </span>
-                  <span
-                    className="font-label font-semibold text-steel"
-                    style={{ fontSize: 11, letterSpacing: '0.04em' }}
-                  >
-                    ★ {s.stars}
-                  </span>
+          {/* ── LA RUTA ── */}
+          <section className="sec" id="ruta" aria-labelledby="route-title" style={{ background: 'var(--color-white)' }}>
+            <SectionHead label={t('route.label')} title={t('route.title')} lead={t('route.lead')} id="route-title" />
+            <RouteStory steps={steps} caption={t('route.caption')} />
+          </section>
+
+          {/* ── SERVICIOS ── */}
+          <section className="sec" id="servicios" aria-labelledby="services-title">
+            <SectionHead label={t('services.label')} title={t('services.title')} id="services-title" />
+            <div className="svc">
+              {groups.map((g, gi) => (
+                <div key={g.name} className="svc__group" data-group={gi}>
+                  <ViewportReveal as="h3" className="svc__group-name">
+                    <span aria-hidden="true" className="svc__group-cube" style={{ background: gi === 0 ? 'var(--color-teal)' : 'var(--color-orange)' }} />
+                    {g.name}
+                  </ViewportReveal>
+                  <ViewportReveal selector=".svc__card" variant="stagger-up" stagger={0.06} className={`svc__cards svc__cards--${gi}`}>
+                    {g.items.map((s) => (
+                      <article key={s.title} className="svc__card">
+                        <h4>{s.title}</h4>
+                        <p>{s.body}</p>
+                        {s.meta ? <p className="svc__meta">{s.meta}</p> : null}
+                      </article>
+                    ))}
+                  </ViewportReveal>
+                </div>
+              ))}
+            </div>
+            <div className="models">
+              <p className="eyebrow">{t('services.modelsLabel')}</p>
+              <div className="models__grid">
+                {models.map((m) => (
+                  <div key={m.title} className="models__item">
+                    <h4>{m.title}</h4>
+                    <p>{m.body}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="models__note">{t('services.note')}</p>
+            </div>
+          </section>
+
+          {/* ── GOBERNANZA ── */}
+          <section className="sec" id="gobernanza" aria-labelledby="gov-title" style={{ background: 'var(--color-white)' }}>
+            <SectionHead label={t('governance.label')} title={t('governance.title')} lead={t('governance.lead')} id="gov-title" />
+            <AutonomyLevels levels={levels} humanLabel={t('governance.humanLabel')} />
+            <ViewportReveal selector=".principle" variant="stagger-up" stagger={0.06} className="principles">
+              {principles.map((p, i) => (
+                <div key={p.title} className="principle" style={{ ['--c' as string]: `var(--color-${TONES[i]})` }}>
+                  <span className="principle__cube" aria-hidden="true" />
+                  <h3>{p.title}</h3>
+                  <p>{p.body}</p>
                 </div>
               ))}
             </ViewportReveal>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* ── BOOKING ── */}
-      <section id="contacto" className="bg-base border-t border-line text-center" style={{ padding: 'clamp(64px, 12vw, 96px) 0' }}>
-        <div className="mx-auto booking-section-px" style={{ maxWidth: 520 }}>
-          <ViewportReveal className="inline-block font-label font-bold text-teal-ink bg-teal-soft rounded-full mb-6"
-            style={{ fontSize: 10.5, letterSpacing: '0.14em', padding: '5px 13px' }}>
-            {t('booking.tag')}
-          </ViewportReveal>
-          <ViewportReveal as="h2" delay={0.05} className="font-display font-extrabold text-fg m-0 mb-5"
-            style={{ fontSize: 'clamp(30px, 5vw, 52px)', letterSpacing: '-0.035em', lineHeight: 1.08 }}>
-            {t('booking.title')}
-          </ViewportReveal>
-          <ViewportReveal as="p" delay={0.12} className="text-steel m-0 mb-10"
-            style={{ fontSize: 18, lineHeight: 1.6 }}>
-            {t('booking.sub')}
-          </ViewportReveal>
-          <ViewportReveal delay={0.2} className="flex justify-center">
-            <BookingForm labels={formLabels} />
-          </ViewportReveal>
-          <ViewportReveal delay={0.28} className="mt-8">
-            <p className="text-steel m-0" style={{ fontSize: 15 }}>
-              {t('booking.emailLabel')}{' '}
-              <a
-                href={`mailto:${t('booking.email')}`}
-                className="text-brand font-semibold hover:text-brand-hover no-underline border-b border-brand/30 hover:border-brand transition-colors"
-              >
-                {t('booking.email')}
-              </a>
-            </p>
-          </ViewportReveal>
+          {/* ── AGENTOS ── */}
+          <section className="sec" id="agentos" aria-labelledby="aos-title">
+            <div className="aos">
+              <div>
+                <SectionHead label={t('agentos.label')} title={t('agentos.title')} lead={t('agentos.lead')} id="aos-title" />
+                <p className="aos__status eyebrow"><span className="pulse" aria-hidden="true" />{t('agentos.status')}</p>
+                <ul className="aos__principles">
+                  {aosPrinciples.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              </div>
+              <ViewportReveal className="board" delay={0.1}>
+                <div className="board__bar">
+                  <span className="eyebrow">{board.label}</span>
+                  <span className="board__dots" aria-hidden="true"><i /><i /><i /><i /></span>
+                </div>
+                <div className="board__cols">
+                  {board.cols.map((c, ci) => (
+                    <div key={c} className="board__col" data-col={ci}>
+                      <p className="board__col-name">{c}</p>
+                      {ci === 0 ? <div className="board__task" style={{ ['--c' as string]: 'var(--color-orange)' }}>{board.task3}</div> : null}
+                      {ci === 1 ? (
+                        <>
+                          <div className="board__task" style={{ ['--c' as string]: 'var(--color-teal)' }}>{board.task1}</div>
+                          <div className="board__task board__task--moving" style={{ ['--c' as string]: 'var(--color-blue)' }}>{board.task2}</div>
+                        </>
+                      ) : null}
+                      {ci === 2 ? <div className="board__slot" aria-hidden="true" /> : null}
+                    </div>
+                  ))}
+                </div>
+                <p className="board__rule">{board.rule}</p>
+              </ViewportReveal>
+            </div>
+            <p className="eyebrow" style={{ marginTop: 56 }}>{t('agentos.teamsLabel')}</p>
+            <ViewportReveal as="ul" selector=".team" variant="stagger-up" stagger={0.05} className="teams">
+              {teams.map((tm, i) => (
+                <li key={tm.name} className="team" style={{ ['--c' as string]: `var(--color-${TONES[i % 4]})` }}>
+                  <span className="team__cube" aria-hidden="true" />
+                  <h3>{tm.name}</h3>
+                  <p>{tm.body}</p>
+                </li>
+              ))}
+            </ViewportReveal>
+          </section>
+
+          {/* ── CASOS ── */}
+          <section className="sec" id="casos" aria-labelledby="work-title" style={{ background: 'var(--color-white)' }}>
+            <SectionHead label={t('work.label')} title={t('work.title')} lead={t('work.lead')} id="work-title" />
+            <ViewportReveal as="ul" selector=".case" variant="stagger-up" stagger={0.06} className="cases">
+              {work.map((w, i) => (
+                <li key={w.sector} className="case" style={{ ['--c' as string]: `var(--color-${TONES[i % 4]})`, ['--soft' as string]: `var(--color-${TONES[i % 4]}-soft)`, ['--ink' as string]: `var(--color-${TONES[i % 4]}-ink)` }}>
+                  <span className="case__tag">{w.tag}</span>
+                  <h3>{w.sector}</h3>
+                  <p>{w.body}</p>
+                </li>
+              ))}
+            </ViewportReveal>
+            <p className="speaking"><span className="speaking__mark" aria-hidden="true" />{t('work.speaking')}</p>
+          </section>
+
+          {/* ── ECOSISTEMA ── */}
+          <section className="sec" id="stack" aria-labelledby="stack-title" style={{ paddingTop: 'clamp(48px, 7vw, 72px)', paddingBottom: 'clamp(48px, 7vw, 72px)' }}>
+            <p className="eyebrow" id="stack-title">{t('stack.label')}</p>
+            <p className="lead" style={{ margin: '14px 0 28px', maxWidth: '60ch' }}>{t('stack.lead')}</p>
+            <Marquee items={stack} pause={t('stack.pause')} resume={t('stack.resume')} label={t('stack.aria')} />
+          </section>
+
+          {/* ── PREGUNTAS ── */}
+          <section className="sec" id="preguntas" aria-labelledby="faq-title" style={{ background: 'var(--color-white)' }}>
+            <div className="faq">
+              <SectionHead label={t('faq.label')} title={t('faq.title')} id="faq-title" />
+              <div className="faq__list">
+                {faq.map((f, i) => (
+                  <details key={f.q} className="faq__item" open={i === 0}>
+                    <summary>
+                      <span>{f.q}</span>
+                      <span className="faq__icon" aria-hidden="true" />
+                    </summary>
+                    <p>{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* ── CONTACTO ── */}
+          <section className="sec" id="contacto" aria-labelledby="booking-title">
+            <div className="booking">
+              <div className="booking__copy">
+                <span className="booking__tag">{t('booking.tag')}</span>
+                <h2 id="booking-title" className="h-section" style={{ fontSize: 'clamp(34px, 5vw, 64px)' }}>{t('booking.title')}</h2>
+                <p className="lead" style={{ marginTop: 20 }}>{t('booking.sub')}</p>
+                <p className="text-steel" style={{ fontSize: 15, marginTop: 28 }}>
+                  {t('booking.emailLabel')}{' '}
+                  <a href={`mailto:${t('booking.email')}`} className="text-brand font-semibold no-underline border-b border-brand/30 hover:border-brand transition-colors">
+                    {t('booking.email')}
+                  </a>
+                </p>
+              </div>
+              <div className="booking__form">
+                <BookingForm labels={formLabels} />
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
+      </main>
 
       <Footer />
     </div>

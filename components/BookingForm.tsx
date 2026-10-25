@@ -113,11 +113,11 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
   if (status === 'success') {
     return (
       <div
-        className="bg-white border border-line text-center"
-        style={{ maxWidth: 480, margin: '0 auto', borderRadius: 6, padding: '40px 24px' }}
+        className="bg-white border border-line-strong text-center"
+        style={{ maxWidth: 480, margin: '0 auto', borderRadius: 2, padding: '40px 24px' }}
       >
         <div
-          className="font-mono text-operations font-semibold mb-3"
+          className="font-label text-teal-ink font-semibold mb-3"
           style={{ fontSize: 11, letterSpacing: '0.16em' }}
         >
           ✓ {labels.success.toUpperCase()}
@@ -135,7 +135,7 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
   const inputStyle: React.CSSProperties = {
     width: '100%',
     background: 'white',
-    border: '1px solid var(--color-line)',
+    border: '1px solid var(--color-line-strong)',
     borderRadius: 2,
     padding: '10px 12px',
     /* 16px prevents iOS Safari from auto-zooming on focus */
@@ -146,27 +146,28 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
   };
   const labelStyle: React.CSSProperties = {
     display: 'block',
-    fontFamily: 'var(--font-plex-mono), monospace',
+    fontFamily: 'var(--font-space-grotesk), var(--font-poppins), sans-serif',
+    fontWeight: 600,
     fontSize: 11,
-    letterSpacing: '0.08em',
+    letterSpacing: '0.12em',
     textTransform: 'uppercase',
     color: 'var(--color-steel)',
     marginBottom: 6,
   };
   const fieldWrap: React.CSSProperties = { display: 'flex', flexDirection: 'column' };
   const errorStyle: React.CSSProperties = {
-    color: '#C42B2B',
+    color: 'var(--color-orange-ink)',
     fontSize: 12,
     marginTop: 4,
-    fontFamily: 'var(--font-plex-mono), monospace',
+    fontFamily: 'inherit',
   };
 
   return (
     <form
       onSubmit={onSubmit}
       noValidate
-      className="bg-white border border-white/10"
-      style={{ width: 'calc(100% - 32px)', maxWidth: 560, margin: '16px auto', borderRadius: 6, padding: '24px 24px', textAlign: 'left', position: 'relative' }}
+      className="bg-white border border-line-strong"
+      style={{ width: 'calc(100% - 32px)', maxWidth: 560, margin: '16px auto', borderRadius: 2, padding: '24px 24px', textAlign: 'left', position: 'relative' }}
       onInput={() => {
         if (status === 'error') {
           setStatus('idle');
@@ -174,8 +175,8 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
         }
       }}
     >
-      <div className="font-mono text-fg font-semibold text-center mb-5"
-        style={{ fontSize: 12, letterSpacing: '0.12em' }}>
+      <div className="font-display text-fg font-bold text-center mb-5"
+        style={{ fontSize: 18, letterSpacing: '-0.01em' }}>
         {labels.title}
       </div>
 
@@ -259,12 +260,11 @@ export default function BookingForm({ labels, minDate }: BookingFormProps) {
         <button
           type="submit"
           disabled={status === 'submitting'}
-          className="bg-accent text-fg font-mono font-semibold no-underline transition-opacity hover:opacity-90 disabled:opacity-60"
+          className="bg-brand text-white font-body font-semibold no-underline transition-colors hover:bg-brand-hover disabled:opacity-60"
           style={{
-            fontSize: 14,
-            letterSpacing: '0.04em',
+            fontSize: 15,
             padding: '14px 24px',
-            borderRadius: 2,
+            borderRadius: 999,
             border: 'none',
             cursor: status === 'submitting' ? 'wait' : 'pointer',
             minHeight: 48,

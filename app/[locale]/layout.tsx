@@ -2,43 +2,56 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import { Poppins, Space_Grotesk } from "next/font/google";
 import { routing } from '@/i18n/routing';
 import "../globals.css";
+
+const poppins = Poppins({
+  variable: "--font-poppins",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
-const plexSans = IBM_Plex_Sans({
-  variable: "--font-plex-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
-
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-});
+const SITE_NAME = "Mty Agentic Labs";
+const TITLE = "Mty Agentic Labs — Agentes de IA y automatización en Monterrey";
+const DESCRIPTION =
+  "Laboratorio de ingeniería en Monterrey. Diagnósticos, automatización de procesos, desarrollo de agentes de IA, integraciones ERP y capacitaciones. Hardware propio, proyectos en producción.";
 
 export const metadata: Metadata = {
-  title: "MTY Agentic Labs — Agentes de IA y automatización en Monterrey",
-  description:
-    "Laboratorio de ingeniería en Monterrey. Diagnósticos, automatización de procesos, desarrollo de agentes de IA, integraciones ERP y capacitaciones. Hardware propio, proyectos en producción.",
+  title: TITLE,
+  description: DESCRIPTION,
+  applicationName: SITE_NAME,
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "https://agenticlabs.site"
   ),
   icons: {
     icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32.png", type: "image/png", sizes: "32x32" },
     ],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "/",
+    locale: "es_MX",
+    alternateLocale: ["en_US"],
+  },
+  twitter: {
+    card: "summary",
+    title: TITLE,
+    description: DESCRIPTION,
   },
 };
 
@@ -49,8 +62,10 @@ export function generateStaticParams() {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
-  name: "MTY Agentic Labs",
-  alternateName: "MtyAgenticLabs",
+  name: "Mty Agentic Labs",
+  url: "https://agenticlabs.site",
+  email: "hello@agenticlabs.site",
+  logo: "https://agenticlabs.site/email/logo-mark-192.png",
   description:
     "Laboratorio de ingeniería de inteligencia artificial y automatización con sede en Monterrey, México.",
   address: {
@@ -89,7 +104,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body
-        className={`${spaceGrotesk.variable} ${plexSans.variable} ${plexMono.variable} antialiased`}
+        className={`${poppins.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
           {children}

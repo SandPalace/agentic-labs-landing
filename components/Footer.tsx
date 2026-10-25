@@ -1,3 +1,4 @@
+import Logo from '@/components/Logo';
 import { getTranslations } from 'next-intl/server';
 
 export default async function Footer() {
@@ -13,20 +14,13 @@ export default async function Footer() {
   ];
 
   return (
-    <footer className="bg-fg border-t border-white/[0.06]" style={{ padding: '28px 0' }}>
+    <footer className="bg-white border-t border-line" style={{ padding: '28px 0' }}>
       <div
         className="mx-auto flex flex-col md:flex-row md:items-center container-px"
         style={{ maxWidth: 1280, gap: 24 }}
       >
-        <div className="flex items-center gap-2 flex-shrink-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mark-white.svg" alt="MtyAgenticLabs" width={22} height={20} style={{ opacity: 0.4 }} />
-          <span
-            className="font-mono text-white/25"
-            style={{ fontSize: 11, letterSpacing: '0.12em' }}
-          >
-            MTY AGENTIC LABS
-          </span>
+        <div className="flex items-center flex-shrink-0">
+          <Logo size={22} fontSize={15} />
         </div>
 
         {/* Mobile: 2-column grid; Desktop: inline flex */}
@@ -38,11 +32,10 @@ export default async function Footer() {
             <a
               key={item.href}
               href={item.href}
-              className="font-mono text-white/25 no-underline rounded-sm transition-colors hover:text-white/60"
+              className="font-body text-steel no-underline rounded-full transition-colors hover:text-fg hover:bg-base"
               style={{
-                fontSize: 12,
-                letterSpacing: '0.06em',
-                padding: '5px 9px',
+                fontSize: 14,
+                padding: '5px 12px',
                 minHeight: 36,
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -54,8 +47,8 @@ export default async function Footer() {
         </nav>
 
         <div
-          className="font-mono text-white/20 md:text-right"
-          style={{ fontSize: 11, letterSpacing: '0.06em', textTransform: 'none' }}
+          className="font-label font-semibold text-steel md:text-right"
+          style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase' }}
         >
           {t('loc')}
         </div>

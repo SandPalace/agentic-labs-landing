@@ -1,10 +1,7 @@
-<svg viewBox="0 0 200 178" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <g stroke="#1865D3" stroke-width="10" stroke-linejoin="miter" stroke-linecap="square">
-    <polyline points="12,158 67,14 100,71 133,14 188,158"/>
-    <polyline points="12,158 12,168 46,168"/>
-    <polyline points="188,158 188,168 154,168"/>
-    <polyline points="46,158 100,56 154,158"/>
-    <line x1="46" y1="158" x2="46" y2="168"/>
-    <line x1="154" y1="158" x2="154" y2="168"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26" width="26" height="26" fill="none">
+  <title>Mty Agentic Labs</title>
+  <rect x="0" y="2" width="13" height="13" rx="2" fill="#2D6BFF"/>
+  <rect x="16" y="0" width="10" height="10" rx="2" fill="#FF7A2F"/>
+  <rect x="13" y="14" width="12" height="12" rx="2" fill="#8B5CF6"/>
+  <rect x="3" y="17" width="8" height="8" rx="2" fill="#14B8A6"/>
 </svg>

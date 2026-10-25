@@ -1,33 +1,50 @@
 @import "tailwindcss";
 
 @theme {
-  /* Neutrals */
-  --color-base: #EEF3FB;
+  /* Neutrals — Mty Agentic Labs Design System */
+  --color-base: #F4F6F9;
   --color-white: #FFFFFF;
-  --color-fg: #0D1F3C;
-  --color-steel: #4A5568;
-  --color-steel-light: #8A9BB0;
-  --color-line: #C8D6EB;
+  --color-fg: #14161A;
+  --color-ink-soft: #2B313B;
+  --color-steel: #566070;
+  --color-steel-light: #7A8494;
+  --color-line: #E7EBF1;
+  --color-line-strong: #D3DAE5;
 
-  /* Brand */
-  --color-brand: #1865D3;
-  --color-brand-hover: #1453B3;
+  /* Brand — Spectrum */
+  --color-brand: #2D6BFF;
+  --color-brand-hover: #1F56E0;
+  --color-blue: #2D6BFF;
+  --color-orange: #FF7A2F;
+  --color-purple: #8B5CF6;
+  --color-teal: #14B8A6;
 
-  /* Accent */
-  --color-accent: #FFE14D;
+  /* Soft tints + readable ink on each tint */
+  --color-blue-soft: #E3ECFF;
+  --color-orange-soft: #FFE7D6;
+  --color-purple-soft: #EFE7FE;
+  --color-teal-soft: #D5F3EF;
+  --color-blue-ink: #1747C9;
+  --color-orange-ink: #B4510F;
+  --color-purple-ink: #5B34C4;
+  --color-teal-ink: #0B6B61;
 
-  /* System / category colors */
-  --color-research: #1865D3;
-  --color-operations: #2E9E6E;
-  --color-data: #6B4FBB;
-  --color-infrastructure: #D97706;
-  --color-security: #C42B2B;
-  --color-docs: #4A5568;
+  /* System / category colors (mapped onto Spectrum) */
+  --color-research: #2D6BFF;
+  --color-operations: #14B8A6;
+  --color-data: #8B5CF6;
+  --color-infrastructure: #FF7A2F;
+  --color-security: #FF7A2F;
+  --color-docs: #566070;
 
-  /* Typography */
-  --font-display: var(--font-space-grotesk);
-  --font-body: var(--font-plex-sans);
-  --font-mono: var(--font-plex-mono);
+  /* Typography — Poppins everywhere; Space Grotesk for small labels (never monospace) */
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-label: var(--font-space-grotesk), var(--font-poppins), ui-sans-serif, sans-serif;
+  --font-mono: var(--font-space-grotesk), var(--font-poppins), ui-sans-serif, sans-serif;
+
+  /* Radius */
+  --radius-card: 2px;
 
   /* Base size */
   --text-base: 18px;
@@ -39,7 +56,7 @@ html, body {
   margin: 0;
   background: var(--color-base);
   color: var(--color-fg);
-  font-family: var(--font-plex-sans), sans-serif;
+  font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   font-size: var(--text-base);
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -54,13 +71,14 @@ body {
 }
 
 ::selection {
-  background: var(--color-accent);
+  background: var(--color-blue-soft);
   color: var(--color-fg);
 }
 
-.font-display { font-family: var(--font-space-grotesk), sans-serif; }
-.font-body    { font-family: var(--font-plex-sans), sans-serif; }
-.font-mono    { font-family: var(--font-plex-mono), monospace; }
+.font-display { font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif; }
+.font-body    { font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif; }
+/* Small labels / eyebrows: Space Grotesk, Poppins fallback. Never monospace. */
+.font-label   { font-family: var(--font-space-grotesk), var(--font-poppins), ui-sans-serif, sans-serif; }
 
 /* Shared responsive container — replaces inline `padding: 0 32px; maxWidth: 1280` */
 .container-px {
@@ -76,12 +94,12 @@ body {
 
 /* Proof stats: horizontal divider on mobile, vertical divider on sm+ */
 .stat-divider {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--color-line);
 }
 @media (min-width: 640px) {
   .stat-divider {
     border-bottom: none;
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    border-right: 1px solid var(--color-line);
   }
 }
 
@@ -108,9 +126,11 @@ body.menu-open { overflow: hidden; }
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(24, 101, 211, 0.15) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(24, 101, 211, 0.15) 1px, transparent 1px);
+    linear-gradient(rgba(45, 107, 255, 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 107, 255, 0.07) 1px, transparent 1px);
   background-size: 48px 48px;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent);
+  mask-image: linear-gradient(to bottom, #000 40%, transparent);
 }
 
 .bg-grid-page {

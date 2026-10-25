@@ -49,8 +49,8 @@ export default function MobileNav({
         aria-expanded={open}
         aria-label={open ? menuCloseLabel : menuOpenLabel}
         aria-controls="mobile-nav-panel"
-        className="md:hidden flex items-center justify-center text-white no-underline bg-transparent border border-white/15 hover:bg-white/[0.06] transition-colors"
-        style={{ width: 40, height: 40, borderRadius: 2, gap: 4 }}
+        className="md:hidden flex items-center justify-center text-fg no-underline bg-white border border-line-strong hover:bg-base transition-colors rounded-full"
+        style={{ width: 40, height: 40, gap: 4 }}
       >
         {/* Hamburger / close icon — pure SVG, no external deps */}
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
@@ -69,7 +69,7 @@ export default function MobileNav({
       {open && (
         <div
           id="mobile-nav-panel"
-          className="md:hidden absolute left-0 right-0 top-full bg-fg border-b border-white/10 z-40"
+          className="md:hidden absolute left-0 right-0 top-full bg-white border-b border-line z-40"
           role="dialog"
           aria-modal="true"
           aria-label={menuLabel}
@@ -81,10 +81,9 @@ export default function MobileNav({
                 key={item.href}
                 href={item.href}
                 onClick={close}
-                className="font-mono text-white/80 no-underline border-b border-white/[0.06] last:border-b-0 hover:text-white hover:bg-white/[0.04]"
+                className="font-body font-medium text-fg no-underline border-b border-line last:border-b-0 hover:text-brand hover:bg-base"
                 style={{
-                  fontSize: 14,
-                  letterSpacing: '0.06em',
+                  fontSize: 16,
                   padding: '16px 4px',
                   paddingTop: i === 0 ? 12 : 16,
                 }}
@@ -101,12 +100,10 @@ export default function MobileNav({
               <a
                 href="#contacto"
                 onClick={close}
-                className="font-mono text-white no-underline bg-brand hover:bg-brand-hover transition-colors"
+                className="font-body font-semibold text-white no-underline bg-brand hover:bg-brand-hover transition-colors rounded-full"
                 style={{
-                  fontSize: 13,
-                  letterSpacing: '0.06em',
-                  padding: '12px 20px',
-                  borderRadius: 2,
+                  fontSize: 14,
+                  padding: '12px 22px',
                   minHeight: 44,
                   display: 'inline-flex',
                   alignItems: 'center',

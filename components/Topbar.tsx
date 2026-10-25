@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import LanguageToggle from '@/components/LanguageToggle';
 import MobileNav from '@/components/MobileNav';
+import Logo from '@/components/Logo';
 
 export default async function Topbar() {
   const t = await getTranslations('topbar');
@@ -15,22 +16,15 @@ export default async function Topbar() {
 
   return (
     <header
-      className="sticky top-0 z-50 bg-fg border-b border-white/[0.08]"
-      style={{ height: 64 }}
+      className="sticky top-0 z-50 border-b border-line"
+      style={{ height: 64, background: 'rgba(255, 255, 255, 0.92)', backdropFilter: 'saturate(180%) blur(12px)', WebkitBackdropFilter: 'saturate(180%) blur(12px)' }}
     >
       <div
         className="mx-auto flex items-center container-px"
         style={{ maxWidth: 1280, height: 64, gap: 32 }}
       >
-        <a href="#top" className="flex items-center gap-2.5 no-underline flex-shrink-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/mark-white.svg" alt="MtyAgenticLabs" width={26} height={23} className="block" />
-          <span
-            className="font-mono text-white/90 font-semibold"
-            style={{ fontSize: 12, letterSpacing: '0.12em' }}
-          >
-            MTY AGENTIC LABS
-          </span>
+        <a href="#top" className="flex items-center no-underline flex-shrink-0" aria-label="Mty Agentic Labs">
+          <Logo size={26} fontSize={17} />
         </a>
 
         {/* Desktop nav (md and up) */}
@@ -39,10 +33,10 @@ export default async function Topbar() {
             <a
               key={item.href}
               href={item.href}
-              className={`font-mono text-white/55 no-underline rounded-sm transition-colors hover:text-white/90 hover:bg-white/[0.06] ${
-                item.label === t('lab') ? 'text-white/30' : ''
+              className={`font-body font-medium no-underline rounded-full transition-colors hover:text-fg hover:bg-base ${
+                item.label === t('lab') ? 'text-steel-light' : 'text-steel'
               }`}
-              style={{ fontSize: 13, letterSpacing: '0.06em', padding: '8px 14px' }}
+              style={{ fontSize: 14, padding: '8px 14px' }}
             >
               {item.label}
             </a>
@@ -54,8 +48,8 @@ export default async function Topbar() {
           <LanguageToggle />
           <a
             href="#contacto"
-            className="font-mono text-white no-underline bg-brand transition-colors hover:bg-brand-hover flex-shrink-0"
-            style={{ fontSize: 12, letterSpacing: '0.06em', padding: '9px 18px', borderRadius: 2 }}
+            className="font-body font-semibold text-white no-underline bg-brand transition-colors hover:bg-brand-hover flex-shrink-0 rounded-full"
+            style={{ fontSize: 14, padding: '10px 20px' }}
           >
             {t('cta')}
           </a>

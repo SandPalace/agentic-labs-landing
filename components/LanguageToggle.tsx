@@ -17,28 +17,28 @@ export default function LanguageToggle() {
 
   return (
     <div
-      className="flex items-center font-mono flex-shrink-0"
-      style={{ gap: 2, fontSize: 13, letterSpacing: '0.06em', marginRight: 8 }}
+      className="flex items-center font-label font-semibold flex-shrink-0"
+      style={{ gap: 2, fontSize: 12, letterSpacing: '0.12em', marginRight: 8 }}
     >
       <button
         onClick={() => toggleLanguage('es')}
-        className={`rounded-sm transition-colors ${
+        className={`rounded-full transition-colors ${
           currentLocale === 'es'
-            ? 'text-white bg-white/10'
-            : 'text-white/40 hover:text-white/80'
+            ? 'text-blue-ink bg-blue-soft'
+            : 'text-steel hover:text-fg'
         }`}
         style={{ padding: '8px 10px' }}
         aria-label="Cambiar a Español"
       >
         ES
       </button>
-      <span className="text-white/20">/</span>
+      <span className="text-line-strong">/</span>
       <button
         onClick={() => toggleLanguage('en')}
-        className={`rounded-sm transition-colors ${
+        className={`rounded-full transition-colors ${
           currentLocale === 'en'
-            ? 'text-white bg-white/10'
-            : 'text-white/40 hover:text-white/80'
+            ? 'text-blue-ink bg-blue-soft'
+            : 'text-steel hover:text-fg'
         }`}
         style={{ padding: '8px 10px' }}
         aria-label="Switch to English"

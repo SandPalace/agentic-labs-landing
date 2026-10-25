@@ -31,7 +31,7 @@ export default async function Topbar() {
         </a>
 
         {/* Desktop nav (md and up) */}
-        <nav className="hidden lg:flex gap-1 flex-1" style={{ marginLeft: 8 }} aria-label="Principal">
+        <nav className="hidden xl:flex gap-1 flex-1" style={{ marginLeft: 8 }} aria-label="Principal">
           {navItems.map((item) => (
             <a
               key={item.href}
@@ -45,7 +45,7 @@ export default async function Topbar() {
         </nav>
 
         {/* Right cluster — Language toggle + CTA (desktop) */}
-        <div className="hidden lg:flex items-center ml-auto">
+        <div className="hidden xl:flex items-center ml-auto">
           <LanguageToggle />
           <a
             href="#contacto"
@@ -57,7 +57,7 @@ export default async function Topbar() {
         </div>
 
         {/* Mobile nav (below md) */}
-        <div className="flex items-center ml-auto lg:hidden">
+        <div className="flex items-center ml-auto xl:hidden">
           <MobileNav
             navItems={navItems}
             cta={t('cta')}

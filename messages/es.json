@@ -21,13 +21,11 @@
     "eyebrowStatus": "OPERATIVO",
     "headline1": "Transformación",
     "headline2": "agéntica.",
-    "kicker": "De chatbots que contestan dudas a agentes que hacen trabajo real.",
-    "sub": "Capacitamos a tu equipo, construimos el cerebro empresarial de tu organización y desplegamos agentes conectados a tus sistemas. Con gobernanza, y siempre con un humano responsable de cada flujo.",
+    "kicker": "De chatbots que contestan dudas a [[agentes que hacen trabajo real]].",
+    "sub": "Capacitamos a tu equipo, construimos el cerebro empresarial de tu organización y desplegamos **agentes conectados a tus sistemas**. Con gobernanza, y siempre con **un humano responsable** de cada flujo.",
     "ctaPrimary": "Agenda tu diagnóstico",
     "ctaSecondary": "Ver la ruta",
     "proof": {
-      "a": "4× GPU",
-      "aLabel": "30 GB VRAM · inferencia local",
       "b": "70%",
       "bLabel": "práctica sobre casos reales"
     },
@@ -47,52 +45,59 @@
   },
   "shift": {
     "label": "EL CAMBIO",
-    "title": "Las empresas ya no contratan software que ayuda. Contratan trabajo terminado.",
-    "lead": "Un agente no te explica cómo conciliar una cuenta: la concilia, deja evidencia y te pide autorización solo en la excepción.",
+    "title": "Las empresas ya no contratan software que ayuda. [[Contratan trabajo terminado.]]",
+    "lead": "Un agente no te explica cómo conciliar una cuenta: **la concilia**, deja evidencia y te pide autorización solo en la excepción.",
     "items": [
       {
         "title": "Apalancamiento, no recorte",
-        "body": "La pregunta no es a quién reemplazar, sino cómo crece tu empresa con el mismo costo. La IA no viene por tu puesto; viene por la talacha."
+        "body": "La pregunta no es a quién reemplazar, sino cómo crece tu empresa con el mismo costo. La IA no viene por tu puesto; viene por **las tareas repetitivas**."
       },
       {
         "title": "Tus datos son el activo",
-        "body": "Los modelos son intercambiables. Tus datos, tus integraciones y tu forma de operar son lo que vale, y se quedan contigo."
+        "body": "Los modelos son intercambiables. **Tus datos**, tus integraciones y tu forma de operar son lo que vale, y se quedan contigo."
       },
       {
         "title": "Una decisión de negocio",
-        "body": "No es un proyecto de TI: es una decisión de estructura de costos. Se mide contra una línea base y se escala lo que funciona."
+        "body": "No es un proyecto de TI: es una decisión de estructura de costos. Se mide contra **una línea base** y se escala lo que funciona."
       }
     ]
   },
   "problems": {
+    "answerLabel": "con agentes",
     "label": "EL PUNTO DE PARTIDA",
     "title": "¿Te suena alguno?",
     "items": [
       {
         "id": "01",
         "title": "Lo que aprende cada persona se queda en su chat",
-        "body": "Montamos un cerebro empresarial: memoria, contexto y método compartidos, para que el conocimiento suba a dirección y baje convertido en procesos."
+        "body": "Montamos un [[cerebro empresarial]]: memoria, contexto y método compartidos, para que el conocimiento suba a dirección y baje convertido en procesos."
       },
       {
         "id": "02",
         "title": "Mis sistemas no se hablan y recapturamos todo",
-        "body": "Conectamos tu ERP, correo, Drive y hojas de cálculo con flujos automatizados y conectores MCP. La información fluye sin recapturas."
+        "body": "Conectamos tu ERP, correo, Drive y hojas de cálculo con [[flujos automatizados y conectores MCP]]. La información fluye sin recapturas."
       },
       {
         "id": "03",
         "title": "Perdemos horas copiando, conciliando y reportando",
-        "body": "Desplegamos agentes que ejecutan la tarea de punta a punta, verifican condiciones y escalan solo las excepciones a una persona."
+        "body": "Desplegamos [[agentes que ejecutan la tarea de punta a punta]], verifican condiciones y escalan solo las excepciones a una persona."
       },
       {
         "id": "04",
         "title": "Probamos IA y nunca llegó a producción",
-        "body": "Empezamos por lo verificable: un proceso, una métrica y un piloto contra la línea base. Lo que funciona se escala; lo que no, se apaga."
+        "body": "Empezamos por lo verificable: [[un proceso, una métrica y un piloto]] contra la línea base. Lo que funciona se escala; lo que no, se apaga."
       }
     ]
   },
   "route": {
+    "stagesAria": "Tres etapas hacia una operación agéntica",
+    "stages": [
+      { "label": "Personal", "text": "Primero, un agente personal para cada colaborador." },
+      { "label": "Equipos", "text": "Después, equipos de agentes coordinados por personas." },
+      { "label": "Operación", "text": "Al final, una operación dirigida por humanos y asesorada por agentes." }
+    ],
     "label": "LA RUTA",
-    "title": "Cuatro pasos hacia una operación agéntica.",
+    "title": "Cuatro pasos hacia una [[operación agéntica]].",
     "lead": "Primero un agente personal para cada colaborador. Después equipos de agentes coordinados por personas. Al final, una operación dirigida por humanos y asesorada por agentes.",
     "caption": "MTY AGENTIC LABS",
     "steps": [
@@ -105,7 +110,7 @@
       {
         "code": "02",
         "title": "Capacitación",
-        "body": "Tu equipo aprende a trabajar con Claude sobre casos reales de su operación, en sesiones en vivo, presenciales o virtuales.",
+        "body": "Tu equipo aprende a trabajar con IA entrenada sobre casos reales de su operación, en sesiones en vivo, presenciales o virtuales.",
         "points": ["30% teoría · 70% práctica", "Prompts, skills y conectores a correo, calendario y Drive"]
       },
       {
@@ -124,14 +129,14 @@
   },
   "services": {
     "label": "SERVICIOS",
-    "title": "Capacitamos a tu equipo. Construimos lo que falta.",
+    "title": "Capacitamos a tu equipo. [[Construimos lo que falta.]]",
     "groups": [
       {
         "name": "Capacitar",
         "items": [
           {
             "title": "Taller IA para Negocios",
-            "body": "Tu equipo trabaja con Claude sobre su operación real: fundamentos y uso responsable, prompting, Excel y reportes, skills y conectores.",
+            "body": "Tu equipo trabaja con IA entrenada sobre su operación real: fundamentos y uso responsable, prompting, Excel y reportes, skills y conectores.",
             "meta": "2 sesiones × 3 h o 4 sesiones × 2 h · grupos de 1 a 15"
           },
           {
@@ -183,41 +188,40 @@
         "body": "Mejoras continuas, monitoreo y soporte prioritario para lo que ya opera en producción."
       }
     ],
-    "note": "Las capacitaciones tienen precio por grupo, no por persona. Los proyectos se cotizan después del diagnóstico."
+    "note": "Las capacitaciones tienen **precio por grupo**, no por persona. Los proyectos se cotizan después del diagnóstico."
   },
   "governance": {
     "label": "GOBERNANZA",
-    "title": "El agente propone. Una persona decide.",
-    "lead": "El reto ya no es si los agentes pueden; es qué arquitectura y qué gobernanza mantienen seguros tu información y tu dinero. Definimos por proceso cuánta autonomía tiene cada agente.",
+    "title": "El agente propone. [[Una persona decide.]]",
+    "lead": "El reto ya no es si los agentes pueden; es qué arquitectura y qué gobernanza mantienen seguros tu información y tu dinero. Definimos por proceso **cuánta autonomía tiene cada agente**.",
     "humanLabel": "QUIÉN DECIDE",
     "levels": [
       { "level": "0", "name": "Asistente", "body": "El agente responde y redacta cuando se lo pides. No toca ningún sistema.", "human": "La persona hace todo el trabajo y usa al agente como apoyo." },
       { "level": "1", "name": "Propone", "body": "El agente prepara el trabajo completo (una conciliación, un reporte, una respuesta) y lo deja listo para revisión.", "human": "La persona revisa y ejecuta." },
       { "level": "2", "name": "Ejecuta con aprobación", "body": "El agente ejecuta en tus sistemas, pero cada acción espera un clic de aprobación.", "human": "La persona aprueba cada acción." },
       { "level": "3", "name": "Escala excepciones", "body": "El agente resuelve los casos normales y deja evidencia; solo lo que sale de la regla llega a una persona.", "human": "La persona atiende las excepciones." },
-      { "level": "4", "name": "Zero touch gobernado", "body": "El proceso corre solo dentro de límites, controles y bitácora de auditoría.", "human": "La persona es responsable del proceso y de sus límites." }
+      { "level": "4", "name": "Autónomo con controles", "body": "El proceso corre solo dentro de límites, controles y bitácora de auditoría.", "human": "La persona es responsable del proceso y de sus límites." }
     ],
     "principles": [
       { "title": "Un humano responsable", "body": "Cada flujo tiene una persona dueña. Publicar, enviar o pagar nunca ocurre sin su firma." },
       { "title": "El dinero va por su carril", "body": "El agente nunca tiene las llaves del banco: los pagos pasan por un circuito con controles y doble revisión." },
-      { "title": "Semáforo de datos", "body": "Reglas claras de qué información puede usar cada herramienta, con planes empresariales sin retención." },
-      { "title": "Hardware propio", "body": "Rack con 4 GPUs y 30 GB VRAM en Monterrey. Inferencia local para los modelos que lo permiten." }
+      { "title": "Semáforo de datos", "body": "Reglas claras de qué información puede usar cada herramienta, con planes empresariales sin retención." }
     ]
   },
   "agentos": {
     "label": "HACIA DÓNDE VAMOS",
-    "title": "AgentOS: una oficina de equipos de agentes.",
-    "lead": "Claude entrenado, conectado a tu empresa y ejecutando tareas. Contratas un equipo, los agentes trabajan en Claude y tú supervisas y apruebas desde la oficina.",
+    "title": "AgentOS: [[una oficina de equipos de agentes]].",
+    "lead": "IA entrenada, conectada a tu empresa y ejecutando tareas. Contratas un equipo, los agentes trabajan sobre tu operación y **tú supervisas y apruebas** desde la oficina.",
     "status": "EN PILOTO CON PRIMEROS CLIENTES",
     "teamsLabel": "EQUIPOS",
     "teams": [
-      { "name": "Asistente", "body": "La puerta de entrada: sabe qué hay, qué falta y qué espera tu aprobación." },
-      { "name": "Marketing", "body": "Investigación, calendario, creativos y reporte de resultados." },
-      { "name": "Ventas", "body": "Prospección, calificación de leads, propuestas y seguimiento." },
-      { "name": "Cobranza", "body": "Cartera por antigüedad, conciliación de pagos y recordatorios." },
-      { "name": "Finanzas", "body": "Cierre mensual, estados financieros y calendario fiscal." },
-      { "name": "Dirección", "body": "Prioridades, memos de decisión y plan trimestral." },
-      { "name": "Desarrollo web", "body": "Diseño, construcción y QA de sitios y tiendas." }
+      { "id": "asistente", "name": "Asistente", "body": "La puerta de entrada: sabe qué hay, qué falta y qué espera tu aprobación." },
+      { "id": "marketing", "name": "Marketing", "body": "Investigación, calendario, creativos y reporte de resultados." },
+      { "id": "ventas", "name": "Ventas", "body": "Prospección, calificación de leads, propuestas y seguimiento." },
+      { "id": "cobranza", "name": "Cobranza", "body": "Cartera por antigüedad, conciliación de pagos y recordatorios." },
+      { "id": "finanzas", "name": "Finanzas", "body": "Cierre mensual, estados financieros y calendario fiscal." },
+      { "id": "direccion", "name": "Dirección", "body": "Prioridades, memos de decisión y plan trimestral." },
+      { "id": "web", "name": "Desarrollo web", "body": "Diseño, construcción y QA de sitios y tiendas." }
     ],
     "board": {
       "label": "TABLERO",
@@ -235,10 +239,10 @@
   },
   "work": {
     "label": "CASOS",
-    "title": "Trabajo real, en distintos sectores.",
+    "title": "[[Trabajo real]], en distintos sectores.",
     "lead": "Por confidencialidad describimos los proyectos por sector.",
     "items": [
-      { "sector": "Agencia de marketing · CDMX", "body": "Plataforma operativa a la medida (CRM, cotizaciones, proyectos y compras) con un servidor MCP para que Claude opere sobre sus datos con los mismos permisos que cada usuario.", "tag": "Software + MCP" },
+      { "sector": "Agencia de marketing · CDMX", "body": "Plataforma operativa a la medida (CRM, cotizaciones, proyectos y compras) con un servidor MCP para que la IA opere sobre sus datos con los mismos permisos que cada usuario.", "tag": "Software + MCP" },
       { "sector": "Industria de alimentos", "body": "Aplicativo de pronóstico de demanda con varios modelos estadísticos, selección automática del mejor y procesamiento 100% local.", "tag": "Datos y pronósticos" },
       { "sector": "Comercio en línea", "body": "Tienda, panel de administración y un agente en Telegram que consulta catálogo y pedidos en vivo con los permisos de un vendedor.", "tag": "Agente" },
       { "sector": "Agencia de activaciones · 3 ciudades", "body": "Programa IA para Negocios por equipos y cerebro empresarial para que lo aprendido llegue a dirección.", "tag": "Capacitación" },
@@ -249,18 +253,18 @@
   },
   "stack": {
     "label": "ECOSISTEMA",
-    "lead": "Construimos sobre Claude, MCP y los mejores proyectos open source. Los modelos son intercambiables; la arquitectura es tuya.",
-    "items": ["Claude", "MCP", "LangGraph", "n8n", "Ollama", "Dify", "Supabase", "Airflow", "Grafana", "OpenCode", "Playwright", "Next.js"],
+    "lead": "Construimos sobre IA entrenada, MCP y los mejores proyectos open source. Los modelos son intercambiables; **la arquitectura es tuya**.",
+    "items": ["MCP", "LangGraph", "Ollama", "Dify", "Supabase", "Airflow", "Grafana", "OpenCode", "Playwright", "Next.js"],
     "pause": "Pausar",
     "resume": "Reanudar",
     "aria": "Tecnologías que usamos"
   },
   "faq": {
     "label": "PREGUNTAS",
-    "title": "Lo que nos preguntan los directores.",
+    "title": "Lo que nos preguntan [[los directores]].",
     "items": [
-      { "q": "¿Esto va a reemplazar a mi equipo?", "a": "El punto de partida es apalancamiento: que el mismo equipo haga más y deje la talacha a los agentes. Siempre hay un humano responsable del trabajo de los agentes." },
-      { "q": "¿Qué pasa con la información de mi empresa?", "a": "Definimos un semáforo de qué datos puede usar cada herramienta, trabajamos con planes empresariales sin retención y, cuando el modelo lo permite, con inferencia local en nuestro hardware." },
+      { "q": "¿Esto va a reemplazar a mi equipo?", "a": "El punto de partida es apalancamiento: que el mismo equipo haga más y delegue las tareas repetitivas a los agentes. Siempre hay un humano responsable del trabajo de los agentes." },
+      { "q": "¿Qué pasa con la información de mi empresa?", "a": "Definimos un semáforo de qué datos puede usar cada herramienta y trabajamos con planes empresariales sin retención." },
       { "q": "¿Un agente puede mover dinero?", "a": "No por su cuenta. El agente propone; el dinero lo mueve un circuito con controles, aprobaciones y bitácora de auditoría." },
       { "q": "¿Necesitamos ser expertos en automatización?", "a": "No. Si tu equipo maneja Excel, presentaciones y correo, puede empezar. La capacitación es 70% práctica sobre sus propios casos." },
       { "q": "¿Nos amarra a un proveedor o a un modelo?", "a": "No. Diseñamos con arquitectura agnóstica: los modelos son intercambiables y tus datos, integraciones y skills se quedan contigo." },
@@ -269,30 +273,33 @@
   },
   "booking": {
     "tag": "PRIMER PASO",
-    "title": "Agenda tu diagnóstico.",
-    "sub": "Cuéntanos qué proceso le quita más horas a tu equipo y elige un horario. Te contactaremos para confirmar los detalles.",
+    "title": "Agenda tu [[diagnóstico]].",
+    "sub": "Elige un horario en nuestro calendario o cuéntanos **qué proceso le quita más horas** a tu equipo.",
+    "calendarTitle": "Agenda directo",
+    "calendarBody": "Escoge el día y la hora que te acomoden. La cita se confirma al instante y te llega la invitación con el enlace de videollamada.",
+    "calendarMeta": "30 min · videollamada",
+    "calendarCta": "Ver horarios disponibles",
+    "or": "o mándanos un mensaje",
     "emailLabel": "O escríbenos directamente a",
     "email": "hello@agenticlabs.site",
     "form": {
-      "title": "Agendar una sesión",
+      "title": "Mandar un mensaje",
       "name": "Nombre",
       "namePlaceholder": "Tu nombre",
       "email": "Correo",
       "emailPlaceholder": "tu@empresa.com",
-      "date": "Fecha",
-      "time": "Hora",
-      "reason": "Motivo (opcional)",
-      "reasonPlaceholder": "¿Qué proceso te gustaría revisar?",
-      "submit": "Solicitar cita",
+      "company": "Empresa (opcional)",
+      "companyPlaceholder": "Nombre de tu empresa",
+      "message": "Mensaje",
+      "messagePlaceholder": "¿Qué proceso te gustaría revisar?",
+      "submit": "Enviar mensaje",
       "submitting": "Enviando…",
-      "success": "Solicitud enviada",
-      "successSub": "Revisaremos tu solicitud y te contactaremos por correo para confirmar la cita.",
-      "errorGeneric": "Algo salió mal. Intenta de nuevo o escríbenos directamente.",
-      "errorUpstream": "No pudimos contactar al sistema de agendado. Intenta de nuevo en un momento o escríbenos directamente.",
+      "success": "Mensaje enviado",
+      "successSub": "Gracias. Te responderemos por correo.",
+      "errorGeneric": "No pudimos enviar tu mensaje. Escríbenos directamente a",
       "errorName": "Por favor, ingresa tu nombre.",
       "errorEmail": "Por favor, ingresa un correo válido.",
-      "errorDate": "Por favor, elige una fecha.",
-      "errorTime": "Por favor, elige una hora."
+      "errorMessage": "Cuéntanos brevemente qué necesitas."
     }
   },
   "footer": {

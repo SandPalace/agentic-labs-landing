@@ -2,23 +2,12 @@ import type { Metadata } from "next";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { Poppins, Space_Grotesk } from "next/font/google";
+import { veraMono, veraSans } from '../fonts';
+import { THEME_BOOT } from '@/components/terminal/theme-config';
 import { routing } from '@/i18n/routing';
 import "../globals.css";
+import "../themes.css";
 
-const poppins = Poppins({
-  variable: "--font-poppins",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  display: "swap",
-});
 
 const SITE_NAME = "Mty Agentic Labs";
 
@@ -106,10 +95,11 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body
-        className={`${poppins.variable} ${spaceGrotesk.variable} antialiased`}
-      >
+    <html lang={locale} data-theme="brand-light" className={`${veraMono.variable} ${veraSans.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT }} />
+      </head>
+      <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
           {children}
         </NextIntlClientProvider>

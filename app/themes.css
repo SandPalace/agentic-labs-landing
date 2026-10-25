@@ -1,0 +1,93 @@
+/*
+ * Site themes. <html data-theme="…"> is set before first paint by the boot script in
+ * app/[locale]/layout.tsx and switched live by components/terminal/ThemePicker.tsx.
+ * Two themes only, both our Spectrum brand: brand-light (default) and brand-dark.
+ * Text roles are nudged where needed to hold AA. Keep every value a hex: SonarGrid reads
+ * --color-blue/orange/purple/teal and --grid-base at runtime and parses them as hex.
+ * Soft tints and inks are derived, so each theme only states its base roles.
+ */
+:root {
+  /* Two families: mono (Vera Mono) for body and UI, sans (Vera Sans) for headings. */
+  --font-site: var(--font-vera-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-heading: var(--font-vera-sans), ui-sans-serif, system-ui, sans-serif;
+  color-scheme: light;
+}
+
+/* Light (default): our Spectrum brand. */
+:root,
+html[data-theme="brand-light"] {
+  --color-base: #F4F6F9;
+  --color-white: #FFFFFF;
+  --color-fg: #0F172A;
+  --color-ink-soft: #2B313B;
+  --color-steel: #4B5563;
+  --color-steel-light: #6B7280;
+  --color-line: #E2E7EE;
+  --color-line-strong: #C9D1DC;
+  --color-brand: #1D4FD8;
+  --color-brand-hover: #1747C9;
+  --color-on-brand: #FFFFFF;
+  --color-blue: #2D6BFF;
+  --color-orange: #FF7A2F;
+  --color-purple: #8B5CF6;
+  --color-teal: #14B8A6;
+  --color-ok: #0B6B61;
+  --grid-base: #7A8494;
+}
+
+/* Dark: the same Spectrum on near-black. */
+html[data-theme="brand-dark"] {
+  color-scheme: dark;
+  --color-base: #0B0F17;
+  --color-white: #121826;
+  --color-fg: #E6EAF2;
+  --color-ink-soft: #C9D1DC;
+  --color-steel: #9AA4B2;
+  --color-steel-light: #7A8494;
+  --color-line: #1E2635;
+  --color-line-strong: #2C3647;
+  --color-brand: #4D84FF;
+  --color-brand-hover: #6B98FF;
+  --color-on-brand: #0B0F17;
+  --color-blue: #4D84FF;
+  --color-orange: #FF7A2F;
+  --color-purple: #A07BFF;
+  --color-teal: #14B8A6;
+  --color-ok: #2DD4BF;
+  --grid-base: #4B5563;
+}
+
+/* Headings use the sans; zero specificity so a component can still opt a heading back into mono. */
+:where(h1, h2, h3, h4, h5, h6) { font-family: var(--font-heading); }
+
+/* Derived roles: tints for pills/tags and readable inks on them, for every theme. */
+:root {
+  --color-blue-soft: color-mix(in srgb, var(--color-blue) 14%, var(--color-white));
+  --color-orange-soft: color-mix(in srgb, var(--color-orange) 14%, var(--color-white));
+  --color-purple-soft: color-mix(in srgb, var(--color-purple) 14%, var(--color-white));
+  --color-teal-soft: color-mix(in srgb, var(--color-teal) 14%, var(--color-white));
+  --color-blue-ink: color-mix(in srgb, var(--color-blue) 48%, var(--color-fg));
+  --color-orange-ink: color-mix(in srgb, var(--color-orange) 42%, var(--color-fg));
+  --color-purple-ink: color-mix(in srgb, var(--color-purple) 48%, var(--color-fg));
+  --color-teal-ink: color-mix(in srgb, var(--color-teal) 42%, var(--color-fg));
+  --color-research: var(--color-blue);
+  --color-operations: var(--color-teal);
+  --color-data: var(--color-purple);
+  --color-infrastructure: var(--color-orange);
+  --color-security: var(--color-orange);
+  --color-docs: var(--color-steel);
+}
+
+/* Smooth live theme swaps (only while switching, so normal hovers keep their own timing). */
+html.theme-switching *, html.theme-switching *::before, html.theme-switching *::after {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, fill 0.45s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-switching *, html.theme-switching *::before, html.theme-switching *::after { transition: none !important; }
+}
+
+/* Light/dark icon button (top bar) */
+.ticon { display: inline-grid; place-items: center; width: 38px; height: 38px; padding: 0; color: var(--color-fg); background: var(--color-white); border: 1px solid var(--color-line-strong); cursor: pointer; transition: border-color var(--dur-ui, .2s) ease, color var(--dur-ui, .2s) ease; }
+.ticon:hover { border-color: var(--color-brand); color: var(--color-brand); }
+.ticon:focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; }
+@media (max-width: 640px) { .ticon { width: 44px; height: 44px; } }

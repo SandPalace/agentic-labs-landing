@@ -1,0 +1,9 @@
+/* Lab-only: the mono font under test is chosen by data-font on .lab (see FontSwitcher). */
+.lab { --lab-mono: var(--font-jb-nerd), ui-monospace, monospace; font-family: var(--lab-mono); min-height: 100dvh; }
+.lab[data-font="plex"] { --lab-mono: var(--font-plex-mono), ui-monospace, monospace; }
+.lab[data-font="vera"] { --lab-mono: var(--font-vera-mono), ui-monospace, monospace; }
+
+.lab-fontswitch { position: fixed; right: 12px; bottom: 12px; z-index: 100; display: flex; gap: 2px; padding: 3px; font: 500 11px/1 var(--lab-mono); background: rgba(10, 12, 18, 0.88); border: 1px solid rgba(255, 255, 255, 0.14); color: #c0caf5; backdrop-filter: blur(6px); }
+.lab-fontswitch button { font: inherit; color: inherit; background: none; border: 0; padding: 8px 10px; min-height: 32px; cursor: pointer; opacity: 0.6; }
+.lab-fontswitch button[aria-pressed="true"] { opacity: 1; background: rgba(255, 255, 255, 0.1); }
+.lab-fontswitch button:focus-visible { outline: 1px solid currentColor; outline-offset: -1px; }

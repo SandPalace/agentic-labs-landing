@@ -53,16 +53,25 @@ export default function AutonomyLevels({ levels, humanLabel }: { levels: Autonom
           >
             <span className="autonomy__lvl">{l.level}</span>
             <span className="autonomy__name">{l.name}</span>
+            <span className="autonomy__mini" aria-hidden="true">
+              {'█'.repeat(i + 1)}
+              <span className="off">{'░'.repeat(levels.length - 1 - i)}</span>
+            </span>
           </button>
         ))}
       </div>
       <div className="autonomy__meter" aria-hidden="true">
-        <i style={{ transform: `scaleX(${(sel + 1) / levels.length})` }} />
+        <span className="autonomy__word">autonomy</span>
+        <span>
+          <b>{'█'.repeat((sel + 1) * 6)}</b>
+          <span className="rest">{'░'.repeat((levels.length - 1 - sel) * 6)}</span>
+        </span>
+        <span className="lvl">{`L${cur.level}`}</span>
       </div>
       <div className="autonomy__panel" role="tabpanel" id={`${id}-p`} aria-labelledby={`${id}-t${sel}`}>
         <p className="autonomy__body">{cur.body}</p>
         <p className="autonomy__human">
-          <span className="eyebrow" style={{ color: 'var(--color-fg)' }}>{humanLabel}</span>
+          <span className="eyebrow" style={{ color: 'var(--color-fg)' }}><span className="eyebrow__p">$ </span>{humanLabel}</span>
           <span>{cur.human}</span>
         </p>
       </div>

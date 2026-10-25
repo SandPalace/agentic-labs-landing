@@ -1,0 +1,13 @@
+/* Pixel-art agent avatars (TeamAvatar). Colors: fg / panel / --av accent. */
+.av { display: block; width: 56px; height: 56px; border-radius: 50%; overflow: hidden; border: 1px solid var(--color-line-strong); background: var(--av-bg); box-sizing: border-box; margin-bottom: 14px; shape-rendering: crispEdges; flex: none;  }
+.av-k, .av-e { fill: var(--color-fg); }
+.av-s { fill: var(--color-white); }
+.av-a, .av-t { fill: var(--av); }
+.av-w { fill: var(--color-white); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .av-e { transform-box: fill-box; transform-origin: center; }
+  .team:hover .av-e { animation: av-blink 2.6s steps(1, end) infinite; }
+  .team:hover .av-t { animation: av-ping 1.3s steps(1, end) infinite; }
+}
+@keyframes av-blink { 0%, 90%, 100% { transform: scaleY(1); } 93%, 97% { transform: scaleY(0.2); } }
+@keyframes av-ping { 0%, 100% { fill: var(--av); } 50% { fill: var(--color-fg); } }

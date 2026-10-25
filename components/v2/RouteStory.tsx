@@ -16,10 +16,10 @@ export interface RouteStep {
 
 // Logo geometry (26×26) and the stage each cube represents.
 const CUBES = [
-  { x: 0, y: 2, w: 13, fill: '#2D6BFF' },   // 01 blue
-  { x: 3, y: 17, w: 8, fill: '#14B8A6' },   // 02 teal
-  { x: 13, y: 14, w: 12, fill: '#8B5CF6' }, // 03 purple
-  { x: 16, y: 0, w: 10, fill: '#FF7A2F' },  // 04 orange
+  { x: 0, y: 2, w: 13, fill: 'var(--color-blue)' },   // 01 blue
+  { x: 3, y: 17, w: 8, fill: 'var(--color-teal)' },   // 02 teal
+  { x: 13, y: 14, w: 12, fill: 'var(--color-purple)' }, // 03 purple
+  { x: 16, y: 0, w: 10, fill: 'var(--color-orange)' },  // 04 orange
 ];
 const TONES = [
   { ink: 'var(--color-blue-ink)', soft: 'var(--color-blue-soft)' },
@@ -28,7 +28,7 @@ const TONES = [
   { ink: 'var(--color-orange-ink)', soft: 'var(--color-orange-soft)' },
 ];
 
-function Mark({ active, rx = 1, className }: { active: number | null; rx?: number; className?: string }) {
+function Mark({ active, rx = 0, className }: { active: number | null; rx?: number; className?: string }) {
   return (
     <svg viewBox="0 0 26 26" className={className} aria-hidden="true" style={{ overflow: 'visible' }}>
       {CUBES.map((c, i) => (
@@ -107,7 +107,7 @@ export default function RouteStory({ steps, caption }: { steps: RouteStep[]; cap
             data-active={active === i}
             style={{ ['--ink' as string]: TONES[i].ink, ['--soft' as string]: TONES[i].soft }}
           >
-            <Mark active={i} rx={2} className="route__mini" />
+            <Mark active={i} className="route__mini" />
             <div>
               <span className="route__pill">{s.code}</span>
               <h3 className="route__title">{s.title}</h3>

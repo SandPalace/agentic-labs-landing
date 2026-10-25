@@ -1,5 +1,5 @@
 /**
- * Mty Agentic Labs logo — 4-cube mark (blue, orange, purple, teal) + Poppins bold wordmark.
+ * Mty Agentic Labs logo — 4-cube mark (blue, orange, purple, teal) + mono bold wordmark with a block cursor.
  * Geometry matches `.logo .mark` in Template-Cotizacion-MtyAgenticLabs.html (26×26 box).
  */
 export function LogoMark({ size = 26, className }: { size?: number; className?: string }) {
@@ -32,11 +32,11 @@ export default function Logo({
 }) {
   return (
     <span
-      className={`inline-flex items-center font-display font-bold text-fg ${className}`}
-      style={{ gap: Math.round(size * 0.42), fontSize, letterSpacing: '-0.02em', lineHeight: 1 }}
+      className={`logo ${className}`}
+      style={{ gap: Math.round(size * 0.42), fontSize }}
     >
       <LogoMark size={size} />
-      <span>Mty Agentic Labs</span>
+      <span className="logo__word">Mty Agentic Labs</span>
     </span>
   );
 }

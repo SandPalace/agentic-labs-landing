@@ -21,13 +21,11 @@
     "eyebrowStatus": "OPERATIONAL",
     "headline1": "Agentic",
     "headline2": "transformation.",
-    "kicker": "From chatbots that answer questions to agents that do real work.",
-    "sub": "We train your team, build your organization's company brain and deploy agents connected to your systems. With governance, and always with a human accountable for every workflow.",
+    "kicker": "From chatbots that answer questions to [[agents that do real work]].",
+    "sub": "We train your team, build your organization's company brain and deploy **agents connected to your systems**. With governance, and always with **a human accountable** for every workflow.",
     "ctaPrimary": "Book your assessment",
     "ctaSecondary": "See the roadmap",
     "proof": {
-      "a": "4× GPU",
-      "aLabel": "30 GB VRAM · local inference",
       "b": "70%",
       "bLabel": "hands-on, on real cases"
     },
@@ -47,52 +45,59 @@
   },
   "shift": {
     "label": "THE SHIFT",
-    "title": "Companies no longer buy software that helps. They buy finished work.",
-    "lead": "An agent doesn't explain how to reconcile an account: it reconciles it, leaves evidence and asks for your approval only on the exception.",
+    "title": "Companies no longer buy software that helps. [[They buy finished work.]]",
+    "lead": "An agent doesn't explain how to reconcile an account: **it reconciles it**, leaves evidence and asks for your approval only on the exception.",
     "items": [
       {
         "title": "Leverage, not cuts",
-        "body": "The question isn't who to replace, but how your company grows at the same cost. AI isn't coming for your job; it's coming for the busywork."
+        "body": "The question isn't who to replace, but how your company grows at the same cost. AI isn't coming for your job; it's coming for **the repetitive work**."
       },
       {
         "title": "Your data is the asset",
-        "body": "Models are interchangeable. Your data, your integrations and the way you operate are what's valuable, and they stay with you."
+        "body": "Models are interchangeable. **Your data**, your integrations and the way you operate are what's valuable, and they stay with you."
       },
       {
         "title": "A business decision",
-        "body": "It's not an IT project: it's a cost-structure decision. It's measured against a baseline, and what works gets scaled."
+        "body": "It's not an IT project: it's a cost-structure decision. It's measured against **a baseline**, and what works gets scaled."
       }
     ]
   },
   "problems": {
+    "answerLabel": "with agents",
     "label": "WHERE YOU START",
     "title": "Sound familiar?",
     "items": [
       {
         "id": "01",
         "title": "What each person learns stays in their chat",
-        "body": "We set up a company brain: shared memory, context and method, so knowledge rises to leadership and comes back down as processes."
+        "body": "We set up a [[company brain]]: shared memory, context and method, so knowledge rises to leadership and comes back down as processes."
       },
       {
         "id": "02",
         "title": "My systems don't talk and we re-key everything",
-        "body": "We connect your ERP, email, Drive and spreadsheets with automated workflows and MCP connectors. Information flows without re-keying."
+        "body": "We connect your ERP, email, Drive and spreadsheets with [[automated workflows and MCP connectors]]. Information flows without re-keying."
       },
       {
         "id": "03",
         "title": "We lose hours copying, reconciling and reporting",
-        "body": "We deploy agents that run the task end to end, check conditions and escalate only the exceptions to a person."
+        "body": "We deploy [[agents that run the task end to end]], check conditions and escalate only the exceptions to a person."
       },
       {
         "id": "04",
         "title": "We tried AI and it never reached production",
-        "body": "We start with what's verifiable: one process, one metric and a pilot against the baseline. What works scales; what doesn't gets switched off."
+        "body": "We start with what's verifiable: [[one process, one metric and a pilot]] against the baseline. What works scales; what doesn't gets switched off."
       }
     ]
   },
   "route": {
+    "stagesAria": "Three stages to an agentic operation",
+    "stages": [
+      { "label": "Personal", "text": "First, a personal agent for every employee." },
+      { "label": "Teams", "text": "Then, teams of agents coordinated by people." },
+      { "label": "Operation", "text": "Finally, an operation run by humans and advised by agents." }
+    ],
     "label": "THE ROADMAP",
-    "title": "Four steps to an agentic operation.",
+    "title": "Four steps to an [[agentic operation]].",
     "lead": "First, a personal agent for every employee. Then teams of agents coordinated by people. Finally, an operation run by humans and advised by agents.",
     "caption": "MTY AGENTIC LABS",
     "steps": [
@@ -105,7 +110,7 @@
       {
         "code": "02",
         "title": "Training",
-        "body": "Your team learns to work with Claude on real cases from their own operation, in live sessions, in person or online.",
+        "body": "Your team learns to work with trained AI on real cases from their own operation, in live sessions, in person or online.",
         "points": ["30% theory · 70% practice", "Prompts, skills and connectors to email, calendar and Drive"]
       },
       {
@@ -124,14 +129,14 @@
   },
   "services": {
     "label": "SERVICES",
-    "title": "We train your team. We build what's missing.",
+    "title": "We train your team. [[We build what's missing.]]",
     "groups": [
       {
         "name": "Train",
         "items": [
           {
             "title": "AI for Business workshop",
-            "body": "Your team works with Claude on their real operation: fundamentals and responsible use, prompting, Excel and reports, skills and connectors.",
+            "body": "Your team works with trained AI on their real operation: fundamentals and responsible use, prompting, Excel and reports, skills and connectors.",
             "meta": "2 sessions × 3 h or 4 sessions × 2 h · groups of 1 to 15"
           },
           {
@@ -183,41 +188,40 @@
         "body": "Continuous improvements, monitoring and priority support for what already runs in production."
       }
     ],
-    "note": "Training is priced per group, not per person. Projects are quoted after the assessment."
+    "note": "Training is **priced per group**, not per person. Projects are quoted after the assessment."
   },
   "governance": {
     "label": "GOVERNANCE",
-    "title": "The agent proposes. A person decides.",
-    "lead": "The challenge is no longer whether agents can do it; it's which architecture and governance keep your information and your money safe. For each process we define how much autonomy each agent gets.",
+    "title": "The agent proposes. [[A person decides.]]",
+    "lead": "The challenge is no longer whether agents can do it; it's which architecture and governance keep your information and your money safe. For each process we define **how much autonomy each agent gets**.",
     "humanLabel": "WHO DECIDES",
     "levels": [
       { "level": "0", "name": "Assistant", "body": "The agent answers and drafts when asked. It doesn't touch any system.", "human": "The person does all the work and uses the agent for support." },
       { "level": "1", "name": "Proposes", "body": "The agent prepares the complete work (a reconciliation, a report, a reply) and leaves it ready for review.", "human": "The person reviews and executes." },
       { "level": "2", "name": "Executes with approval", "body": "The agent executes in your systems, but every action waits for an approval click.", "human": "The person approves every action." },
       { "level": "3", "name": "Escalates exceptions", "body": "The agent resolves the normal cases and leaves evidence; only what breaks the rule reaches a person.", "human": "The person handles the exceptions." },
-      { "level": "4", "name": "Governed zero touch", "body": "The process runs on its own within limits, controls and an audit log.", "human": "The person owns the process and its limits." }
+      { "level": "4", "name": "Autonomous with controls", "body": "The process runs on its own within limits, controls and an audit log.", "human": "The person owns the process and its limits." }
     ],
     "principles": [
       { "title": "A human accountable", "body": "Every workflow has an owner. Publishing, sending or paying never happens without their sign-off." },
       { "title": "Money has its own lane", "body": "The agent never holds the bank keys: payments go through a circuit with controls and double review." },
-      { "title": "Data traffic light", "body": "Clear rules on which information each tool may use, with zero-retention enterprise plans." },
-      { "title": "Our own hardware", "body": "A rack with 4 GPUs and 30 GB VRAM in Monterrey. Local inference for the models that allow it." }
+      { "title": "Data traffic light", "body": "Clear rules on which information each tool may use, with zero-retention enterprise plans." }
     ]
   },
   "agentos": {
     "label": "WHERE WE'RE GOING",
-    "title": "AgentOS: an office of agent teams.",
-    "lead": "Claude, trained, connected to your company and executing tasks. You hire a team, the agents work in Claude, and you supervise and approve from the office.",
+    "title": "AgentOS: [[an office of agent teams]].",
+    "lead": "Trained AI, connected to your company and executing tasks. You hire a team, the agents work on your operation, and **you supervise and approve** from the office.",
     "status": "PILOTING WITH EARLY CUSTOMERS",
     "teamsLabel": "TEAMS",
     "teams": [
-      { "name": "Assistant", "body": "The front door: knows what's there, what's missing and what's waiting for your approval." },
-      { "name": "Marketing", "body": "Research, calendar, creatives and results reporting." },
-      { "name": "Sales", "body": "Prospecting, lead scoring, proposals and follow-up." },
-      { "name": "Collections", "body": "Receivables aging, payment reconciliation and reminders." },
-      { "name": "Finance", "body": "Monthly close, financial statements and tax calendar." },
-      { "name": "Leadership", "body": "Priorities, decision memos and quarterly plan." },
-      { "name": "Web development", "body": "Design, build and QA of sites and stores." }
+      { "id": "asistente", "name": "Assistant", "body": "The front door: knows what's there, what's missing and what's waiting for your approval." },
+      { "id": "marketing", "name": "Marketing", "body": "Research, calendar, creatives and results reporting." },
+      { "id": "ventas", "name": "Sales", "body": "Prospecting, lead scoring, proposals and follow-up." },
+      { "id": "cobranza", "name": "Collections", "body": "Receivables aging, payment reconciliation and reminders." },
+      { "id": "finanzas", "name": "Finance", "body": "Monthly close, financial statements and tax calendar." },
+      { "id": "direccion", "name": "Leadership", "body": "Priorities, decision memos and quarterly plan." },
+      { "id": "web", "name": "Web development", "body": "Design, build and QA of sites and stores." }
     ],
     "board": {
       "label": "BOARD",
@@ -235,10 +239,10 @@
   },
   "work": {
     "label": "WORK",
-    "title": "Real work, across industries.",
+    "title": "[[Real work]], across industries.",
     "lead": "For confidentiality, we describe projects by industry.",
     "items": [
-      { "sector": "Marketing agency · Mexico City", "body": "Custom operations platform (CRM, quotes, projects and purchasing) with an MCP server so Claude operates on their data with the same permissions as each user.", "tag": "Software + MCP" },
+      { "sector": "Marketing agency · Mexico City", "body": "Custom operations platform (CRM, quotes, projects and purchasing) with an MCP server so the AI operates on their data with the same permissions as each user.", "tag": "Software + MCP" },
       { "sector": "Food industry", "body": "Demand forecasting application with several statistical models, automatic selection of the best one and 100% local processing.", "tag": "Data and forecasting" },
       { "sector": "Online retail", "body": "Store, admin panel and a Telegram agent that queries the live catalog and orders with a salesperson's permissions.", "tag": "Agent" },
       { "sector": "Activation agency · 3 cities", "body": "AI for Business program by team and a company brain so what's learned reaches leadership.", "tag": "Training" },
@@ -249,18 +253,18 @@
   },
   "stack": {
     "label": "ECOSYSTEM",
-    "lead": "We build on Claude, MCP and the best open source projects. Models are interchangeable; the architecture is yours.",
-    "items": ["Claude", "MCP", "LangGraph", "n8n", "Ollama", "Dify", "Supabase", "Airflow", "Grafana", "OpenCode", "Playwright", "Next.js"],
+    "lead": "We build on trained AI, MCP and the best open source projects. Models are interchangeable; **the architecture is yours**.",
+    "items": ["MCP", "LangGraph", "Ollama", "Dify", "Supabase", "Airflow", "Grafana", "OpenCode", "Playwright", "Next.js"],
     "pause": "Pause",
     "resume": "Resume",
     "aria": "Technologies we use"
   },
   "faq": {
     "label": "FAQ",
-    "title": "What executives ask us.",
+    "title": "What [[executives]] ask us.",
     "items": [
-      { "q": "Will this replace my team?", "a": "The starting point is leverage: the same team does more and leaves the busywork to agents. There is always a human accountable for the agents' work." },
-      { "q": "What happens to my company's information?", "a": "We define a traffic light of which data each tool may use, work with zero-retention enterprise plans and, when the model allows it, with local inference on our own hardware." },
+      { "q": "Will this replace my team?", "a": "The starting point is leverage: the same team does more and delegates repetitive work to agents. There is always a human accountable for the agents' work." },
+      { "q": "What happens to my company's information?", "a": "We define a traffic light of which data each tool may use, and we work with zero-retention enterprise plans." },
       { "q": "Can an agent move money?", "a": "Not on its own. The agent proposes; money moves through a circuit with controls, approvals and an audit log." },
       { "q": "Do we need automation experts?", "a": "No. If your team handles Excel, presentations and email, they can start. Training is 70% hands-on, on their own cases." },
       { "q": "Does this lock us into a vendor or a model?", "a": "No. We design with a vendor-agnostic architecture: models are interchangeable, and your data, integrations and skills stay with you." },
@@ -269,30 +273,33 @@
   },
   "booking": {
     "tag": "FIRST STEP",
-    "title": "Book your assessment.",
-    "sub": "Tell us which process costs your team the most hours and pick a time. We'll contact you to confirm the details.",
+    "title": "Book your [[assessment]].",
+    "sub": "Pick a time on our calendar or tell us **which process costs your team the most hours**.",
+    "calendarTitle": "Book directly",
+    "calendarBody": "Choose the day and time that work for you. The meeting is confirmed instantly and you get the invite with the video call link.",
+    "calendarMeta": "30 min · video call",
+    "calendarCta": "See available times",
+    "or": "or send us a message",
     "emailLabel": "Or email us directly at",
     "email": "hello@agenticlabs.site",
     "form": {
-      "title": "Book a session",
+      "title": "Send a message",
       "name": "Name",
       "namePlaceholder": "Your name",
       "email": "Email",
       "emailPlaceholder": "you@company.com",
-      "date": "Date",
-      "time": "Time",
-      "reason": "Reason (optional)",
-      "reasonPlaceholder": "Which process would you like to review?",
-      "submit": "Request appointment",
+      "company": "Company (optional)",
+      "companyPlaceholder": "Your company",
+      "message": "Message",
+      "messagePlaceholder": "Which process would you like to review?",
+      "submit": "Send message",
       "submitting": "Sending…",
-      "success": "Request sent",
-      "successSub": "We'll review your request and contact you by email to confirm the appointment.",
-      "errorGeneric": "Something went wrong. Try again or email us directly.",
-      "errorUpstream": "We couldn't reach the booking system. Try again in a moment or email us directly.",
+      "success": "Message sent",
+      "successSub": "Thank you. We'll reply by email.",
+      "errorGeneric": "We couldn't send your message. Write to us directly at",
       "errorName": "Please enter your name.",
       "errorEmail": "Please enter a valid email.",
-      "errorDate": "Please choose a date.",
-      "errorTime": "Please choose a time."
+      "errorMessage": "Tell us briefly what you need."
     }
   },
   "footer": {

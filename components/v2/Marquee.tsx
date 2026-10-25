@@ -10,7 +10,7 @@ export default function Marquee({ items, pause, resume, label }: { items: string
   const [paused, setPaused] = useState(false);
   const pill = (name: string, i: number) => (
     <span key={`${name}-${i}`} className="stack-pill">
-      <span aria-hidden="true" className="stack-dot" style={{ background: ['#2D6BFF', '#FF7A2F', '#8B5CF6', '#14B8A6'][i % 4] }} />
+      <span aria-hidden="true" className="stack-dot" style={{ background: ['var(--color-blue)', 'var(--color-orange)', 'var(--color-purple)', 'var(--color-teal)'][i % 4] }} />
       {name}
     </span>
   );
@@ -31,7 +31,7 @@ export default function Marquee({ items, pause, resume, label }: { items: string
         </div>
       </div>
       <div className="flex justify-end" style={{ marginTop: 14 }}>
-        <button type="button" className="console__toggle marquee__btn" aria-pressed={paused} onClick={() => setPaused((v) => !v)}>
+        <button type="button" className="btn btn-ghost btn-sm marquee__btn" aria-pressed={paused} onClick={() => setPaused((v) => !v)}>
           {paused ? resume : pause}
         </button>
       </div>

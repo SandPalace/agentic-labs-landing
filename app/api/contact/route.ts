@@ -5,11 +5,11 @@ import { NextRequest, NextResponse } from 'next/server';
  * Env:
  *   RESEND_API_KEY  required; without it the route answers 503 `not_configured` and the form falls back to mailto.
  *   CONTACT_TO      inbox that receives the messages (default hello@agenticlabs.site).
- *   CONTACT_FROM    verified sender in Resend (default "Mty Agentic Labs <web@agenticlabs.site>").
+ *   CONTACT_FROM    verified sender in Resend (default "Mty Agentic Labs <hello@agenticlabs.site>").
  */
 const RESEND_URL = 'https://api.resend.com/emails';
 const CONTACT_TO = process.env.CONTACT_TO ?? 'hello@agenticlabs.site';
-const CONTACT_FROM = process.env.CONTACT_FROM ?? 'Mty Agentic Labs <web@agenticlabs.site>';
+const CONTACT_FROM = process.env.CONTACT_FROM ?? 'Mty Agentic Labs <hello@agenticlabs.site>';
 
 const MAX_PAYLOAD_BYTES = 8 * 1024;
 const MAX_MESSAGE_CHARS = 4000;
